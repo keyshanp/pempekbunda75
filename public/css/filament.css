@@ -1,0 +1,23 @@
+/* Manual CSS untuk Filament */
+body { 
+    font-family: 'Inter', sans-serif; 
+    margin: 0;
+    background: #f9fafb;
+}
+
+.filament-body {
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+.bg-gray-50 {
+    background-color: #f9fafb;
+}
+
+.text-primary-600 {
+    color: #d97706;
+}
+
+.bg-primary-600 {
+    background-color: #d97706;
+}

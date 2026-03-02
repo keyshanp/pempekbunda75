@@ -1,0 +1,55 @@
+/* Simple theme.css - Tanpa error */
+.fi-main {
+    background-color: #f9fafb;
+}
+
+.fi-sidebar {
+    border-right: 1px solid #e5e7eb;
+}
+
+.fi-topbar {
+    border-bottom: 1px solid #e5e7eb;
+    background-color: white;
+}
+
+.fi-table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.fi-table-header {
+    background-color: #f9fafb;
+}
+
+.fi-table-row:hover {
+    background-color: #f9fafb;
+}
+
+.fi-card {
+    border-radius: 0.75rem;
+}
+
+.fi-btn {
+    border-radius: 0.5rem;
+}
+
+.fi-modal {
+    border-radius: 1rem;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}

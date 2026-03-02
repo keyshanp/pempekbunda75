@@ -1,0 +1,146 @@
+/* Modern table styling */
+.fi-table {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.fi-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.fi-table th {
+    color: white !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    font-size: 0.75rem !important;
+}
+
+.fi-table tr:hover {
+    background-color: #f9fafb !important;
+}
+
+/* Card view styling */
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .xl\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Search bar styling */
+.fi-search-field input {
+    border-radius: 10px !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.fi-search-field input:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Action buttons */
+.fi-btn {
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+}
+
+.fi-btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Status badges */
+.fi-badge {
+    border-radius: 9999px !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+}
+
+/* Empty state */
+.fi-empty-state {
+    padding: 4rem 2rem !important;
+}
+
+.fi-empty-state-icon {
+    color: #9ca3af !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Font Handwritten */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+.font-handwritten {
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Custom Sidebar Styling */
+.fi-sidebar {
+    background: linear-gradient(180deg, #FDFBF7 0%, #FFF9F0 100%);
+}
+
+.fi-sidebar-header h1 {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.fi-sidebar-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.fi-sidebar-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #BC5A42;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.fi-sidebar-item:hover::before {
+    opacity: 0.3;
+}
+
+.fi-sidebar-item.bg-\[\#BC5A42\]::before {
+    opacity: 1;
+    background: white;
+}
+
+/* Smooth transitions */
+.fi-sidebar-item,
+.fi-sidebar-logout {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
+.fi-sidebar-nav {
+    scrollbar-width: thin;
+    scrollbar-color: #BC5A42 #FDFBF7;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar-track {
+    background: #FDFBF7;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar-thumb {
+    background: #BC5A42;
+    border-radius: 3px;
+}

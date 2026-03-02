@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Produk;
+use Illuminate\Support\Facades\Storage;
+
+class DeleteProduk extends Component
+{
+    public function delete($id)
+    {
+        $produk = Produk::find($id);
+        
+        if (!$produk) {
+            session()->flash('error', 'Produk tidak ditemukan!');
+            return;
+        }
+        
+        try {
+            // Hapus gambar jika ada
+            if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+                Storage::disk('public')->delete($produk->gambar);
+            }
+            
+            // Hapus dari database
+            $produk->delete();
+            
+            session()->flash('success', 'Produk berhasil dihapus!');
+            
+        } catch (\Exception $e) {
+            session()->flash('error', 'Gagal menghapus: ' . $e->getMessage());
+        }
+    }
+    
+    public function render()
+    {
+        return view('livewire.delete-produk');
+    }
+}

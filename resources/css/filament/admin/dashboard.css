@@ -1,0 +1,109 @@
+/* Dashboard Custom Styles */
+.fi-wi-stats-overview-stat {
+    border-radius: 1.5rem !important;
+    padding: 1.5rem !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    border-color: rgba(var(--primary-500), 0.2) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px) !important;
+}
+
+.fi-wi-stats-overview-stat-label {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #6B7280 !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.fi-wi-stats-overview-stat-value {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: #1F2937 !important;
+    font-family: 'Inter', system-ui !important;
+}
+
+.fi-wi-stats-overview-stat-icon {
+    background: rgba(var(--primary-500), 0.1) !important;
+    border-radius: 1rem !important;
+    padding: 0.75rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.fi-wi-chart {
+    border-radius: 1.5rem !important;
+    padding: 2rem !important;
+    background: white !important;
+    border: 1px solid rgba(140, 148, 64, 0.1) !important;
+}
+
+.fi-ta {
+    border-radius: 1.5rem !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(140, 148, 64, 0.1) !important;
+}
+
+.fi-ta-header {
+    background: #FDFBF7 !important;
+    border-bottom: 1px solid rgba(188, 90, 66, 0.1) !important;
+    padding: 1.5rem !important;
+}
+
+.fi-ta-header-heading {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #4A3B34 !important;
+}
+
+.fi-ta-content {
+    padding: 0 !important;
+}
+
+.fi-ta-table {
+    margin: 0 !important;
+}
+
+.fi-ta-table tbody tr {
+    transition: background-color 0.2s ease !important;
+}
+
+.fi-ta-table tbody tr:hover {
+    background-color: rgba(188, 90, 66, 0.03) !important;
+}
+
+/* Handwritten font for headings */
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap');
+
+.fi-header-heading {
+    font-family: 'Gaegu', cursive !important;
+    color: #BC5A42 !important;
+    font-size: 2.25rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.fi-header-description {
+    color: rgba(74, 59, 52, 0.6) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FDFBF7;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(188, 90, 66, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(188, 90, 66, 0.5);
+}

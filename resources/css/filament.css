@@ -1,0 +1,59 @@
+/* Custom styling for Filament login form */
+.fi-simple-layout {
+    background: #FDFBF7 !important;
+}
+
+.fi-simple-main {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.fi-form-component {
+    width: 100% !important;
+}
+
+.fi-input {
+    border: 2px solid #D4A76A !important;
+    border-radius: 50px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-family: 'Patrick Hand', cursive !important;
+    font-size: 1.25rem !important;
+    background: #FDFBF7 !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-input:focus {
+    border-color: #BC5A42 !important;
+    box-shadow: 0 0 0 3px rgba(188, 90, 66, 0.1) !important;
+    background: white !important;
+}
+
+.fi-btn {
+    border-radius: 50px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-family: 'Patrick Hand', cursive !important;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+}
+
+.fi-btn-primary {
+    background: linear-gradient(135deg, #BC5A42 0%, #9C4A32 100%) !important;
+    color: white !important;
+}
+
+.fi-btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 20px rgba(188, 90, 66, 0.3) !important;
+}
+
+.fi-checkbox {
+    border-radius: 6px !important;
+    border: 2px solid #7c2d12 !important;
+}
+
+.fi-checkbox:checked {
+    background-color: #BC5A42 !important;
+    border-color: #BC5A42 !important;
+}
