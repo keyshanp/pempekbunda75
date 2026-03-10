@@ -9,8 +9,10 @@ class ProdukSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hapus data lama dulu (opsional)
+        // Hapus data lama dengan disable FK checks dulu
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('produks')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         
         DB::table('produks')->insert([
             [

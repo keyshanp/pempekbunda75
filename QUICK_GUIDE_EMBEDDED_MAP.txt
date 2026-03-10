@@ -1,0 +1,221 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              🗺️ QUICK GUIDE: EMBEDDED MAP SYSTEM                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 SETUP (5 MENIT)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 1: Google Maps API Key
+   1. Buka: https://console.cloud.google.com/
+   2. Enable: Maps JavaScript API + Geocoding API
+   3. Buat API Key
+   4. Tambahkan ke .env:
+      
+      GOOGLE_MAPS_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+✅ STEP 2: Clear Cache
+   
+   php artisan config:clear
+   php artisan cache:clear
+
+✅ STEP 3: Test!
+   1. Buka: http://localhost/checkout
+   2. Pilih "Diantar (GoSend)"
+   3. Peta langsung muncul di bawah
+   4. Geser marker merah ATAU klik peta
+   5. Koordinat & alamat otomatis terisi
+   6. Done! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 CARA MENGGUNAKAN (USER)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Pilih "Diantar (GoSend)"
+   → Peta langsung muncul
+
+2. Pilih Lokasi:
+   CARA 1: Geser marker merah ke lokasi yang diinginkan
+   CARA 2: Klik langsung pada peta
+
+3. Lihat Hasil:
+   → Koordinat otomatis terisi
+   → Alamat otomatis muncul
+
+4. Tambahkan Catatan (Opsional):
+   → "Rumah pagar hitam, RT 03 RW 05"
+
+5. Lanjut Checkout
+   → Tombol aktif jika sudah pilih lokasi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DATA YANG DIKIRIM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{
+  location: {
+    latitude: -2.9760735,
+    longitude: 104.7754307,
+    catatan_alamat: "Rumah pagar hitam, RT 03 RW 05"
+  },
+  customer: {
+    address: "Jl. Sudirman No. 123, Palembang...",
+    catatan_alamat: "Rumah pagar hitam, RT 03 RW 05"
+  }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ FITUR UTAMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Peta langsung terlihat (bukan modal)
+✓ Marker merah yang bisa digeser (draggable)
+✓ Klik peta untuk memindahkan marker
+✓ Koordinat update real-time
+✓ Reverse geocoding otomatis (alamat dari GPS)
+✓ Textarea untuk catatan tambahan
+✓ Validasi ketat (wajib pilih lokasi)
+✓ Responsive mobile & desktop
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 CUSTOMIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ubah Default Location:
+  Edit checkout.blade.php, fungsi initializeEmbeddedMap():
+  
+  const defaultLat = -2.9760735;  // Latitude toko Anda
+  const defaultLng = 104.7754307; // Longitude toko Anda
+
+Ubah Tinggi Peta:
+  Edit HTML:
+  
+  <div id="embedded-map" class="... h-[400px] ...">
+  
+  Ganti h-[400px] dengan:
+  - h-[300px] → 300px
+  - h-[500px] → 500px
+  - h-[600px] → 600px
+
+Ubah Zoom Level:
+  Edit initializeEmbeddedMap():
+  
+  zoom: 15, // Ubah ke 10-20
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐛 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Peta tidak muncul?
+   → Cek API key di .env
+   → Enable Maps JavaScript API
+   → Clear cache: php artisan config:clear
+
+❌ Marker tidak bisa digeser?
+   → Cek draggable: true di kode
+   → Refresh halaman
+
+❌ Reverse geocoding tidak jalan?
+   → Enable Geocoding API
+   → Tunggu 1-2 menit
+
+❌ Koordinat tidak update?
+   → Cek event listener dragend
+   → Cek console untuk error
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 PERBANDINGAN: MODAL vs EMBEDDED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                    MODAL ❌              EMBEDDED ✅
+                    
+Tampilan:           Popup modal           Langsung terlihat
+User Flow:          4 langkah             2 langkah
+Marker:             Fixed di tengah       Draggable
+Konfirmasi:         Perlu klik tombol     Otomatis
+Mobile UX:          Kurang optimal        Lebih baik
+Kompleksitas:       Tinggi                Rendah
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💰 BIAYA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Google Maps API - Free Tier:
+  • $200 kredit gratis per bulan
+  • 28,000 map loads
+  • 40,000 geocoding requests
+  
+Untuk website kecil-menengah: GRATIS! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FILE YANG DIUBAH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Modified:
+  ✓ resources/views/order/checkout.blade.php
+    - Hapus modal map
+    - Tambah embedded map
+    - Update JavaScript functions
+
+Created:
+  ✓ EMBEDDED_MAP_SYSTEM.md (dokumentasi lengkap)
+  ✓ QUICK_GUIDE_EMBEDDED_MAP.txt (file ini)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ TESTING CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Peta muncul saat pilih "Diantar (GoSend)"
+□ Marker merah tampil di tengah peta
+□ Marker bisa digeser (drag)
+□ Klik peta memindahkan marker
+□ Koordinat update saat marker berpindah
+□ Alamat otomatis muncul
+□ Textarea catatan bisa diisi
+□ Warning box muncul jika belum pilih lokasi
+□ Success box muncul jika sudah pilih lokasi
+□ Tombol checkout disabled jika belum pilih
+□ Tombol checkout enabled jika sudah pilih
+□ Data tersimpan saat order dibuat
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOKUMENTASI LENGKAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Baca file berikut untuk detail:
+  • EMBEDDED_MAP_SYSTEM.md → Dokumentasi lengkap
+  • CARA_SETUP_GOOGLE_MAPS_API.md → Setup API key
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 SELESAI!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sistem Embedded Map sudah siap digunakan!
+
+Keuntungan:
+  ✓ Lebih intuitif (peta langsung terlihat)
+  ✓ Lebih cepat (tidak perlu buka modal)
+  ✓ Lebih mobile-friendly
+  ✓ Kode lebih sederhana
+
+Next Steps:
+  1. Setup Google Maps API Key
+  2. Clear cache
+  3. Test fitur
+  4. Deploy!
+
+Selamat mencoba! 🚀
+
+Dibuat dengan ❤️ untuk Pempek Bunda 75
+Tanggal: 4 Maret 2026
+Version: 2.0.0 (Embedded System)

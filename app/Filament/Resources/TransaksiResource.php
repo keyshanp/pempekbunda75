@@ -36,9 +36,15 @@ class TransaksiResource extends Resource
                             
                         Forms\Components\Select::make('pesanan_id')
                             ->label('Pesanan')
-                            ->relationship('order', 'kode_pesanan')
+                            ->options(function () {
+                                return \App\Models\Order::query()
+                                    ->orderBy('created_at', 'desc')
+                                    ->get()
+                                    ->mapWithKeys(function ($order) {
+                                        return [$order->id => $order->kode_pesanan . ' - Rp ' . number_format($order->total, 0, ',', '.')];
+                                    });
+                            })
                             ->searchable()
-                            ->preload()
                             ->required()
                             ->reactive()
                             ->afterStateUpdated(function ($state, callable $set) {
@@ -131,6 +137,19 @@ class TransaksiResource extends Resource
                     ->sortable()
                     ->copyable()
                     ->weight('bold'),
+
+                Tables\Columns\TextColumn::make('order.customer')
+                    ->label('Customer')
+                    ->formatStateUsing(fn ($state) => is_array($state) ? ($state['nama'] ?? '-') : '-')
+                    ->searchable(false)
+                    ->icon('heroicon-o-user')
+                    ->sortable(false),
+
+                Tables\Columns\TextColumn::make('order_customer_email')
+                    ->label('Email Customer')
+                    ->state(fn ($record) => is_array($record->order?->customer) ? ($record->order->customer['email'] ?? '-') : '-')
+                    ->icon('heroicon-o-envelope')
+                    ->toggleable(isToggledHiddenByDefault: true),
                     
                 Tables\Columns\TextColumn::make('order.kode_pesanan')
                     ->label('Kode Pesanan')

@@ -306,7 +306,66 @@ class OrderResource extends Resource
                         ])
                         ->action(function ($records, array $data) {
                             foreach ($records as $record) {
-                                $record->update(['status_pesanan' => $data['status_pesanan']]);
+                                $oldStatus = $record->status_pesanan;
+                                $newStatus = $data['status_pesanan'];
+                                
+                                // Update status
+                                $record->update(['status_pesanan' => $newStatus]);
+                                
+                                // ✅ BUAT TRANSAKSI OTOMATIS JIKA ORDER COMPLETED
+                                if ($newStatus === 'completed' && $oldStatus !== 'completed') {
+                                    // Cek apakah transaksi sudah ada
+                                    $existingTransaksi = \App\Models\Transaksi::where('pesanan_id', $record->id)->first();
+                                    
+                                    if (!$existingTransaksi) {
+                                        // Generate kode transaksi unik
+                                        $kodeTransaksi = 'TRX-' . now()->format('Ymd') . '-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+                                        
+                                        // Ambil metode pembayaran dari order
+                                        $payment = is_array($record->payment) ? $record->payment : json_decode($record->payment, true);
+                                        $metodePembayaran = $payment['metode'] ?? 'qris';
+                                        
+                                        // Mapping metode pembayaran
+                                        $metodeMap = [
+                                            'qris' => 'qris',
+                                            'transfer' => 'transfer_bank',
+                                            'cod' => 'cash',
+                                            'gopay' => 'gopay',
+                                            'dana' => 'dana',
+                                            'ovo' => 'ovo',
+                                            'shopeepay' => 'shopeepay'
+                                        ];
+                                        
+                                        $metodeFinal = $metodeMap[$metodePembayaran] ?? 'qris';
+                                        
+                                        // Buat transaksi
+                                        \App\Models\Transaksi::create([
+                                            'kode_transaksi' => $kodeTransaksi,
+                                            'pesanan_id' => $record->id,
+                                            'metode_pembayaran' => $metodeFinal,
+                                            'jumlah_bayar' => $record->total,
+                                            'status' => 'success',
+                                            'waktu_pembayaran' => now(),
+                                            'waktu_konfirmasi' => now(),
+                                            'catatan' => 'Transaksi otomatis dari order completed'
+                                        ]);
+                                        
+                                        \Log::info("Transaksi {$kodeTransaksi} dibuat otomatis untuk order {$record->kode_pesanan}");
+                                    }
+                                }
+                                
+                                // ✅ KEMBALIKAN STOK JIKA ORDER DIBATALKAN
+                                if ($newStatus === 'cancelled' && $oldStatus !== 'cancelled') {
+                                    $items = is_array($record->items) ? $record->items : json_decode($record->items, true);
+                                    
+                                    foreach ($items as $item) {
+                                        $produk = \App\Models\Produk::find($item['id']);
+                                        if ($produk) {
+                                            $produk->increment('stok', $item['quantity']);
+                                            \Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']}. Stok sekarang: {$produk->stok}");
+                                        }
+                                    }
+                                }
                             }
                             
                             Notification::make()

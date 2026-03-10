@@ -24,6 +24,17 @@ class AdminLogin extends BaseLogin
     public $password = '';
     public $remember = false;
     
+    // 🔥 REDIRECT KE DASHBOARD JIKA SUDAH LOGIN
+    public function mount(): void
+    {
+        // Cek apakah user sudah login dan adalah admin
+        if (auth()->check() && auth()->user()->is_admin) {
+            // Redirect langsung ke dashboard admin
+            $this->redirect('/admin', navigate: false);
+            return;
+        }
+    }
+    
     public function render(): View
     {
         return view(static::$view, $this->getViewData());

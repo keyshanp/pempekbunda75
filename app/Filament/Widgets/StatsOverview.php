@@ -6,6 +6,8 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use App\Models\Produk;
 use App\Models\Order;
+use App\Models\Transaksi;
+use App\Models\Feedback;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 
@@ -177,6 +179,32 @@ class StatsOverview extends BaseWidget
                     'class' => 'custom-stat-card animate-fade-in',
                     'id' => 'stat-stok-rendah',
                 ]),
+
+            // ====================
+            // TOTAL TRANSAKSI USER
+            // ====================
+            Stat::make('Total Transaksi', $this->getTransaksiCount())
+                ->description($this->getTransaksiDescription())
+                ->descriptionIcon('heroicon-m-credit-card')
+                ->color('info')
+                ->icon('heroicon-o-credit-card')
+                ->extraAttributes([
+                    'class' => 'custom-stat-card animate-fade-in',
+                    'id' => 'stat-total-transaksi',
+                ]),
+
+            // ====================
+            // TOTAL FEEDBACK USER
+            // ====================
+            Stat::make('Total Feedback', $this->getFeedbackCount())
+                ->description($this->getFeedbackDescription())
+                ->descriptionIcon('heroicon-m-star')
+                ->color('warning')
+                ->icon('heroicon-o-star')
+                ->extraAttributes([
+                    'class' => 'custom-stat-card animate-fade-in',
+                    'id' => 'stat-total-feedback',
+                ]),
         ];
     }
     
@@ -266,6 +294,68 @@ class StatsOverview extends BaseWidget
             ];
         } catch (\Exception $e) {
             return [];
+        }
+    }
+
+    /**
+     * Get total transaksi count
+     */
+    private function getTransaksiCount(): int
+    {
+        try {
+            return Transaksi::count();
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Get transaksi description for stat card
+     */
+    private function getTransaksiDescription(): string
+    {
+        try {
+            $pending = Transaksi::where('status', 'pending')->count();
+            $success = Transaksi::where('status', 'success')->count();
+            
+            if ($pending > 0) {
+                return "{$pending} menunggu konfirmasi, {$success} sukses";
+            }
+            
+            return $success > 0 ? "{$success} transaksi sukses" : 'Belum ada transaksi';
+        } catch (\Exception $e) {
+            return 'Belum ada transaksi';
+        }
+    }
+
+    /**
+     * Get total feedback count
+     */
+    private function getFeedbackCount(): int
+    {
+        try {
+            return Feedback::count();
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Get feedback description for stat card
+     */
+    private function getFeedbackDescription(): string
+    {
+        try {
+            $avgRating = Feedback::avg('rating');
+            $count = Feedback::count();
+            
+            if ($count > 0 && $avgRating) {
+                return 'Rating rata-rata: ' . number_format($avgRating, 1) . '/5 ⭐';
+            }
+            
+            return 'Belum ada feedback';
+        } catch (\Exception $e) {
+            return 'Belum ada feedback';
         }
     }
 }

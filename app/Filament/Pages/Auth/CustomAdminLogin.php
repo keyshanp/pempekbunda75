@@ -14,8 +14,9 @@ class CustomAdminLogin extends Page
     
     public function mount(): void
     {
-        if (auth()->check()) {
-            redirect()->intended('/admin');
+        if (auth()->check() && auth()->user()->is_admin) {
+            $this->redirect('/admin', navigate: false);
+            return;
         }
         
         $this->form->fill();

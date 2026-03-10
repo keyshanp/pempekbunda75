@@ -70,6 +70,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Widgets\StatsOverview::class,
                 \App\Filament\Widgets\ProdukChartWidget::class,
                 \App\Filament\Widgets\AktivitasTerbaruWidget::class,
+                \App\Filament\Widgets\TransaksiTerbaruWidget::class,
             ])
             ->pages([
             \App\Filament\Pages\FeedbackDetail::class,

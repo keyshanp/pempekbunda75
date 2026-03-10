@@ -26,6 +26,7 @@ class Dashboard extends BaseDashboard
     {
         return [
             \App\Filament\Widgets\ProdukChartWidget::class,
+            \App\Filament\Widgets\TransaksiTerbaruWidget::class,
             \App\Filament\Widgets\AktivitasTerbaruWidget::class,
             \App\Filament\Widgets\StokRendahWidget::class,
         ];

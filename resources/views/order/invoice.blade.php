@@ -938,9 +938,23 @@
 
     <!-- Countdown Timer Script -->
     <script>
+        // Status pesanan dari server
+        const orderStatus = '{{ $statusPesanan ?? "pending" }}';
+        const orderStatusPayment = '{{ $statusPembayaran ?? "belum_bayar" }}';
+        
+        // Status yang menghentikan timer
+        const stopTimerStatuses = ['paid', 'processed', 'shipped', 'completed'];
+        const shouldStopTimer = stopTimerStatuses.includes(orderStatus);
+        
         function updateCountdown() {
             const countdownEl = document.querySelector('.countdown');
             if (!countdownEl) return;
+            
+            // Jika status sudah dibayar atau lebih, hentikan timer
+            if (shouldStopTimer) {
+                countdownEl.innerHTML = '<span class="text-green-600">✓ Pembayaran Dikonfirmasi</span>';
+                return;
+            }
             
             const deadline = countdownEl.dataset.deadline;
             if (!deadline) return;
@@ -950,7 +964,7 @@
             const distance = deadlineTime - now;
             
             if (distance < 0) {
-                countdownEl.innerHTML = '00:00:00';
+                countdownEl.innerHTML = '<span class="text-red-600">⏰ Waktu Habis</span>';
                 return;
             }
             
@@ -964,8 +978,61 @@
                 (seconds < 10 ? '0' + seconds : seconds);
         }
         
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        // Update countdown setiap detik hanya jika belum dibayar
+        if (!shouldStopTimer) {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        } else {
+            updateCountdown();
+        }
+        
+        // Auto logout dan redirect saat status completed
+        if (orderStatus === 'completed') {
+            console.log('🎉 Pesanan selesai! Auto logout dalam 10 detik...');
+            
+            // Tampilkan notifikasi
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-xl z-[99999] animate-fade-in';
+            notification.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-2xl"></i>
+                    <div>
+                        <p class="font-bold">Pesanan Selesai!</p>
+                        <p class="text-sm">Anda akan logout dalam <span id="logout-countdown">10</span> detik...</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            // Countdown untuk logout
+            let logoutSeconds = 10;
+            const logoutCountdownEl = document.getElementById('logout-countdown');
+            
+            const logoutInterval = setInterval(() => {
+                logoutSeconds--;
+                if (logoutCountdownEl) {
+                    logoutCountdownEl.textContent = logoutSeconds;
+                }
+                
+                if (logoutSeconds <= 0) {
+                    clearInterval(logoutInterval);
+                    
+                    // Logout dan redirect
+                    fetch('{{ route("logout") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        }
+                    }).then(() => {
+                        window.location.href = '/';
+                    }).catch(() => {
+                        // Fallback jika fetch gagal
+                        window.location.href = '/';
+                    });
+                }
+            }, 1000);
+        }
     </script>
 
     <!-- 🔥 DEBUG SCRIPT UNTUK CEK LOCALSTORAGE -->

@@ -27,10 +27,18 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
+  <!-- Leaflet CSS & JS (OpenStreetMap - 100% GRATIS, TIDAK PERLU API KEY!) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+        crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Alpine.js -->
+  <!-- Alpine.js - Load AFTER Leaflet -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
   <style>
@@ -192,6 +200,34 @@
       height: 100%;
       border: none;
     }
+
+    /* ===== MAP MODAL ===== */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-bounce {
+      animation: bounce 1s infinite;
+    }
+
+    /* Map Modal Overlay */
+    .map-modal-overlay {
+      backdrop-filter: blur(5px);
+    }
+
+    /* Smooth transitions */
+    .transition-all {
+      transition: all 0.3s ease;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col" x-data="checkoutSystem()" x-init="initCheckout()">
@@ -288,22 +324,123 @@
               </div>
             </div>
 
-            <!-- Alamat (untuk delivery) -->
+            <!-- Alamat Spesifik (untuk delivery) -->
             <div x-show="delivery.method === 'delivery'" x-cloak class="mt-6">
-              <label class="block text-lg font-fredoka mb-2">Alamat Lengkap <span class="text-red-500">*</span></label>
-              <textarea x-model="customer.address" rows="3" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-[#6B8E23] font-fredoka text-lg" placeholder="Masukkan alamat lengkap..."></textarea>
+              <h3 class="text-2xl font-bubble text-[#6B8E23] mb-4">📍 Pilih Lokasi Pengiriman</h3>
               
-              <!-- Google Maps Picker -->
-              <div class="mt-4">
-                <label class="block text-lg font-fredoka mb-2">Pinpoint Lokasi (Opsional)</label>
-                <div class="map-container">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.675539261911!2d104.7532176!3d-2.9911503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3b75e8fc27a3e3%3A0x1e2c5d5f5a5a5a5a!2sPalembang%2C%20South%20Sumatra!5e0!3m2!1sen!2sid!4v1641234567890!5m2!1sen!2sid"
-                    loading="lazy"
-                    title="Pilih lokasi">
-                  </iframe>
+              <!-- Google Maps Embedded -->
+              <div class="mb-4">
+                <label class="block text-lg font-fredoka mb-2">
+                  <i class="fas fa-map-marked-alt mr-2"></i>
+                  Geser pin merah atau klik peta untuk menentukan lokasi Anda <span class="text-red-500">*</span>
+                </label>
+                <div id="embedded-map" class="w-full h-[500px] rounded-2xl border-4 border-[#6B8E23] shadow-lg relative">
+                  <!-- Loading Overlay -->
+                  <div x-show="mapLoading" class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10 rounded-2xl">
+                    <div class="text-center">
+                      <i class="fas fa-spinner fa-spin text-4xl text-[#6B8E23] mb-2"></i>
+                      <p class="font-fredoka text-lg">Memuat peta...</p>
+                    </div>
+                  </div>
                 </div>
-                <p class="text-sm font-fredoka text-gray-500 mt-2">Klik map untuk menentukan titik lokasi (opsional)</p>
+                <div class="mt-2 flex items-center gap-4 text-sm font-fredoka">
+                  <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                    <span>Lokasi Toko (Fixed)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                    <span>Lokasi Anda (Geser untuk pindah)</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Jarak & Ongkir Display -->
+              <div x-show="pengiriman.jarak_km > 0" class="mb-4 bg-blue-50 border-2 border-blue-300 rounded-xl p-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-fredoka font-semibold mb-1 text-blue-700">
+                      <i class="fas fa-route mr-1"></i> Jarak dari Toko
+                    </label>
+                    <p class="text-2xl font-bubble text-blue-900" x-text="pengiriman.jarak_km.toFixed(2) + ' km'"></p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-fredoka font-semibold mb-1 text-blue-700">
+                      <i class="fas fa-money-bill-wave mr-1"></i> Ongkos Kirim
+                    </label>
+                    <p class="text-2xl font-bubble text-blue-900" x-text="'Rp ' + pengiriman.ongkir.toLocaleString('id-ID')"></p>
+                  </div>
+                </div>
+                <p class="text-xs font-fredoka text-gray-600 mt-2">
+                  <i class="fas fa-info-circle mr-1"></i>
+                  Perhitungan: <span x-text="pengiriman.jarak_km.toFixed(2)"></span> km × Rp <span x-text="pengiriman.harga_per_km.toLocaleString('id-ID')"></span>/km
+                </p>
+              </div>
+              
+              <!-- Koordinat Display -->
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-sm font-fredoka font-semibold mb-1 text-gray-700">
+                    <i class="fas fa-map-pin text-red-500 mr-1"></i> Latitude Anda
+                  </label>
+                  <input 
+                    type="text" 
+                    x-model="location.latitude" 
+                    readonly 
+                    class="w-full px-4 py-2 bg-gray-100 border-2 border-gray-300 rounded-lg font-fredoka text-sm"
+                    placeholder="Belum dipilih">
+                </div>
+                <div>
+                  <label class="block text-sm font-fredoka font-semibold mb-1 text-gray-700">
+                    <i class="fas fa-map-pin text-red-500 mr-1"></i> Longitude Anda
+                  </label>
+                  <input 
+                    type="text" 
+                    x-model="location.longitude" 
+                    readonly 
+                    class="w-full px-4 py-2 bg-gray-100 border-2 border-gray-300 rounded-lg font-fredoka text-sm"
+                    placeholder="Belum dipilih">
+                </div>
+              </div>
+              
+              <!-- Alamat Otomatis (dari reverse geocoding) -->
+              <div x-show="customer.address" class="mb-4 bg-green-50 border-2 border-green-300 rounded-xl p-4">
+                <label class="block text-sm font-fredoka font-semibold mb-2 text-green-700">
+                  <i class="fas fa-check-circle mr-1"></i> Alamat Terdeteksi:
+                </label>
+                <p class="font-fredoka text-base text-gray-800" x-text="customer.address"></p>
+              </div>
+              
+              <!-- Catatan Tambahan Alamat -->
+              <div class="mb-4">
+                <label class="block text-lg font-fredoka mb-2">
+                  <i class="fas fa-sticky-note mr-2"></i>
+                  Catatan Tambahan Alamat (Opsional)
+                </label>
+                <textarea 
+                  x-model="customer.catatan_alamat" 
+                  rows="3" 
+                  class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-[#6B8E23] font-fredoka text-lg" 
+                  placeholder="Contoh: Rumah pagar hitam, dekat masjid Al-Ikhlas, RT 03 RW 05, sebelah warung Pak Budi"></textarea>
+                <p class="text-sm font-fredoka text-gray-500 mt-1">
+                  <i class="fas fa-info-circle mr-1"></i>
+                  Tambahkan patokan, warna rumah, RT/RW, atau detail yang memudahkan driver menemukan lokasi Anda
+                </p>
+              </div>
+              
+              <!-- Status Validasi -->
+              <div x-show="!location.latitude || !location.longitude" class="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-3">
+                <p class="text-sm font-fredoka text-yellow-700">
+                  <i class="fas fa-exclamation-triangle mr-1"></i>
+                  <strong>Perhatian:</strong> Anda belum memilih lokasi di peta. Geser pin merah atau klik pada peta untuk menentukan lokasi pengiriman.
+                </p>
+              </div>
+              
+              <div x-show="location.latitude && location.longitude && pengiriman.jarak_km > 0" class="bg-green-50 border-2 border-green-300 rounded-xl p-3">
+                <p class="text-sm font-fredoka text-green-700">
+                  <i class="fas fa-check-circle mr-1"></i>
+                  <strong>Lokasi sudah dipilih!</strong> Jarak: <span x-text="pengiriman.jarak_km.toFixed(2)"></span> km | Ongkir: Rp <span x-text="pengiriman.ongkir.toLocaleString('id-ID')"></span>
+                </p>
               </div>
             </div>
           </div>
@@ -336,7 +473,7 @@
             <!-- Ongkir -->
             <div class="flex justify-between py-2">
               <span class="font-fredoka">Ongkos Kirim</span>
-              <span class="font-fredoka font-bold" x-text="delivery.method === 'delivery' ? 'Rp 15.000' : 'Rp 0'"></span>
+              <span class="font-fredoka font-bold" x-text="delivery.method === 'delivery' ? 'Rp ' + pengiriman.ongkir.toLocaleString('id-ID') : 'Rp 0'"></span>
             </div>
             
             <!-- Total -->
@@ -649,8 +786,35 @@
           name: '{{ auth()->user()->name ?? "Guest User" }}',
           email: '{{ auth()->user()->email ?? "guest@example.com" }}',
           phone: '',
-          address: ''
+          address: '',
+          catatan_alamat: ''
         },
+        
+        // Koordinat Toko (Fixed) - Purbalingga
+        toko: {
+          latitude: -7.372085,
+          longitude: 109.241568,
+          nama: 'Pempek Bunda 75'
+        },
+        
+        // Koordinat User (Draggable)
+        location: {
+          latitude: null,
+          longitude: null
+        },
+        
+        // Jarak & Ongkir
+        pengiriman: {
+          jarak_km: 0,
+          ongkir: 0,
+          harga_per_km: 2500  // Rp 2.500 per km
+        },
+        
+        mapLoading: true,
+        embeddedMap: null,
+        tokoMarker: null,    // Marker toko (fixed)
+        userMarker: null,    // Marker user (draggable)
+        geocoder: null,
         
         delivery: {
           method: 'pickup' // pickup or delivery
@@ -688,17 +852,32 @@
             // If cart empty, redirect back to order page
             window.location.href = '{{ route('order.index') }}';
           }
+          
+          // Initialize embedded map after a short delay
+          setTimeout(() => {
+            this.initializeEmbeddedMap();
+          }, 500);
         },
         
         calculateTotals() {
           this.subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-          this.total = this.subtotal + (this.delivery.method === 'delivery' ? 15000 : 0);
+          // Total = subtotal + ongkir (jika delivery)
+          const ongkir = this.delivery.method === 'delivery' ? this.pengiriman.ongkir : 0;
+          this.total = this.subtotal + ongkir;
         },
         
         get canProceedToStep2() {
-          return this.customer.phone !== '' && 
-                 (this.delivery.method === 'pickup' || 
-                  (this.delivery.method === 'delivery' && this.customer.address !== ''));
+          // Jika delivery, WAJIB ada koordinat lokasi DAN jarak sudah dihitung
+          if (this.delivery.method === 'delivery') {
+            return this.customer.phone !== '' && 
+                   this.customer.address !== '' &&
+                   this.location.latitude !== null && 
+                   this.location.longitude !== null &&
+                   this.pengiriman.jarak_km > 0;
+          }
+          
+          // Jika pickup, cukup phone saja
+          return this.customer.phone !== '';
         },
         
         get canProceedToStep3() {
@@ -759,13 +938,187 @@
           
           // Here you would typically send data to server via AJAX
           console.log('Order placed:', {
-            customer: this.customer,
+            customer: {
+              ...this.customer,
+              catatan_alamat: this.customer.catatan_alamat
+            },
             delivery: this.delivery,
             payment: this.payment,
             cart: this.cart,
             total: this.total,
-            invoice: this.order.invoice
+            invoice: this.order.invoice,
+            location: {
+              latitude_user: parseFloat(this.location.latitude),
+              longitude_user: parseFloat(this.location.longitude),
+              latitude_toko: this.toko.latitude,
+              longitude_toko: this.toko.longitude,
+              jarak_km: this.pengiriman.jarak_km,
+              ongkir: this.pengiriman.ongkir,
+              catatan_alamat: this.customer.catatan_alamat
+            }
           });
+        },
+        
+        // 🗺️ LEAFLET MAP FUNCTIONS (100% GRATIS - TIDAK PERLU API KEY!)
+        initializeEmbeddedMap() {
+          console.log('🗺️ Initializing embedded map...');
+          
+          // Cek apakah Leaflet sudah loaded
+          if (typeof L === 'undefined') {
+            console.error('❌ Leaflet belum loaded! Coba lagi...');
+            setTimeout(() => this.initializeEmbeddedMap(), 500);
+            return;
+          }
+          
+          console.log('✅ Leaflet loaded!');
+          
+          // Koordinat Toko (Fixed)
+          const tokoLat = this.toko.latitude;
+          const tokoLng = this.toko.longitude;
+          
+          console.log('📍 Koordinat Toko:', tokoLat, tokoLng);
+          
+          // Default lokasi user: dekat toko (offset sedikit)
+          const defaultUserLat = tokoLat + 0.01;  // ~1km ke utara
+          const defaultUserLng = tokoLng + 0.01;  // ~1km ke timur
+          
+          try {
+            // Initialize Leaflet map
+            console.log('🗺️ Creating map...');
+            this.embeddedMap = L.map('embedded-map').setView([tokoLat, tokoLng], 14);
+            
+            // Add OpenStreetMap tiles (GRATIS!)
+            console.log('🗺️ Adding tiles...');
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '© OpenStreetMap contributors',
+              maxZoom: 19
+            }).addTo(this.embeddedMap);
+            
+            // === MARKER 1: TOKO (FIXED - BIRU) ===
+            console.log('📍 Adding toko marker...');
+            const tokoIcon = L.divIcon({
+              html: '<div style="background-color: #3B82F6; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">🏪</div>',
+              className: 'custom-marker',
+              iconSize: [30, 30],
+              iconAnchor: [15, 15]
+            });
+            
+            this.tokoMarker = L.marker([tokoLat, tokoLng], {
+              icon: tokoIcon,
+              draggable: false  // TIDAK BISA DIGESER
+            }).addTo(this.embeddedMap);
+            
+            this.tokoMarker.bindPopup(`
+              <div style="padding: 5px; font-family: Arial;">
+                <h3 style="margin: 0 0 5px 0; color: #3B82F6; font-size: 14px;">🏪 ${this.toko.nama}</h3>
+                <p style="margin: 0; font-size: 11px; color: #666;">Lokasi Toko (Fixed)</p>
+                <p style="margin: 5px 0 0 0; font-size: 10px; color: #999;">
+                  ${tokoLat.toFixed(6)}, ${tokoLng.toFixed(6)}
+                </p>
+              </div>
+            `);
+            
+            // === MARKER 2: USER (DRAGGABLE - MERAH) ===
+            console.log('📍 Adding user marker...');
+            const userIcon = L.divIcon({
+              html: '<div style="background-color: #EF4444; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">📍</div>',
+              className: 'custom-marker',
+              iconSize: [30, 30],
+              iconAnchor: [15, 15]
+            });
+            
+            this.userMarker = L.marker([defaultUserLat, defaultUserLng], {
+              icon: userIcon,
+              draggable: true  // BISA DIGESER
+            }).addTo(this.embeddedMap);
+            
+            this.userMarker.bindPopup('Geser pin ini ke lokasi Anda atau klik peta');
+            
+            // Set initial user location
+            this.updateLocation(defaultUserLat, defaultUserLng);
+            
+            // Listen to user marker drag end
+            this.userMarker.on('dragend', () => {
+              const position = this.userMarker.getLatLng();
+              this.updateLocation(position.lat, position.lng);
+            });
+            
+            // Listen to map click (pindahkan user marker)
+            this.embeddedMap.on('click', (event) => {
+              const lat = event.latlng.lat;
+              const lng = event.latlng.lng;
+              
+              // Move user marker to clicked position
+              this.userMarker.setLatLng([lat, lng]);
+              
+              // Update location
+              this.updateLocation(lat, lng);
+            });
+            
+            console.log('✅ Map initialized successfully!');
+            this.mapLoading = false;
+            
+          } catch (error) {
+            console.error('❌ Error initializing map:', error);
+            this.mapLoading = false;
+            alert('Gagal memuat peta. Silakan refresh halaman.');
+          }
+        },
+        
+        updateLocation(lat, lng) {
+          // Update user coordinates
+          this.location.latitude = lat.toFixed(7);
+          this.location.longitude = lng.toFixed(7);
+          
+          // Calculate distance & ongkir
+          this.calculateDistance();
+          
+          // Reverse geocode to get address (menggunakan Nominatim - GRATIS!)
+          this.reverseGeocode(lat, lng);
+          
+          // Recalculate totals (karena ongkir berubah)
+          this.calculateTotals();
+        },
+        
+        calculateDistance() {
+          // Haversine formula untuk menghitung jarak antara 2 koordinat
+          const R = 6371; // Radius bumi dalam km
+          
+          const lat1 = this.toko.latitude * Math.PI / 180;
+          const lat2 = parseFloat(this.location.latitude) * Math.PI / 180;
+          const deltaLat = (parseFloat(this.location.latitude) - this.toko.latitude) * Math.PI / 180;
+          const deltaLng = (parseFloat(this.location.longitude) - this.toko.longitude) * Math.PI / 180;
+          
+          const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                    Math.cos(lat1) * Math.cos(lat2) *
+                    Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+          
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          
+          const jarak = R * c; // Jarak dalam km
+          
+          // Update jarak
+          this.pengiriman.jarak_km = jarak;
+          
+          // Hitung ongkir (jarak × harga per km)
+          this.pengiriman.ongkir = Math.round(jarak * this.pengiriman.harga_per_km);
+        },
+        
+        reverseGeocode(lat, lng) {
+          // Menggunakan Nominatim (OpenStreetMap) - 100% GRATIS!
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+            .then(response => response.json())
+            .then(data => {
+              if (data && data.display_name) {
+                this.customer.address = data.display_name;
+              } else {
+                this.customer.address = `Koordinat: ${lat}, ${lng}`;
+              }
+            })
+            .catch(error => {
+              console.error('Reverse geocoding error:', error);
+              this.customer.address = `Koordinat: ${lat}, ${lng}`;
+            });
         }
       }
     }

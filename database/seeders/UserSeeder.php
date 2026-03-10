@@ -3,30 +3,41 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Create test users
-        User::create([
-            'name' => 'Admin Pempek',
-            'email' => 'admin@pempek.com',
-            'password' => Hash::make('admin123'),
-        ]);
+        // User biasa (bukan admin) - gunakan updateOrCreate untuk menghindari duplikat
+        User::updateOrCreate(
+            ['email' => 'customer1@example.com'],
+            [
+                'name' => 'Customer Satu',
+                'password' => Hash::make('password123'),
+                'is_admin' => false,
+            ]
+        );
 
-        User::create([
-            'name' => 'Admin Pempek',
-            'email' => 'admin@pempekbunda75.com',
-            'password' => Hash::make('Admin123!'),
-        ]);
+        User::updateOrCreate(
+            ['email' => 'customer2@example.com'],
+            [
+                'name' => 'Customer Dua',
+                'password' => Hash::make('password123'),
+                'is_admin' => false,
+            ]
+        );
 
-        // Create 10 random users
-        User::factory(10)->create();
+        User::updateOrCreate(
+            ['email' => 'customer3@example.com'],
+            [
+                'name' => 'Customer Tiga',
+                'password' => Hash::make('password123'),
+                'is_admin' => false,
+            ]
+        );
+
+        echo "✅ User customers berhasil ditambahkan!\n";
     }
 }

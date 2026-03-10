@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Order;
+use App\Models\Transaksi;
 
 class OrderController extends Controller
 {
@@ -59,6 +60,25 @@ class OrderController extends Controller
                 'success' => false, 
                 'error' => 'Data pembayaran tidak lengkap. Silakan isi form pembayaran terlebih dahulu.'
             ], 400);
+        }
+        
+        // Validasi stok produk sebelum proses order
+        foreach ($cart as $item) {
+            $produk = Produk::find($item['id']);
+            
+            if (!$produk) {
+                return response()->json([
+                    'success' => false,
+                    'error' => "Produk '{$item['name']}' tidak ditemukan"
+                ], 400);
+            }
+            
+            if ($produk->stok < $item['quantity']) {
+                return response()->json([
+                    'success' => false,
+                    'error' => "Stok produk '{$item['name']}' tidak mencukupi. Stok tersedia: {$produk->stok}"
+                ], 400);
+            }
         }
         
         // Generate kode pesanan unik
@@ -134,12 +154,26 @@ class OrderController extends Controller
                     'tanggal_pesanan' => now(),
                     'batas_pembayaran' => now()->addHours(12),
                 ]);
+                
+                // ✅ KURANGI STOK PRODUK SETELAH ORDER BERHASIL DIBUAT
+                foreach ($cart as $item) {
+                    $produk = Produk::find($item['id']);
+                    if ($produk) {
+                        $produk->decrement('stok', $item['quantity']);
+                        
+                        // Log untuk debugging (opsional)
+                        \Log::info("Stok produk '{$produk->nama_produk}' dikurangi {$item['quantity']}. Stok sekarang: {$produk->stok}");
+                    }
+                }
             }
         } catch (\Exception $e) {
             // Fallback ke session jika database error
             $orders = session()->get('orders', []);
             $orders[$kodePesanan] = $orderData;
             session()->put('orders', $orders);
+            
+            // Log error
+            \Log::error('Error creating order: ' . $e->getMessage());
         }
         
         // Hapus data session
@@ -298,7 +332,66 @@ class OrderController extends Controller
         ]);
         
         $order = Order::where('kode_pesanan', $id)->firstOrFail();
-        $order->status_pesanan = $request->status;
+        $oldStatus = $order->status_pesanan;
+        $newStatus = $request->status;
+        
+        // ✅ KEMBALIKAN STOK JIKA ORDER DIBATALKAN
+        if ($newStatus === 'cancelled' && $oldStatus !== 'cancelled') {
+            // Order baru dibatalkan, kembalikan stok
+            $items = is_array($order->items) ? $order->items : json_decode($order->items, true);
+            
+            foreach ($items as $item) {
+                $produk = Produk::find($item['id']);
+                if ($produk) {
+                    $produk->increment('stok', $item['quantity']);
+                    \Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']}. Stok sekarang: {$produk->stok}");
+                }
+            }
+        }
+        
+        // ✅ BUAT TRANSAKSI OTOMATIS JIKA ORDER COMPLETED
+        if ($newStatus === 'completed' && $oldStatus !== 'completed') {
+            // Cek apakah transaksi sudah ada untuk order ini
+            $existingTransaksi = Transaksi::where('pesanan_id', $order->id)->first();
+            
+            if (!$existingTransaksi) {
+                // Generate kode transaksi unik
+                $kodeTransaksi = 'TRX-' . now()->format('Ymd') . '-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+                
+                // Ambil metode pembayaran dari order
+                $payment = is_array($order->payment) ? $order->payment : json_decode($order->payment, true);
+                $metodePembayaran = $payment['metode'] ?? 'qris';
+                
+                // Mapping metode pembayaran
+                $metodeMap = [
+                    'qris' => 'qris',
+                    'transfer' => 'transfer_bank',
+                    'cod' => 'cash',
+                    'gopay' => 'gopay',
+                    'dana' => 'dana',
+                    'ovo' => 'ovo',
+                    'shopeepay' => 'shopeepay'
+                ];
+                
+                $metodeFinal = $metodeMap[$metodePembayaran] ?? 'qris';
+                
+                // Buat transaksi
+                Transaksi::create([
+                    'kode_transaksi' => $kodeTransaksi,
+                    'pesanan_id' => $order->id,
+                    'metode_pembayaran' => $metodeFinal,
+                    'jumlah_bayar' => $order->total,
+                    'status' => 'success',
+                    'waktu_pembayaran' => now(),
+                    'waktu_konfirmasi' => now(),
+                    'catatan' => 'Transaksi otomatis dari order completed'
+                ]);
+                
+                \Log::info("Transaksi {$kodeTransaksi} dibuat otomatis untuk order {$order->kode_pesanan}");
+            }
+        }
+        
+        $order->status_pesanan = $newStatus;
         $order->save();
         
         return response()->json(['success' => true]);
@@ -334,7 +427,66 @@ class OrderController extends Controller
         ]);
         
         $order = Order::where('kode_pesanan', $id)->firstOrFail();
-        $order->status_pesanan = $request->status_pesanan;
+        $oldStatus = $order->status_pesanan;
+        $newStatus = $request->status_pesanan;
+        
+        // ✅ KEMBALIKAN STOK JIKA ORDER DIBATALKAN
+        if ($newStatus === 'cancelled' && $oldStatus !== 'cancelled') {
+            // Order baru dibatalkan, kembalikan stok
+            $items = is_array($order->items) ? $order->items : json_decode($order->items, true);
+            
+            foreach ($items as $item) {
+                $produk = Produk::find($item['id']);
+                if ($produk) {
+                    $produk->increment('stok', $item['quantity']);
+                    \Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']}. Stok sekarang: {$produk->stok}");
+                }
+            }
+        }
+        
+        // ✅ BUAT TRANSAKSI OTOMATIS JIKA ORDER COMPLETED
+        if ($newStatus === 'completed' && $oldStatus !== 'completed') {
+            // Cek apakah transaksi sudah ada untuk order ini
+            $existingTransaksi = Transaksi::where('pesanan_id', $order->id)->first();
+            
+            if (!$existingTransaksi) {
+                // Generate kode transaksi unik
+                $kodeTransaksi = 'TRX-' . now()->format('Ymd') . '-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+                
+                // Ambil metode pembayaran dari order
+                $payment = is_array($order->payment) ? $order->payment : json_decode($order->payment, true);
+                $metodePembayaran = $payment['metode'] ?? 'qris';
+                
+                // Mapping metode pembayaran
+                $metodeMap = [
+                    'qris' => 'qris',
+                    'transfer' => 'transfer_bank',
+                    'cod' => 'cash',
+                    'gopay' => 'gopay',
+                    'dana' => 'dana',
+                    'ovo' => 'ovo',
+                    'shopeepay' => 'shopeepay'
+                ];
+                
+                $metodeFinal = $metodeMap[$metodePembayaran] ?? 'qris';
+                
+                // Buat transaksi
+                Transaksi::create([
+                    'kode_transaksi' => $kodeTransaksi,
+                    'pesanan_id' => $order->id,
+                    'metode_pembayaran' => $metodeFinal,
+                    'jumlah_bayar' => $order->total,
+                    'status' => 'success',
+                    'waktu_pembayaran' => now(),
+                    'waktu_konfirmasi' => now(),
+                    'catatan' => 'Transaksi otomatis dari order completed'
+                ]);
+                
+                \Log::info("Transaksi {$kodeTransaksi} dibuat otomatis untuk order {$order->kode_pesanan}");
+            }
+        }
+        
+        $order->status_pesanan = $newStatus;
         $order->catatan_admin = $request->catatan_admin;
         $order->save();
         

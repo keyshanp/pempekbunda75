@@ -41,8 +41,8 @@ return new class extends Migration
             $table->string('status_pembayaran')->default('belum_bayar');
             
             // Timestamps pesanan
-            $table->timestamp('tanggal_pesanan');
-            $table->timestamp('batas_pembayaran');
+            $table->timestamp('tanggal_pesanan')->nullable();
+            $table->timestamp('batas_pembayaran')->nullable();
             
             // Catatan admin
             $table->text('catatan_admin')->nullable();

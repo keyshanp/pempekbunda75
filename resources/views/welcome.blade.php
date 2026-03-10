@@ -579,6 +579,352 @@
       width: 80%;
       max-width: 900px;
     }
+    
+    /* ===== REVIEWS SECTION ===== */
+    .reviews {
+      padding: 80px 150px;
+      background: #FFF8EE;
+    }
+    
+    .reviews-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Rating Summary */
+    .rating-summary {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .rating-overview {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .rating-score {
+      text-align: center;
+    }
+    
+    .score-number {
+      font-size: 72px;
+      font-weight: bold;
+      color: #BC5A45;
+      font-family: 'RASCAL', cursive;
+      line-height: 1;
+    }
+    
+    .stars-display {
+      font-size: 32px;
+      color: #FFD700;
+      margin: 10px 0;
+    }
+    
+    .stars-display .star {
+      color: #E0E0E0;
+    }
+    
+    .stars-display .star.filled {
+      color: #FFD700;
+    }
+    
+    .stars-display .star.half {
+      background: linear-gradient(90deg, #FFD700 50%, #E0E0E0 50%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .total-reviews {
+      font-size: 20px;
+      color: #666;
+      margin-top: 10px;
+      font-family: 'Reenie Beanie', cursive;
+    }
+    
+    .rating-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .rating-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .rating-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      min-width: 50px;
+      font-family: 'Reenie Beanie', cursive;
+    }
+    
+    .bar-container {
+      flex: 1;
+      height: 12px;
+      background: #E0E0E0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      transition: width 0.5s ease;
+    }
+    
+    .rating-count {
+      font-size: 16px;
+      color: #666;
+      min-width: 40px;
+      text-align: right;
+      font-family: 'Reenie Beanie', cursive;
+    }
+    
+    /* Tags Summary */
+    .tags-summary {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tags-title {
+      font-size: 32px;
+      color: #BC5A45;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .tag-item {
+      background: linear-gradient(135deg, #BC5A45, #a54534);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-family: 'Reenie Beanie', cursive;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    
+    .tag-item:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(188, 90, 69, 0.4);
+    }
+    
+    .tag-count {
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+    
+    /* Reviews List */
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    
+    .review-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .reviewer-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #BC5A45, #a54534);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      font-family: 'RASCAL', cursive;
+    }
+    
+    .reviewer-details {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .reviewer-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      font-family: 'Reenie Beanie', cursive;
+      margin: 0;
+    }
+    
+    .review-stars {
+      font-size: 18px;
+    }
+    
+    .review-stars .star {
+      color: #E0E0E0;
+    }
+    
+    .review-stars .star.filled {
+      color: #FFD700;
+    }
+    
+    .review-date {
+      font-size: 14px;
+      color: #999;
+      font-family: 'Reenie Beanie', cursive;
+    }
+    
+    .review-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .review-tag {
+      background: #FFF8EE;
+      color: #BC5A45;
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 14px;
+      font-family: 'Reenie Beanie', cursive;
+      border: 1px solid #BC5A45;
+    }
+    
+    .review-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+      font-family: 'Reenie Beanie', cursive;
+    }
+    
+    .load-more-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #BC5A45, #a54534);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    .load-more-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(188, 90, 69, 0.4);
+    }
+    
+    #btn-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .load-more-btn.active #btn-icon {
+      transform: rotate(180deg);
+    }
+    
+    .no-reviews {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .no-reviews p {
+      font-size: 28px;
+      color: #999;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .reviews {
+        padding: 60px 40px;
+      }
+      
+      .rating-overview {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .reviews {
+        padding: 40px 20px;
+      }
+      
+      .rating-summary {
+        padding: 25px;
+      }
+      
+      .score-number {
+        font-size: 56px;
+      }
+      
+      .stars-display {
+        font-size: 24px;
+      }
+      
+      .review-card {
+        padding: 20px;
+      }
+      
+      .reviewer-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .tags-cloud {
+        gap: 10px;
+      }
+      
+      .tag-item {
+        font-size: 14px;
+        padding: 6px 15px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -715,6 +1061,175 @@
       <p class="animate-slide-up delay-2">
         Pempek Bunda 75 dibuat untuk menghadirkan pempek dengan rasa yang konsisten dan dapat dipercaya. Setiap produk diolah dengan bahan pilihan dan proses yang terjaga, sehingga pelanggan mendapatkan kualitas yang sama di setiap pesanan. Selain rasa, Pempek Bunda 75 juga mengutamakan keseimbangan antara cita rasa ikan, tekstur pempek, dan karakter cuko. Perpaduan ini menjadi alasan utama mengapa produk dibuat dengan standar yang tidak berubah. Pempek Bunda 75 hadir sebagai pilihan pempek rumahan yang mengedepankan kualitas, kejujuran rasa, dan kepuasan pelanggan.
       </p>
+    </div>
+  </section>
+
+  <!-- STARS - TIDAK DIANIMASI -->
+  <div class="stars">
+    <img src="{{ asset('assets/images/Stars.png') }}" alt="Stars">
+  </div>
+
+  <!-- CUSTOMER REVIEWS -->
+  <section class="reviews" id="reviews">
+    <h2 class="section-title font-rascal animate-wobble-slow">Customer Reviews</h2>
+    
+    @php
+        $feedbacks = \App\Models\Feedback::with('user')->latest()->get();
+        $totalReviews = $feedbacks->count();
+        $averageRating = $feedbacks->avg('rating') ?? 0;
+        
+        // Hitung distribusi rating
+        $ratingCounts = [];
+        for ($i = 5; $i >= 1; $i--) {
+            $ratingCounts[$i] = $feedbacks->where('rating', $i)->count();
+        }
+        
+        // Hitung tags
+        $allTags = [];
+        foreach ($feedbacks as $feedback) {
+            if ($feedback->tags && is_array($feedback->tags)) {
+                foreach ($feedback->tags as $tag) {
+                    if (!isset($allTags[$tag])) {
+                        $allTags[$tag] = 0;
+                    }
+                    $allTags[$tag]++;
+                }
+            }
+        }
+        arsort($allTags);
+        
+        // Ambil 5 review pertama
+        $displayedReviews = $feedbacks->take(5);
+        $moreReviews = $feedbacks->skip(5);
+    @endphp
+    
+    <div class="reviews-container animate-fade delay-1">
+      <!-- Rating Summary -->
+      <div class="rating-summary animate-slide-up delay-2">
+        <div class="rating-overview">
+          <div class="rating-score">
+            <span class="score-number">{{ number_format($averageRating, 1) }}</span>
+            <div class="stars-display">
+              @for($i = 1; $i <= 5; $i++)
+                @if($i <= floor($averageRating))
+                  <span class="star filled">★</span>
+                @elseif($i - $averageRating < 1)
+                  <span class="star half">★</span>
+                @else
+                  <span class="star">★</span>
+                @endif
+              @endfor
+            </div>
+            <p class="total-reviews">{{ $totalReviews }} Reviews</p>
+          </div>
+          
+          <div class="rating-bars">
+            @foreach($ratingCounts as $rating => $count)
+              <div class="rating-bar-item">
+                <span class="rating-label">{{ $rating }} ★</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: {{ $totalReviews > 0 ? ($count / $totalReviews * 100) : 0 }}%"></div>
+                </div>
+                <span class="rating-count">{{ $count }}</span>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tags Summary -->
+      @if(count($allTags) > 0)
+      <div class="tags-summary animate-slide-up delay-3">
+        <h3 class="tags-title font-rascal">Popular Tags</h3>
+        <div class="tags-cloud">
+          @foreach(array_slice($allTags, 0, 10, true) as $tag => $count)
+            <span class="tag-item" style="font-size: {{ 14 + ($count * 2) }}px;">
+              {{ $tag }} <span class="tag-count">({{ $count }})</span>
+            </span>
+          @endforeach
+        </div>
+      </div>
+      @endif
+      
+      <!-- Reviews List -->
+      <div class="reviews-list animate-fade delay-4">
+        @if($displayedReviews->count() > 0)
+          @foreach($displayedReviews as $feedback)
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer-info">
+                  <div class="reviewer-avatar">
+                    {{ strtoupper(substr($feedback->user_name, 0, 1)) }}
+                  </div>
+                  <div class="reviewer-details">
+                    <h4 class="reviewer-name">{{ $feedback->user_name }}</h4>
+                    <div class="review-stars">
+                      @for($i = 1; $i <= 5; $i++)
+                        <span class="star {{ $i <= $feedback->rating ? 'filled' : '' }}">★</span>
+                      @endfor
+                    </div>
+                  </div>
+                </div>
+                <span class="review-date">{{ $feedback->created_at->diffForHumans() }}</span>
+              </div>
+              
+              @if($feedback->tags && count($feedback->tags) > 0)
+              <div class="review-tags">
+                @foreach($feedback->tags as $tag)
+                  <span class="review-tag">{{ $tag }}</span>
+                @endforeach
+              </div>
+              @endif
+              
+              <p class="review-text">{{ $feedback->review }}</p>
+            </div>
+          @endforeach
+          
+          @if($moreReviews->count() > 0)
+          <div id="more-reviews" style="display: none;">
+            @foreach($moreReviews as $feedback)
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-avatar">
+                      {{ strtoupper(substr($feedback->user_name, 0, 1)) }}
+                    </div>
+                    <div class="reviewer-details">
+                      <h4 class="reviewer-name">{{ $feedback->user_name }}</h4>
+                      <div class="review-stars">
+                        @for($i = 1; $i <= 5; $i++)
+                          <span class="star {{ $i <= $feedback->rating ? 'filled' : '' }}">★</span>
+                        @endfor
+                      </div>
+                    </div>
+                  </div>
+                  <span class="review-date">{{ $feedback->created_at->diffForHumans() }}</span>
+                </div>
+                
+                @if($feedback->tags && count($feedback->tags) > 0)
+                <div class="review-tags">
+                  @foreach($feedback->tags as $tag)
+                    <span class="review-tag">{{ $tag }}</span>
+                  @endforeach
+                </div>
+                @endif
+                
+                <p class="review-text">{{ $feedback->review }}</p>
+              </div>
+            @endforeach
+          </div>
+          
+          <button id="load-more-btn" class="load-more-btn font-rascal" onclick="toggleMoreReviews()">
+            <span id="btn-text">Load More Reviews</span>
+            <span id="btn-icon">▼</span>
+          </button>
+          @endif
+        @else
+          <div class="no-reviews">
+            <p class="font-rascal">No reviews yet. Be the first to review!</p>
+          </div>
+        @endif
+      </div>
     </div>
   </section>
 

@@ -9,8 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('feedback', function (Blueprint $table) {
-            $table->string('user_name')->nullable()->after('user_id');
-            $table->string('user_email')->nullable()->after('user_name');
+            if (!Schema::hasColumn('feedback', 'user_name')) {
+                $table->string('user_name')->nullable()->after('user_id');
+            }
+            if (!Schema::hasColumn('feedback', 'user_email')) {
+                $table->string('user_email')->nullable()->after('user_name');
+            }
         });
     }
 

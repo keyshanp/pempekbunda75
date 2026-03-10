@@ -20,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // ✅ REGISTER ORDER OBSERVER
+        \App\Models\Order::observe(\App\Observers\OrderObserver::class);
+        
         // Fix untuk Alpine.js error di Filament
         Blade::directive('alpineFix', function () {
             return <<<'HTML'

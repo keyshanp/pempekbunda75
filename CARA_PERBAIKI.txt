@@ -1,0 +1,110 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         🔧 CARA MEMPERBAIKI LARAVEL LOADING TERUS            ║
+╚═══════════════════════════════════════════════════════════════╝
+
+MASALAH: MySQL Server tidak berjalan!
+
+═══════════════════════════════════════════════════════════════
+
+📌 SOLUSI 1: START MYSQL (PALING MUDAH)
+═══════════════════════════════════════════════════════════════
+
+Jika pakai XAMPP:
+1. Buka XAMPP Control Panel
+2. Klik tombol "Start" di baris MySQL
+3. Tunggu sampai hijau
+4. Refresh browser (F5)
+
+Jika pakai Laragon:
+1. Buka Laragon
+2. Klik "Start All"
+3. Tunggu sampai hijau
+4. Refresh browser (F5)
+
+═══════════════════════════════════════════════════════════════
+
+📌 SOLUSI 2: PAKAI SQLITE (ALTERNATIF)
+═══════════════════════════════════════════════════════════════
+
+Jika MySQL bermasalah, jalankan ini di PowerShell/CMD:
+
+1. Double-click file: switch-to-sqlite.bat
+
+   ATAU jalankan manual:
+
+2. Buat file database:
+   New-Item -Path database/database.sqlite -ItemType File
+
+3. Edit file .env, ubah baris ini:
+   DB_CONNECTION=sqlite
+   # DB_HOST=127.0.0.1
+   # DB_PORT=3306
+   # DB_DATABASE=pempekbunda75
+   # DB_USERNAME=root
+   # DB_PASSWORD=
+
+4. Clear cache:
+   php artisan config:clear
+   php artisan cache:clear
+
+5. Migrate database:
+   php artisan migrate:fresh --seed
+
+6. Start server:
+   php artisan serve
+
+7. Buka browser: http://localhost:8000
+
+═══════════════════════════════════════════════════════════════
+
+📌 CEK APAKAH MYSQL BERJALAN
+═══════════════════════════════════════════════════════════════
+
+Jalankan di PowerShell:
+   netstat -ano | findstr :3306
+
+Jika tidak ada output = MySQL tidak berjalan
+Jika ada output = MySQL berjalan
+
+═══════════════════════════════════════════════════════════════
+
+📌 SETELAH MYSQL BERJALAN
+═══════════════════════════════════════════════════════════════
+
+1. Clear cache:
+   php artisan config:clear
+   php artisan cache:clear
+   php artisan route:clear
+   php artisan view:clear
+
+2. Test koneksi:
+   php artisan tinker
+   DB::connection()->getPdo();
+   exit
+
+3. Start server:
+   php artisan serve
+
+4. Buka: http://localhost:8000
+
+═══════════════════════════════════════════════════════════════
+
+❓ MASIH ERROR?
+═══════════════════════════════════════════════════════════════
+
+Cek log error:
+   Get-Content storage/logs/laravel.log -Tail 50
+
+Atau buka file: storage/logs/laravel.log
+
+═══════════════════════════════════════════════════════════════
+
+✅ VERIFIKASI BERHASIL
+═══════════════════════════════════════════════════════════════
+
+Coba akses:
+- Homepage: http://localhost:8000
+- Admin: http://localhost:8000/admin
+- Test: http://localhost:8000/test-system
+
+═══════════════════════════════════════════════════════════════

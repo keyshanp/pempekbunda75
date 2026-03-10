@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
   <!-- CSP untuk mengizinkan eval() yang digunakan Alpine.js -->
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com;">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data: https:;">
 
   <!-- RASCAL FONT -->
   <style>
@@ -33,10 +33,18 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
+  <!-- Leaflet CSS & JS (OpenStreetMap - 100% GRATIS, TIDAK PERLU API KEY!) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+        crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Alpine.js untuk payment - Gunakan versi spesifik -->
+  <!-- Alpine.js untuk payment - Load AFTER Leaflet -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
   
   <style>
@@ -333,55 +341,140 @@
                 <!-- Alamat Spesifik -->
                 <section class="bg-white p-6 rounded-2xl border border-[#E8DCC4] shadow-sm space-y-4">
                   <div class="flex justify-between items-center border-b pb-2">
-                    <h3 class="text-lg font-bold text-[#C6584F]">Alamat Spesifik</h3>
-                    <button 
-                      type="button"
-                      @click="getCurrentLocation"
-                      class="text-xs bg-[#758E27] text-white px-3 py-1 rounded-full flex items-center gap-1 hover:opacity-80 transition"
-                    >
-                      <i class="fas fa-map-marker-alt"></i> Ambil Lokasi
-                    </button>
+                    <h3 class="text-lg font-bold text-[#C6584F]">📍 Pilih Lokasi Pengiriman</h3>
                   </div>
                   
-                  <!-- Info Lokasi Kantor -->
-                  <div class="office-location-info">
-                    <i class="fas fa-store mr-1"></i>
-                    <span class="font-bold">Lokasi Toko:</span> -7.372085, 109.241568
+                  <!-- Info Lokasi Toko -->
+                  <div class="bg-amber-50 p-3 rounded-lg border border-amber-200">
+                    <p class="text-sm font-bold text-amber-800">
+                      <i class="fas fa-store mr-1"></i>
+                      Lokasi Toko: -7.372085, 109.241568
+                    </p>
                   </div>
                   
-                  <textarea 
-                    required
-                    rows="4"
-                    x-model="formData.address"
-                    placeholder="Contoh: Jl. Mawar No 123, Blok A, Depan Warung Madura, RT 01 RW 02, Kelurahan Majasem, Kecamatan Kemang, Kabupaten Bogor"
-                    class="w-full border border-[#E8DCC4] rounded-lg p-2 text-[#5C3D2E] focus:ring-1 focus:ring-[#C6584F] outline-none resize-none"
-                  ></textarea>
-                  
-                  <!-- KOORDINAT (HIDDEN) -->
-                  <input type="hidden" x-model="formData.lat">
-                  <input type="hidden" x-model="formData.lng">
-                  
-                  <!-- STATUS LOKASI DENGAN DETAIL LENGKAP -->
-                  <div x-show="formData.lat && formData.lng" class="text-sm bg-green-50 p-3 rounded-lg border border-green-200">
-                    <div class="flex items-start gap-2">
-                      <i class="fas fa-map-pin text-green-600 mt-1"></i>
-                      <div>
-                        <p class="font-bold text-green-700">Lokasi terdeteksi:</p>
-                        <p class="text-green-600 font-mono text-sm" x-text="formData.lat.toFixed(6) + ', ' + formData.lng.toFixed(6)"></p>
-                        <p class="text-xs text-gray-500 mt-2">
-                          <i class="fas fa-info-circle mr-1"></i>
-                          Silakan lengkapi alamat di atas dengan detail tambahan seperti nama jalan, nomor rumah, blok, RT/RW, kelurahan, dll.
-                        </p>
-                        <a x-bind:href="'https://www.google.com/maps?q=' + formData.lat + ',' + formData.lng" 
-                           target="_blank" 
-                           class="text-xs text-blue-600 hover:underline mt-1 inline-block">
-                          <i class="fas fa-external-link-alt mr-1"></i>Lihat di Google Maps
-                        </a>
+                  <!-- Google Maps dengan Dual Marker -->
+                  <div class="space-y-3">
+                    <label class="block text-sm font-bold text-gray-700">
+                      <i class="fas fa-map-marked-alt mr-1"></i>
+                      Geser pin merah atau klik peta untuk menentukan lokasi Anda
+                    </label>
+                    
+                    <!-- Map Container -->
+                    <div id="payment-map" class="w-full h-[400px] rounded-xl border-4 border-[#758E27] shadow-lg relative">
+                      <!-- Loading -->
+                      <div x-show="mapLoading" class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10 rounded-xl">
+                        <div class="text-center">
+                          <i class="fas fa-spinner fa-spin text-3xl text-[#758E27] mb-2"></i>
+                          <p class="text-sm font-bold">Memuat peta...</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Legend -->
+                    <div class="flex items-center gap-4 text-xs">
+                      <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <span>Lokasi Toko (Fixed)</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span>Lokasi Anda (Geser untuk pindah)</span>
                       </div>
                     </div>
                   </div>
+                  
+                  <!-- Jarak & Ongkir Display -->
+                  <div x-show="formData.distance > 0" class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div>
+                        <p class="text-xs font-bold text-blue-700 mb-1">
+                          <i class="fas fa-route mr-1"></i> Jarak dari Toko
+                        </p>
+                        <p class="text-xl font-bold text-blue-900" x-text="formData.distance.toFixed(2) + ' km'"></p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-bold text-blue-700 mb-1">
+                          <i class="fas fa-money-bill-wave mr-1"></i> Ongkos Kirim
+                        </p>
+                        <p class="text-xl font-bold text-blue-900" x-text="'Rp ' + shippingCost.toLocaleString('id-ID')"></p>
+                      </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2">
+                      <i class="fas fa-info-circle mr-1"></i>
+                      Perhitungan: <span x-text="formData.distance.toFixed(2)"></span> km × Rp 2.500/km
+                    </p>
+                  </div>
+                  
+                  <!-- Koordinat Display -->
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-bold text-gray-600 mb-1">
+                        <i class="fas fa-map-pin text-red-500 mr-1"></i> Latitude Anda
+                      </label>
+                      <input 
+                        type="text" 
+                        x-model="formData.lat" 
+                        readonly 
+                        class="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm"
+                        placeholder="Belum dipilih">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-gray-600 mb-1">
+                        <i class="fas fa-map-pin text-red-500 mr-1"></i> Longitude Anda
+                      </label>
+                      <input 
+                        type="text" 
+                        x-model="formData.lng" 
+                        readonly 
+                        class="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm"
+                        placeholder="Belum dipilih">
+                    </div>
+                  </div>
+                  
+                  <!-- Alamat Otomatis -->
+                  <div x-show="formData.address" class="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p class="text-xs font-bold text-green-700 mb-1">
+                      <i class="fas fa-check-circle mr-1"></i> Alamat Terdeteksi:
+                    </p>
+                    <p class="text-sm text-gray-800" x-text="formData.address"></p>
+                  </div>
+                  
+                  <!-- Catatan Tambahan -->
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                      <i class="fas fa-sticky-note mr-1"></i>
+                      Catatan Tambahan Alamat (Opsional)
+                    </label>
+                    <textarea 
+                      rows="3"
+                      x-model="formData.addressNotes"
+                      placeholder="Contoh: Rumah pagar hitam, dekat masjid Al-Ikhlas, RT 03 RW 05, sebelah warung Pak Budi"
+                      class="w-full border border-[#E8DCC4] rounded-lg p-3 text-sm focus:ring-2 focus:ring-[#758E27] outline-none resize-none"
+                    ></textarea>
+                    <p class="text-xs text-gray-500 mt-1">
+                      <i class="fas fa-info-circle mr-1"></i>
+                      Tambahkan patokan, warna rumah, RT/RW, atau detail yang memudahkan driver
+                    </p>
+                  </div>
+                  
+                  <!-- Status Validasi -->
+                  <div x-show="!formData.lat || !formData.lng" class="bg-yellow-50 p-3 rounded-lg border border-yellow-400">
+                    <p class="text-xs text-yellow-700">
+                      <i class="fas fa-exclamation-triangle mr-1"></i>
+                      <strong>Perhatian:</strong> Anda belum memilih lokasi di peta. Geser pin merah atau klik pada peta untuk menentukan lokasi pengiriman.
+                    </p>
+                  </div>
+                  
+                  <div x-show="formData.lat && formData.lng && formData.distance > 0" class="bg-green-50 p-3 rounded-lg border border-green-300">
+                    <p class="text-xs text-green-700">
+                      <i class="fas fa-check-circle mr-1"></i>
+                      <strong>Lokasi sudah dipilih!</strong> Jarak: <span x-text="formData.distance.toFixed(2)"></span> km | Ongkir: Rp <span x-text="shippingCost.toLocaleString('id-ID')"></span>
+                    </p>
+                  </div>
                 </section>
+              </div>
 
+              <div class="space-y-6">
                 <!-- Metode Pengiriman & Ongkir -->
                 <section class="bg-white p-6 rounded-2xl border border-[#E8DCC4] shadow-sm space-y-4">
                   <h3 class="text-lg font-bold text-[#C6584F] border-b pb-2">Metode Pengiriman</h3>
@@ -431,9 +524,7 @@
                     <span class="font-bold">Penting:</span> Ambil lokasi terlebih dahulu untuk menghitung ongkir!
                   </div>
                 </section>
-              </div>
-
-              <div class="space-y-6">
+                
                 <!-- Metode Pembayaran QRIS - DENGAN GAMBAR PAYMENT1.JPEG -->
                 <section class="bg-white p-6 rounded-2xl border border-[#E8DCC4] shadow-sm">
                   <h3 class="text-lg font-bold text-[#C6584F] mb-4">Metode Pembayaran (QRIS)</h3>
@@ -535,6 +626,7 @@
           email: '{{ auth()->user()->email ?? "customer@gmail.com" }}',
           whatsapp: '',
           address: '',
+          addressNotes: '',
           lat: null,
           lng: null,
           distance: 0,
@@ -543,10 +635,21 @@
           agreedToVerify: false
         },
         
+        // Map variables
+        mapLoading: true,
+        paymentMap: null,
+        tokoMarker: null,
+        userMarker: null,
+        geocoder: null,
+        
         whatsappError: '',
         
         init() {
           this.loadData();
+          // Initialize map after short delay
+          setTimeout(() => {
+            this.initializePaymentMap();
+          }, 500);
         },
         
         loadData() {
@@ -711,6 +814,161 @@
         
         deg2rad(deg) {
           return deg * (Math.PI/180);
+        },
+        
+        // 🗺️ INITIALIZE PAYMENT MAP WITH DUAL MARKERS (LEAFLET - GRATIS!)
+        initializePaymentMap() {
+          console.log('🗺️ Initializing payment map...');
+          
+          // Cek apakah Leaflet sudah loaded
+          if (typeof L === 'undefined') {
+            console.error('❌ Leaflet belum loaded! Coba lagi...');
+            setTimeout(() => this.initializePaymentMap(), 500);
+            return;
+          }
+          
+          console.log('✅ Leaflet loaded!');
+          
+          const tokoLat = this.storeLat;
+          const tokoLng = this.storeLng;
+          
+          console.log('📍 Koordinat Toko:', tokoLat, tokoLng);
+          
+          // Default user location: dekat toko
+          const defaultUserLat = tokoLat + 0.01;
+          const defaultUserLng = tokoLng + 0.01;
+          
+          try {
+            // Initialize Leaflet map
+            console.log('🗺️ Creating map...');
+            this.paymentMap = L.map('payment-map').setView([tokoLat, tokoLng], 14);
+            
+            // Add OpenStreetMap tiles (GRATIS!)
+            console.log('🗺️ Adding tiles...');
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '© OpenStreetMap contributors',
+              maxZoom: 19
+            }).addTo(this.paymentMap);
+            
+            // Marker Toko (Biru, Fixed)
+            console.log('📍 Adding toko marker...');
+            const tokoIcon = L.divIcon({
+              html: '<div style="background-color: #3B82F6; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">🏪</div>',
+              className: 'custom-marker',
+              iconSize: [30, 30],
+              iconAnchor: [15, 15]
+            });
+            
+            this.tokoMarker = L.marker([tokoLat, tokoLng], {
+              icon: tokoIcon,
+              draggable: false
+            }).addTo(this.paymentMap);
+            
+            this.tokoMarker.bindPopup(`
+              <div style="padding: 5px; font-family: Arial;">
+                <h3 style="margin: 0 0 5px 0; color: #3B82F6; font-size: 14px;">🏪 Pempek Bunda 75</h3>
+                <p style="margin: 0; font-size: 11px; color: #666;">Lokasi Toko (Fixed)</p>
+              </div>
+            `);
+            
+            // Marker User (Merah, Draggable)
+            console.log('📍 Adding user marker...');
+            const userIcon = L.divIcon({
+              html: '<div style="background-color: #EF4444; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">📍</div>',
+              className: 'custom-marker',
+              iconSize: [30, 30],
+              iconAnchor: [15, 15]
+            });
+            
+            this.userMarker = L.marker([defaultUserLat, defaultUserLng], {
+              icon: userIcon,
+              draggable: true
+            }).addTo(this.paymentMap);
+            
+            this.userMarker.bindPopup('Geser pin ini ke lokasi Anda atau klik peta');
+            
+            // Set initial location
+            this.updateUserLocation(defaultUserLat, defaultUserLng);
+            
+            // Listen to drag end
+            this.userMarker.on('dragend', () => {
+              const pos = this.userMarker.getLatLng();
+              this.updateUserLocation(pos.lat, pos.lng);
+            });
+            
+            // Listen to map click
+            this.paymentMap.on('click', (event) => {
+              const lat = event.latlng.lat;
+              const lng = event.latlng.lng;
+              this.userMarker.setLatLng([lat, lng]);
+              this.updateUserLocation(lat, lng);
+            });
+            
+            console.log('✅ Map initialized successfully!');
+            this.mapLoading = false;
+            
+          } catch (error) {
+            console.error('❌ Error initializing map:', error);
+            this.mapLoading = false;
+            alert('Gagal memuat peta. Silakan refresh halaman.');
+          }
+        },
+        
+        updateUserLocation(lat, lng) {
+          // Update coordinates
+          this.formData.lat = lat.toFixed(7);
+          this.formData.lng = lng.toFixed(7);
+          
+          // Calculate distance
+          this.calculateDistance();
+          
+          // Reverse geocode (menggunakan Nominatim - GRATIS!)
+          this.reverseGeocode(lat, lng);
+          
+          // Recalculate total
+          this.calculateTotal();
+        },
+        
+        calculateDistance() {
+          // Haversine formula
+          const R = 6371; // Earth radius in km
+          
+          const lat1 = this.storeLat * Math.PI / 180;
+          const lat2 = parseFloat(this.formData.lat) * Math.PI / 180;
+          const deltaLat = (parseFloat(this.formData.lat) - this.storeLat) * Math.PI / 180;
+          const deltaLng = (parseFloat(this.formData.lng) - this.storeLng) * Math.PI / 180;
+          
+          const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                    Math.cos(lat1) * Math.cos(lat2) *
+                    Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+          
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          
+          const distance = R * c;
+          
+          this.formData.distance = distance;
+          
+          // Calculate shipping cost (Rp 2.500/km)
+          if (this.formData.shippingMethod !== 'pickup') {
+            this.shippingCost = Math.round(distance * 2500);
+          }
+        },
+        
+        reverseGeocode(lat, lng) {
+          // Menggunakan Nominatim (OpenStreetMap) - 100% GRATIS!
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+            .then(response => response.json())
+            .then(data => {
+              if (data && data.display_name) {
+                this.formData.address = data.display_name;
+              } else {
+                this.formData.address = `Koordinat: ${lat}, ${lng}`;
+              }
+            })
+            .catch(error => {
+              console.error('Reverse geocoding error:', error);
+              this.formData.address = `Koordinat: ${lat}, ${lng}`;
+            });
         },
         
         getCurrentLocation() {

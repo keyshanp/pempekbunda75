@@ -56,81 +56,8 @@ Route::post('/admin/logout', function (Request $request) {
 // 🧪 TEST & DEBUG ROUTES
 // ============================================
 
-Route::get('/test-system', function() {
-    echo "<h1>System Test - Pempek Bunda 75</h1>";
-    
-    echo "<p>✅ PHP Version: " . PHP_VERSION . "</p>";
-    
-    try {
-        DB::connection()->getPdo();
-        echo "<p style='color:green'>✅ Database Connected</p>";
-    } catch (\Exception $e) {
-        echo "<p style='color:red'>❌ Database Error: " . $e->getMessage() . "</p>";
-    }
-    
-    try {
-        $produkCount = \App\Models\Produk::count();
-        echo "<p>✅ Produk Model: $produkCount records</p>";
-    } catch (\Exception $e) {
-        echo "<p style='color:red'>❌ Produk Model Error: " . $e->getMessage() . "</p>";
-    }
-    
-    try {
-        $userCount = \App\Models\User::count();
-        echo "<p>✅ User Model: $userCount users</p>";
-    } catch (\Exception $e) {
-        echo "<p style='color:red'>❌ User Model Error: " . $e->getMessage() . "</p>";
-    }
-    
-    // 🔥 CEK FEEDBACK
-    try {
-        $feedbackCount = \App\Models\Feedback::count();
-        echo "<p>✅ Feedback Model: $feedbackCount records</p>";
-    } catch (\Exception $e) {
-        echo "<p style='color:red'>❌ Feedback Model Error: " . $e->getMessage() . "</p>";
-    }
-    
-    echo "<h2>Filament Test</h2>";
-    $filamentClasses = [
-        'Filament\Panel' => class_exists('Filament\Panel'),
-        'App\Providers\Filament\AdminPanelProvider' => class_exists('App\Providers\Filament\AdminPanelProvider'),
-        'App\Filament\Resources\ProdukResource' => class_exists('App\Filament\Resources\ProdukResource'),
-        'App\Filament\Resources\FeedbackResource' => class_exists('App\Filament\Resources\FeedbackResource'),
-    ];
-    
-    foreach ($filamentClasses as $class => $exists) {
-        echo "<p style='color:" . ($exists ? 'green' : 'red') . "'>" . 
-             ($exists ? '✅' : '❌') . " $class</p>";
-    }
-    
-    echo "<hr>";
-    echo "<a href='/admin' target='_blank'>Go to Admin</a> | ";
-    echo "<a href='/admin/produks' target='_blank'>Go to Produks</a> | ";
-    echo "<a href='/admin/feedback' target='_blank'>Go to Feedback</a> | ";
-    echo "<a href='/' target='_blank'>Home</a>";
-});
 
-Route::get('/test-produk', function() {
-    echo "<h1>Produk Test</h1>";
-    
-    try {
-        $produks = \App\Models\Produk::take(5)->get();
-        if ($produks->count() > 0) {
-            echo "<p style='color:green'>✅ Found " . $produks->count() . " produk(s)</p>";
-            foreach ($produks as $produk) {
-                echo "<p>📦 {$produk->nama_produk} - Rp " . number_format($produk->harga, 0, ',', '.') . 
-                     " (Stok: {$produk->stok})</p>";
-            }
-        } else {
-            echo "<p style='color:orange'>⚠️ No produk found. Run seeder?</p>";
-        }
-    } catch (\Exception $e) {
-        echo "<p style='color:red'>❌ Error: " . $e->getMessage() . "</p>";
-        echo "<pre>" . $e->getTraceAsString() . "</pre>";
-    }
-    
-    echo "<hr><a href='/admin/produks' target='_blank'>Try Filament Produks</a>";
-});
+
 
 // 🔥 TEST FEEDBACK ROUTE
 Route::get('/test-feedback', function() {
@@ -259,6 +186,21 @@ Route::middleware('auth')->group(function () {
             ->with('success', 'Anda telah logout.');
     })->name('logout');
     
+    // 🔥 HISTORI TRANSAKSI USER
+    Route::get('/transaksi/history', function () {
+        $transaksis = \App\Models\Transaksi::whereHas('order', function($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with('order')
+            ->latest()
+            ->paginate(10);
+            
+        return view('transaksi.history', [
+            'transaksis' => $transaksis,
+            'title' => 'Histori Transaksi - Pempek Bunda 75'
+        ]);
+    })->name('transaksi.history');
+    
     // 🔥 CUSTOMER REVIEWS - Lihat review mereka sendiri
     Route::get('/my-reviews', function () {
         $feedbacks = \App\Models\Feedback::where('user_id', auth()->id())
@@ -341,6 +283,33 @@ Route::get('/tentang-kami', function () {
 Route::get('/kontak', function () {
     return view('contact', ['title' => 'Kontak - Pempek Bunda 75']);
 })->name('contact');
+
+// ============================================
+// 🌟 PUBLIC REVIEWS PAGE
+// ============================================
+
+Route::get('/reviews', function () {
+    $feedbacks = \App\Models\Feedback::with('user')
+        ->latest()
+        ->paginate(10);
+    
+    $totalReviews = \App\Models\Feedback::count();
+    $averageRating = \App\Models\Feedback::avg('rating') ?? 0;
+    
+    // Hitung distribusi rating
+    $ratingCounts = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingCounts[$i] = \App\Models\Feedback::where('rating', $i)->count();
+    }
+    
+    return view('feedback.reviews', [
+        'feedbacks' => $feedbacks,
+        'totalReviews' => $totalReviews,
+        'averageRating' => $averageRating,
+        'ratingCounts' => $ratingCounts,
+        'title' => 'Review Pelanggan - Pempek Bunda 75'
+    ]);
+})->name('reviews');
 
 // ============================================
 // 📄 LEGAL PAGES

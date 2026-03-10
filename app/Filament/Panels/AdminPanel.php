@@ -13,7 +13,7 @@ class AdminPanel extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(\App\Filament\Pages\Auth\AdminLogin::class)
             ->registration()
             ->passwordReset()
             ->emailVerification()

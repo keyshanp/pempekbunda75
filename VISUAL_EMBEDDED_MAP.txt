@@ -1,0 +1,314 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  🗺️ VISUAL: EMBEDDED MAP SYSTEM                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 TAMPILAN CHECKOUT PAGE (EMBEDDED MAP)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         🏠 Pempek Bunda 75                                 │
+│                                                                            │
+│  ┌──────────────────────────────────────────────────────────────────────┐ │
+│  │  📋 Informasi Pemesan                                                │ │
+│  │                                                                      │ │
+│  │  Nama:     [John Doe                                    ]           │ │
+│  │  Email:    [john@example.com                            ]           │ │
+│  │  WhatsApp: [081234567890                                ]           │ │
+│  └──────────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  ┌──────────────────────────────────────────────────────────────────────┐ │
+│  │  🚚 Metode Pengiriman                                                │ │
+│  │                                                                      │ │
+│  │  ○ Ambil Sendiri (Gratis)                                           │ │
+│  │  ● Diantar (GoSend) - Rp 15.000                                     │ │
+│  └──────────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  ┌──────────────────────────────────────────────────────────────────────┐ │
+│  │  📍 Pilih Lokasi Pengiriman                                          │ │
+│  │                                                                      │ │
+│  │  Geser pin atau klik peta untuk menentukan lokasi *                 │ │
+│  │                                                                      │ │
+│  │  ┌────────────────────────────────────────────────────────────────┐ │ │
+│  │  │                                                                │ │ │
+│  │  │         🏢                    🏠                                │ │ │
+│  │  │                                                                │ │ │
+│  │  │    🌳        🏪                      🏫                         │ │ │
+│  │  │                         📍 (DRAGGABLE MARKER)                  │ │ │
+│  │  │                                                                │ │ │
+│  │  │         🚗                                  🌳                  │ │ │
+│  │  │                    🏠              🏢                           │ │ │
+│  │  │                                                                │ │ │
+│  │  │    🌳                         🏪                                │ │ │
+│  │  │                                                                │ │ │
+│  │  │                    [Google Maps - 400px height]                │ │ │
+│  │  │                                                                │ │ │
+│  │  └────────────────────────────────────────────────────────────────┘ │ │
+│  │                                                                      │ │
+│  │  📍 Latitude              📍 Longitude                               │ │
+│  │  [-2.9760735]             [104.7754307]                              │ │
+│  │                                                                      │ │
+│  │  ┌────────────────────────────────────────────────────────────────┐ │ │
+│  │  │ ✓ Alamat Terdeteksi:                                           │ │ │
+│  │  │ Jl. Sudirman No. 123, Ilir Timur I, Palembang,                │ │ │
+│  │  │ Sumatera Selatan 30114, Indonesia                              │ │ │
+│  │  └────────────────────────────────────────────────────────────────┘ │ │
+│  │                                                                      │ │
+│  │  Catatan Tambahan Alamat (Opsional)                                 │ │
+│  │  ┌────────────────────────────────────────────────────────────────┐ │ │
+│  │  │ Rumah pagar hitam, dekat warung Pak Budi, RT 03 RW 05         │ │ │
+│  │  │                                                                │ │ │
+│  │  └────────────────────────────────────────────────────────────────┘ │ │
+│  │                                                                      │ │
+│  │  ┌────────────────────────────────────────────────────────────────┐ │ │
+│  │  │ ✓ Lokasi sudah dipilih! Koordinat: -2.9760735, 104.7754307    │ │ │
+│  │  └────────────────────────────────────────────────────────────────┘ │ │
+│  └──────────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  [ Lanjut ke Pembayaran → ] (ENABLED)                                     │
+└────────────────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 USER INTERACTION FLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    START
+      │
+      ▼
+┌─────────────────┐
+│ User di Checkout│
+│ Page            │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Pilih "Diantar  │
+│ (GoSend)"       │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Peta Langsung   │
+│ Muncul di Bawah │
+└────────┬────────┘
+         │
+         ▼
+    ┌────────┐
+    │ User   │
+    │ Action │
+    └───┬────┘
+        │
+    ┌───┴───┐
+    │       │
+    ▼       ▼
+┌──────┐ ┌──────┐
+│ Drag │ │ Klik │
+│Marker│ │ Peta │
+└───┬──┘ └───┬──┘
+    │        │
+    └────┬───┘
+         │
+         ▼
+┌─────────────────┐
+│ Marker Pindah   │
+│ ke Lokasi Baru  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Koordinat       │
+│ Update Otomatis │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Reverse         │
+│ Geocoding       │
+│ (Get Address)   │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Alamat Muncul   │
+│ di Box Hijau    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ User Tambahkan  │
+│ Catatan (Opt.)  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Success Box     │
+│ Muncul ✓        │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Tombol Checkout │
+│ ENABLED         │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ User Lanjut     │
+│ Checkout        │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Order Dibuat    │
+│ Data Tersimpan  │
+└────────┬────────┘
+         │
+         ▼
+      END
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 COMPONENT BREAKDOWN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                                                            │
+│  1. HEADER                                                                 │
+│     "📍 Pilih Lokasi Pengiriman"                                          │
+│                                                                            │
+│  2. LABEL                                                                  │
+│     "Geser pin atau klik peta untuk menentukan lokasi *"                  │
+│                                                                            │
+│  3. EMBEDDED MAP CONTAINER                                                 │
+│     ┌──────────────────────────────────────────────────────────────────┐ │
+│     │ • ID: embedded-map                                               │ │
+│     │ • Height: 400px                                                  │ │
+│     │ • Border: 4px solid #6B8E23                                      │ │
+│     │ • Border Radius: 1rem                                            │ │
+│     │ • Shadow: lg                                                     │ │
+│     │                                                                  │ │
+│     │ MARKER:                                                          │ │
+│     │ • Color: Red                                                     │ │
+│     │ • Draggable: true                                                │ │
+│     │ • Animation: DROP                                                │ │
+│     │ • Tooltip: "Geser pin ini untuk memilih lokasi"                 │ │
+│     │                                                                  │ │
+│     │ MAP SETTINGS:                                                    │ │
+│     │ • Default: Palembang (-2.9760735, 104.7754307)                  │ │
+│     │ • Zoom: 15                                                       │ │
+│     │ • Gesture Handling: greedy                                       │ │
+│     │ • Controls: zoom, fullscreen                                     │ │
+│     └──────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  4. COORDINATE DISPLAY (2 columns)                                         │
+│     ┌──────────────────────┐  ┌──────────────────────┐                   │
+│     │ 📍 Latitude          │  │ 📍 Longitude         │                   │
+│     │ [-2.9760735]         │  │ [104.7754307]        │                   │
+│     │ (readonly)           │  │ (readonly)           │                   │
+│     └──────────────────────┘  └──────────────────────┘                   │
+│                                                                            │
+│  5. ADDRESS DISPLAY (Green Box)                                            │
+│     ┌──────────────────────────────────────────────────────────────────┐ │
+│     │ ✓ Alamat Terdeteksi:                                             │ │
+│     │ Jl. Sudirman No. 123, Ilir Timur I, Palembang...                │ │
+│     └──────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  6. CATATAN TEXTAREA                                                       │
+│     ┌──────────────────────────────────────────────────────────────────┐ │
+│     │ Catatan Tambahan Alamat (Opsional)                              │ │
+│     │ [Rumah pagar hitam, dekat warung Pak Budi, RT 03 RW 05]         │ │
+│     └──────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│  7. VALIDATION BOX                                                         │
+│     IF belum pilih lokasi:                                                 │
+│     ┌──────────────────────────────────────────────────────────────────┐ │
+│     │ ⚠️ Perhatian: Anda belum memilih lokasi di peta...              │ │
+│     └──────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+│     IF sudah pilih lokasi:                                                 │
+│     ┌──────────────────────────────────────────────────────────────────┐ │
+│     │ ✓ Lokasi sudah dipilih! Koordinat: -2.976, 104.775              │ │
+│     └──────────────────────────────────────────────────────────────────┘ │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 COLOR SCHEME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary Green:   #6B8E23  (Border peta, header)
+Red Marker:      #EF4444  (Marker pin)
+Success Green:   #10B981  (Box alamat terdeteksi)
+Warning Yellow:  #F59E0B  (Box belum pilih lokasi)
+Gray:            #E5E7EB  (Borders, backgrounds)
+White:           #FFFFFF  (Backgrounds)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📐 DIMENSIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Map Container:
+  • Width: 100% (full width)
+  • Height: 400px
+  • Border: 4px solid
+  • Border Radius: 1rem (16px)
+  • Shadow: lg
+
+Coordinate Fields:
+  • Width: 50% each (2 columns)
+  • Height: auto
+  • Padding: 0.5rem 1rem
+
+Catatan Textarea:
+  • Width: 100%
+  • Rows: 3
+  • Padding: 0.75rem 1rem
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 TECHNICAL SPECS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+JavaScript Functions:
+  • initializeEmbeddedMap()  - Initialize map & marker
+  • updateLocation(lat, lng) - Update coordinates
+  • reverseGeocode(lat, lng) - Get address from coordinates
+
+Event Listeners:
+  • marker.dragend           - When user stops dragging marker
+  • map.click                - When user clicks on map
+
+Alpine.js Data:
+  • location.latitude        - Coordinate latitude
+  • location.longitude       - Coordinate longitude
+  • customer.address         - Address from reverse geocoding
+  • customer.catatan_alamat  - Additional notes
+  • mapLoading               - Loading state
+
+APIs Used:
+  • Google Maps JavaScript API - Map rendering
+  • Google Geocoding API       - Reverse geocoding
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 RESPONSIVE BREAKPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Desktop (> 1024px):
+  • Map: 400px height
+  • Coordinates: 2 columns
+  • Full width layout
+
+Tablet (768px - 1024px):
+  • Map: 400px height
+  • Coordinates: 2 columns
+  • Adjusted padding
+
+Mobile (< 768px):
+  • Map: 400px height (scrollable)
+  • Coordinates: 2 columns (stacked if needed)
+  • Touch-friendly controls
+  • Larger tap targets
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dibuat dengan ❤️ untuk Pempek Bunda 75
+Tanggal: 4 Maret 2026
+Version: 2.0.0 (Embedded System)

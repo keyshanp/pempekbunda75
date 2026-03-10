@@ -1,0 +1,173 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                   🎯 QUICK REFERENCE: AUTO TRANSAKSI                         ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📋 QUICK TEST (5 MENIT)                                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    1. Login: http://127.0.0.1:8000/admin/login
+    2. Menu: Pesanan
+    3. Edit order (status: paid/processed)
+    4. Ubah status → Selesai (completed)
+    5. Save
+    6. Cek notifikasi: "Transaksi TRX-XXXX berhasil dibuat"
+    7. Menu: Laporan Transaksi
+    8. Verifikasi: Transaksi baru ada ✅
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🔄 TRIGGER POINTS                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ✅ Edit Order (Single)
+       Admin Panel → Pesanan → Edit → Status: Completed → Save
+    
+    ✅ Bulk Action (Multiple)
+       Admin Panel → Pesanan → Centang → Ubah Status → Completed
+    
+    ✅ Via Controller (API/Web)
+       OrderController → adminUpdateStatus() / updateStatus()
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📊 STATUS ORDER → TRANSAKSI                                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    pending    → ❌ Tidak ada transaksi
+    paid       → ❌ Tidak ada transaksi
+    processed  → ❌ Tidak ada transaksi
+    shipped    → ❌ Tidak ada transaksi
+    completed  → ✅ AUTO-CREATE TRANSAKSI
+    cancelled  → ❌ Transaksi tetap ada (audit)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📝 DATA TRANSAKSI                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Kode Transaksi:    TRX-YYYYMMDD-XXXX (auto-generated)
+    Pesanan ID:        Order ID (foreign key)
+    Metode Pembayaran: Dari order (qris/transfer/cash/dll)
+    Jumlah Bayar:      Total order
+    Status:            success
+    Waktu Pembayaran:  now()
+    Waktu Konfirmasi:  now()
+    Catatan:           "Transaksi otomatis dari order completed"
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🔍 MONITORING                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Log File:
+    storage/logs/laravel.log
+    
+    Cek Log (PowerShell):
+    Get-Content storage/logs/laravel.log -Tail 20
+    
+    Cari Log Transaksi:
+    findstr "Transaksi.*dibuat otomatis" storage\logs\laravel.log
+    
+    Cek Database:
+    SELECT * FROM transaksis ORDER BY created_at DESC LIMIT 10;
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🐛 TROUBLESHOOTING                                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Transaksi tidak dibuat?
+    → Cek log: storage/logs/laravel.log
+    → Cek browser console (F12)
+    → Cek migration: php artisan migrate:status
+    
+    Error "pesanan_id constraint"?
+    → php artisan migrate:rollback --step=1
+    → php artisan migrate
+    
+    Transaksi duplikat?
+    → Sistem sudah ada proteksi
+    → Cek: SELECT pesanan_id, COUNT(*) FROM transaksis GROUP BY pesanan_id
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  ✅ EXPECTED RESULTS                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ✅ Notifikasi: "Transaksi TRX-XXXX berhasil dibuat otomatis"
+    ✅ Transaksi baru di "Laporan Transaksi"
+    ✅ Kode format: TRX-YYYYMMDD-XXXX
+    ✅ Status: Success
+    ✅ Jumlah sama dengan total order
+    ✅ Metode sama dengan order
+    ✅ Log tercatat
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📚 DOKUMENTASI                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    README_AUTO_TRANSAKSI.md           → Main guide
+    STATUS_FITUR_AUTO_TRANSAKSI.md     → Implementation status
+    CARA_TEST_AUTO_TRANSAKSI.md        → Testing guide
+    VISUAL_GUIDE_AUTO_TRANSAKSI.txt    → Visual step-by-step
+    AUTO_CREATE_TRANSAKSI.md           → Technical docs
+    QUICK_REFERENCE_AUTO_TRANSAKSI.txt → This file
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🎯 CHECKLIST                                                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    [ ] Login admin berhasil
+    [ ] Buka halaman Orders
+    [ ] Edit order
+    [ ] Ubah status ke "completed"
+    [ ] Muncul notifikasi sukses
+    [ ] Transaksi muncul di "Laporan Transaksi"
+    [ ] Detail transaksi sesuai
+    [ ] Tidak ada duplikat
+    [ ] Log file tercatat
+    [ ] Bulk action juga berfungsi
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  💡 TIPS                                                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    • Gunakan order dengan status "paid" atau "processed" untuk testing
+    • Jangan gunakan order yang sudah "completed" (akan skip)
+    • Cek notifikasi setelah save untuk konfirmasi
+    • Verifikasi di "Laporan Transaksi" untuk memastikan
+    • Admin tetap bisa manual input transaksi jika perlu
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🚀 QUICK COMMANDS                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Start Server:
+    php artisan serve
+    
+    Check Migration:
+    php artisan migrate:status
+    
+    Run Migration:
+    php artisan migrate
+    
+    Clear Cache:
+    php artisan cache:clear
+    php artisan config:clear
+    
+    View Log:
+    Get-Content storage/logs/laravel.log -Tail 20
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          ✅ STATUS: SELESAI & AKTIF                          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    Fitur auto-create transaksi sudah SELESAI dan SIAP DIGUNAKAN!
+    
+    Setiap order yang completed akan otomatis masuk ke laporan transaksi! 🎉
