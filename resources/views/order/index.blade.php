@@ -577,6 +577,89 @@
       font-size: 2.8rem !important;
     }
     
+    @media (max-width: 767px) {
+      .modal-container {
+        width: 95%;
+        max-height: 85vh;
+        margin: 1rem;
+      }
+      
+      .modal-content {
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+      
+      .modal-image {
+        width: 100%;
+        padding: 1rem;
+      }
+      
+      .modal-image-inner img {
+        height: 200px;
+      }
+      
+      .modal-details {
+        width: 100%;
+        padding: 1.5rem;
+      }
+      
+      .modal-details h2 {
+        font-size: 2rem !important;
+        margin-bottom: 1rem;
+      }
+      
+      .modal-details h4 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem;
+      }
+      
+      .modal-details p.text-2xl {
+        font-size: 1.25rem !important;
+      }
+      
+      .modal-details p.text-3xl.font-bold {
+        font-size: 2rem !important;
+      }
+      
+      .modal-details .text-2xl.uppercase {
+        font-size: 1.25rem !important;
+      }
+      
+      .modal-details .text-4xl {
+        font-size: 2.5rem !important;
+      }
+      
+      .quantity-selector {
+        margin-top: 1rem;
+      }
+      
+      .quantity-btn {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+      }
+      
+      .quantity-value {
+        font-size: 1.8rem;
+        min-width: 2.5rem;
+      }
+      
+      .modal-details .price-action {
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1rem;
+      }
+      
+      .modal-details .price-action .price-info {
+        text-align: center;
+      }
+      
+      .modal-details .price-action button {
+        padding: 1rem 1.5rem;
+        font-size: 1.5rem;
+      }
+    }
+    
     .quantity-selector {
       display: flex;
       align-items: center;
@@ -627,34 +710,46 @@
     }
 
     .product-card h3 {
-      font-size: 3.5rem !important;
-      line-height: 1.2;
-      margin-bottom: 0.8rem;
+      font-size: 2rem !important;
     }
 
     .product-card p.text-xl {
-      font-size: 2.5rem !important;
-      font-weight: 700;
+      font-size: 1.25rem !important;
     }
 
     .product-card .absolute.top-4.right-4 {
-      font-size: 1.8rem !important;
-      padding: 0.8rem 1.5rem !important;
+      font-size: 1.5rem !important;
+      padding: 0.5rem 1rem !important;
     }
 
     .product-card button.w-full {
-      font-size: 2.2rem !important;
-      padding: 1.5rem 2rem !important;
-      border-radius: 2rem;
-      border: none;
-      cursor: pointer;
+      font-size: 1.25rem !important;
+      padding: 1rem 1.5rem !important;
     }
 
     .product-card p.text-xs {
-      font-size: 1.8rem !important;
-      margin-top: 1.5rem !important;
-      font-style: italic;
-      opacity: 0.8;
+      font-size: 1rem !important;
+      margin-top: 1rem !important;
+    }
+
+    @media (min-width: 640px) {
+      .product-card h3 {
+        font-size: 3rem !important;
+      }
+
+      .product-card p.text-xl {
+        font-size: 1.5rem !important;
+      }
+
+      .product-card .absolute.top-4.right-4 {
+        font-size: 1.8rem !important;
+        padding: 0.8rem 1.5rem !important;
+      }
+
+      .product-card button.w-full {
+        font-size: 2.2rem !important;
+        padding: 1.5rem 2rem !important;
+      }
     }
 
     .hero-section .inline-block {
@@ -736,11 +831,11 @@
           <div class="inline-block bg-[#6B8E23] text-white font-fredoka px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase rotate-[-2deg] mb-2">
             Order Page
           </div>
-          <h1 class="text-8xl md:text-9xl lg:text-9xl font-rascal leading-[0.8] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-rascal leading-[0.8] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
             Pilih <br />
-            <span class="ml-12">Menu Anda</span>
+            <span class="ml-4 sm:ml-8 md:ml-12">Menu Anda</span>
           </h1>
-          <p class="text-2xl md:text-3xl font-fredoka text-[#4a3728]/80 max-w-md leading-relaxed animate-fade-up delay-1">
+          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-[#4a3728]/80 max-w-md leading-relaxed animate-fade-up delay-1">
             Klik pada produk untuk membaca <span class="text-[#BC5A45] font-bold">deskripsi</span> menarik, lalu tambahkan ke keranjang!
           </p>
         </div>
@@ -774,7 +869,7 @@
 
       <div class="w-full">
         <div class="flex flex-col items-center mb-12">
-          <h2 class="text-6xl md:text-8xl font-rascal text-center mb-4 animate-fade-up font-bold" style="color: #7c2d12;">Daftar Menu</h2>
+          <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-rascal text-center mb-4 animate-fade-up font-bold" style="color: #7c2d12;">Daftar Menu</h2>
           <div class="w-24 h-2 bg-[#BC5A45] rounded-full animate-scale"></div>
         </div>
 
@@ -783,7 +878,7 @@
             <p class="text-2xl font-fredoka text-gray-500">Belum ada produk tersedia.</p>
           </div>
         @elseif(isset($products))
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-x-12 md:gap-x-16 gap-y-12 sm:gap-y-16 md:gap-y-24">
           @foreach($products as $index => $product)
           <div class="product-card group cursor-pointer flex flex-col items-center" @click="showProductModal({{ $product['id'] }})">
             <div class="relative mb-6 w-full aspect-square overflow-hidden rounded-[3rem] border-[10px] border-[#6B8E23] p-1 bg-white shadow-[15px_15px_0px_0px_rgba(188,90,69,0.2)] group-hover:shadow-[20px_20px_0px_0px_rgba(188,90,69,0.3)] transition-all duration-300 transform group-hover:-rotate-2">
@@ -843,17 +938,17 @@
             @endfor
           </div>
 
-          <h2 class="text-6xl md:text-8xl font-bubble text-white mb-8 leading-tight relative z-10 animate-fade-up">
+          <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bubble text-white mb-8 leading-tight relative z-10 animate-fade-up">
             Bingung Pilih <br /> yang Mana?
           </h2>
-          <p class="text-2xl md:text-3xl font-fredoka text-white/90 mb-12 max-w-2xl mx-auto relative z-10 animate-fade-up delay-1 leading-relaxed">
+          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-white/90 mb-12 max-w-2xl mx-auto relative z-10 animate-fade-up delay-1 leading-relaxed">
             Tenang Bunda, semua pempek kami dibuat dengan ikan tenggiri murni. Semua produk segar dan berkualitas!
           </p>
           <!-- 🔥 TOMBOL LIhat Keranjang - SEKARANG CEK LOGIN DULU -->
           <a 
             href="#" 
             id="lihatKeranjangBtn"
-            class="inline-block bg-[#FFF9F0] text-[#BC5A45] font-bubble text-3xl md:text-4xl px-16 py-6 rounded-[3rem] hover:scale-110 active:scale-95 transition-all shadow-xl relative z-10 animate-scale delay-2"
+            class="inline-block bg-[#FFF9F0] text-[#BC5A45] font-bubble text-xl sm:text-2xl md:text-3xl lg:text-4xl px-12 sm:px-16 py-4 sm:py-6 rounded-[3rem] hover:scale-110 active:scale-95 transition-all shadow-xl relative z-10 animate-scale delay-2"
           >
             Lihat Keranjang 🛒
           </a>

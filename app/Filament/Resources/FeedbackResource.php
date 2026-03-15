@@ -182,13 +182,11 @@ class FeedbackResource extends Resource
                     })
             ])
             ->actions([
-                // 🔥 FIX: Gunakan URL LANGSUNG, bukan route name
-                Tables\Actions\Action::make('detail')
+                Tables\Actions\ViewAction::make()
                     ->label('Lihat Detail')
                     ->icon('heroicon-o-eye')
-                    ->color('info')
-                    ->url(fn ($record): string => '/admin/feedback-detail/' . $record->id),
-                    
+                    ->color('info'),
+
                 DeleteAction::make()
                     ->label('Hapus')
                     ->color('danger')
@@ -211,11 +209,51 @@ class FeedbackResource extends Resource
         return [];
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                InfolistSection::make('Order & Customer')
+                    ->schema([
+                        TextEntry::make('kode_pesanan')
+                            ->label('Order ID')
+                            ->copyable()
+                            ->weight(FontWeight::Bold),
+                        TextEntry::make('user_name')
+                            ->label('Nama Customer'),
+                        TextEntry::make('user_email')
+                            ->label('Email Customer')
+                            ->copyable(),
+                        TextEntry::make('rating')
+                            ->label('Rating')
+                            ->formatStateUsing(fn ($state) => str_repeat('⭐', $state) . " ({$state}/5)"),
+                        TextEntry::make('created_at')
+                            ->label('Tanggal')
+                            ->dateTime('d M Y H:i'),
+                    ]),
+
+                InfolistSection::make('Feedback')
+                    ->schema([
+                        TextEntry::make('tags')
+                            ->label('Tags')
+                            ->formatStateUsing(function ($state) {
+                                if (empty($state) || !is_array($state)) {
+                                    return '-';
+                                }
+                                return implode(', ', $state);
+                            }),
+                        TextEntry::make('review')
+                            ->label('Review')
+                            ->formatStateUsing(fn ($state) => $state ?? '-'),
+                    ]),
+            ]);
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListFeedback::route('/'),
-            // HAPUS view route karena kita pakai custom page
+            'view' => Pages\ViewFeedback::route('/{record}'),
         ];
     }
 }

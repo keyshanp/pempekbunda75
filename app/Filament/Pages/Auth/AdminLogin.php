@@ -6,6 +6,7 @@ use Filament\Pages\Auth\Login as BaseLogin;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Filament\Facades\Filament;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use App\Models\User;
 use Filament\Forms\Components\Checkbox;
@@ -28,7 +29,7 @@ class AdminLogin extends BaseLogin
     public function mount(): void
     {
         // Cek apakah user sudah login dan adalah admin
-        if (auth()->check() && auth()->user()->is_admin) {
+        if (Filament::auth()->check() && Filament::auth()->user()->is_admin) {
             // Redirect langsung ke dashboard admin
             $this->redirect('/admin', navigate: false);
             return;
@@ -47,37 +48,30 @@ class AdminLogin extends BaseLogin
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        
-        // Cari user berdasarkan email
-        $user = User::where('email', $this->email)->first();
-        
-        // Cek apakah user ada
-        if (!$user) {
+
+        // Attempt login via web guard (Filament default)
+        if (! auth()->attempt([
+            'email' => $this->email,
+            'password' => $this->password,
+        ], $this->remember)) {
             throw ValidationException::withMessages([
-                'email' => 'Email tidak terdaftar.',
+                'email' => 'Email atau password salah.',
             ]);
         }
-        
-        // Cek apakah user adalah admin
-        if (!$user->is_admin) {
+
+        $user = auth()->user();
+
+        if (! $user->is_admin) {
+            auth()->logout();
+
             throw ValidationException::withMessages([
                 'email' => 'Akun ini tidak memiliki akses admin.',
             ]);
         }
-        
-        // Cek password
-        if (!Hash::check($this->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'password' => 'Password salah.',
-            ]);
-        }
-        
-        // Login user
-        auth()->login($user, $this->remember);
-        
+
         // Regenerate session untuk keamanan
         session()->regenerate();
-        
+
         // Redirect ke dashboard admin
         return app(LoginResponse::class);
     }

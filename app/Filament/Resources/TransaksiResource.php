@@ -10,6 +10,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components\Section as InfolistSection;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Support\Enums\FontWeight;
 
 class TransaksiResource extends Resource
 {
@@ -138,17 +142,23 @@ class TransaksiResource extends Resource
                     ->copyable()
                     ->weight('bold'),
 
-                Tables\Columns\TextColumn::make('order.customer')
+                Tables\Columns\TextColumn::make('customer_name')
                     ->label('Customer')
-                    ->formatStateUsing(fn ($state) => is_array($state) ? ($state['nama'] ?? '-') : '-')
-                    ->searchable(false)
+                    ->getStateUsing(fn ($record) => is_array($record->order?->customer) ? ($record->order->customer['nama'] ?? '-') : '-')
+                    ->searchable()
                     ->icon('heroicon-o-user')
                     ->sortable(false),
 
-                Tables\Columns\TextColumn::make('order_customer_email')
+                Tables\Columns\TextColumn::make('customer_email')
                     ->label('Email Customer')
-                    ->state(fn ($record) => is_array($record->order?->customer) ? ($record->order->customer['email'] ?? '-') : '-')
+                    ->getStateUsing(fn ($record) => is_array($record->order?->customer) ? ($record->order->customer['email'] ?? '-') : '-')
                     ->icon('heroicon-o-envelope')
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('customer_phone')
+                    ->label('WhatsApp')
+                    ->getStateUsing(fn ($record) => is_array($record->order?->customer) ? ($record->order->customer['telepon'] ?? '-') : '-')
+                    ->icon('heroicon-o-phone')
                     ->toggleable(isToggledHiddenByDefault: true),
                     
                 Tables\Columns\TextColumn::make('order.kode_pesanan')
@@ -234,17 +244,12 @@ class TransaksiResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->label('')
+                    ->label('Lihat Detail')
                     ->icon('heroicon-o-eye')
                     ->color('info'),
-                    
-                Tables\Actions\EditAction::make()
-                    ->label('')
-                    ->icon('heroicon-o-pencil')
-                    ->color('warning'),
-                    
+
                 Tables\Actions\Action::make('lihat_bukti')
-                    ->label('')
+                    ->label('Lihat Bukti')
                     ->icon('heroicon-o-photo')
                     ->color('primary')
                     ->modalHeading('Bukti Pembayaran')
@@ -252,7 +257,7 @@ class TransaksiResource extends Resource
                         if (!$record->bukti_pembayaran) {
                             return view('filament.components.no-image');
                         }
-                        
+
                         return view('filament.components.image-viewer', [
                             'imageUrl' => Storage::url($record->bukti_pembayaran),
                             'title' => 'Bukti Pembayaran - ' . $record->kode_transaksi,
@@ -261,9 +266,9 @@ class TransaksiResource extends Resource
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Tutup')
                     ->visible(fn($record) => !empty($record->bukti_pembayaran)),
-                    
+
                 Tables\Actions\Action::make('konfirmasi')
-                    ->label('')
+                    ->label('Konfirmasi')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->tooltip('Konfirmasi pembayaran')
@@ -273,7 +278,7 @@ class TransaksiResource extends Resource
                             'status' => 'success',
                             'waktu_konfirmasi' => now(),
                         ]);
-                        
+
                         // Update status pembayaran di pesanan
                         if ($record->order) {
                             $record->order->update([
@@ -281,7 +286,7 @@ class TransaksiResource extends Resource
                                 'status_pesanan' => 'paid'
                             ]);
                         }
-                        
+
                         \Filament\Notifications\Notification::make()
                             ->title('Transaksi dikonfirmasi')
                             ->success()
@@ -307,12 +312,72 @@ class TransaksiResource extends Resource
         ];
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                InfolistSection::make('Informasi Transaksi')
+                    ->schema([
+                        TextEntry::make('kode_transaksi')
+                            ->label('Kode Transaksi')
+                            ->copyable()
+                            ->weight(FontWeight::Bold),
+                        TextEntry::make('status')
+                            ->label('Status')
+                            ->formatStateUsing(fn ($state) => match ($state) {
+                                'success' => '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Success</span>',
+                                'pending' => '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>',
+                                'failed' => '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Failed</span>',
+                                'expired' => '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Expired</span>',
+                                default => '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">' . ucfirst($state) . '</span>',
+                            })
+                            ->html(),
+                        TextEntry::make('waktu_pembayaran')
+                            ->label('Waktu Bayar')
+                            ->dateTime('d M Y H:i'),
+                    ]),
+
+                InfolistSection::make('Customer & Order')
+                    ->schema([
+                        TextEntry::make('order.customer.nama')
+                            ->label('Nama Customer'),
+                        TextEntry::make('order.customer.email')
+                            ->label('Email Customer')
+                            ->copyable(),
+                        TextEntry::make('order.kode_pesanan')
+                            ->label('Kode Pesanan')
+                            ->copyable(),
+                        TextEntry::make('metode_pembayaran')
+                            ->label('Metode Pembayaran')
+                            ->formatStateUsing(fn ($state) => ucfirst(str_replace('_', ' ', $state))),
+                        TextEntry::make('jumlah_bayar')
+                            ->label('Jumlah Bayar')
+                            ->money('IDR'),
+                    ]),
+
+                InfolistSection::make('Items Pesanan')
+                    ->schema([
+                        TextEntry::make('order.items')
+                            ->label('Judul Produk')
+                            ->formatStateUsing(function ($state) {
+                                if (empty($state) || !is_array($state)) {
+                                    return '-';
+                                }
+                                $names = array_map(fn($item) => $item['name'] ?? '-', $state);
+                                return implode(', ', $names);
+                            })
+                            ->columnSpanFull(),
+                    ]),
+            ]);
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListTransaksis::route('/'),
             'create' => Pages\CreateTransaksi::route('/create'),
             'edit' => Pages\EditTransaksi::route('/{record}/edit'),
+            'view' => Pages\ViewTransaksi::route('/{record}'),
         ];
     }
 }

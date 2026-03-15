@@ -907,10 +907,40 @@
             console.log('✅ Map initialized successfully!');
             this.mapLoading = false;
             
+            // Try to get current location automatically
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const lat = parseFloat(position.coords.latitude);
+                  const lng = parseFloat(position.coords.longitude);
+                  this.userMarker.setLatLng([lat, lng]);
+                  this.updateUserLocation(lat, lng);
+                  
+                  // Auto-focus map to user location
+                  this.paymentMap.setView([lat, lng], 16);
+                  
+                  console.log('📍 Auto-detected user location:', lat, lng);
+                },
+                (error) => {
+                  // If failed, keep default location and zoom closer
+                  console.log('Auto geolocation failed, using default location');
+                  this.paymentMap.setView([defaultUserLat, defaultUserLng], 16);
+                },
+                {
+                  enableHighAccuracy: true,
+                  timeout: 5000,
+                  maximumAge: 0
+                }
+              );
+            } else {
+              // If geolocation not supported, zoom to default location
+              this.paymentMap.setView([defaultUserLat, defaultUserLng], 16);
+            }
+            
           } catch (error) {
             console.error('❌ Error initializing map:', error);
             this.mapLoading = false;
-            alert('Gagal memuat peta. Silakan refresh halaman.');
+            // Removed alert - map should still work even with minor errors
           }
         },
         

@@ -45,6 +45,7 @@
                         @if($produk->gambar)
                             <img src="{{ asset('storage/' . $produk->gambar) }}" 
                                  alt="{{ $produk->nama_produk }}" 
+                                 onerror="this.src='{{ asset('assets/images/Pempek.png') }}';"
                                  class="w-full h-48 object-cover">
                         @else
                             <div class="w-full h-48 bg-gray-200 flex items-center justify-center">

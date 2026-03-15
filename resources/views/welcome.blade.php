@@ -112,6 +112,13 @@
       html { scroll-padding-top: 180px; }
     }
 
+    @media (max-width: 360px) {
+      .header { padding: 10px 15px; }
+      .main-content { margin-top: 220px; }
+      .hero { padding: 40px 15px; }
+      html { scroll-padding-top: 200px; }
+    }
+
     /* ================= FOOTER ================= */
     .footer {
       background: #b55242;
@@ -243,6 +250,14 @@
       .location { padding: 0 15px 60px 15px; }
       .maps-container {
         border-width: 4px;
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .location { padding: 0 10px 40px 10px; }
+      .maps-container {
+        border-width: 3px;
         aspect-ratio: 1 / 1;
       }
     }
@@ -388,6 +403,50 @@
       height: 0.25rem;
       background-color: #d1d5db;
       border-radius: 9999px;
+    }
+
+    /* Responsive Product */
+    @media (max-width: 1024px) {
+      .product .container { padding: 0 30px; }
+      .product-scroll-wrapper { padding: 0.5rem 2rem 1rem 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .product { padding: 30px 0 50px 0; }
+      .product .container { padding: 0 20px; }
+      .product-scroll-wrapper { padding: 0.5rem 1.5rem 1rem 1.5rem; gap: 1rem; }
+      .product-scroll-wrapper a,
+      .product-scroll-wrapper > div { flex: 0 0 250px; }
+    }
+
+    @media (max-width: 640px) {
+      .product { padding: 25px 0 40px 0; }
+      .product .container { padding: 0 15px; }
+      .product-scroll-wrapper { padding: 0.5rem 1rem 1rem 1rem; gap: 0.8rem; }
+      .product-scroll-wrapper a,
+      .product-scroll-wrapper > div { flex: 0 0 220px; }
+      .product-scroll-wrapper h3 { font-size: 1rem; }
+      .product-scroll-wrapper p { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .product { padding: 20px 0 30px 0; }
+      .product .container { padding: 0 10px; }
+      .product-scroll-wrapper { padding: 0.5rem 0.5rem 1rem 0.5rem; gap: 0.6rem; }
+      .product-scroll-wrapper a,
+      .product-scroll-wrapper > div { flex: 0 0 180px; }
+      .product-scroll-wrapper h3 { font-size: 0.9rem; }
+      .product-scroll-wrapper p { font-size: 1.2rem; }
+    }
+
+    @media (max-width: 360px) {
+      .product { padding: 15px 0 25px 0; }
+      .product .container { padding: 0 5px; }
+      .product-scroll-wrapper { padding: 0.5rem 0.3rem 1rem 0.3rem; gap: 0.4rem; }
+      .product-scroll-wrapper a,
+      .product-scroll-wrapper > div { flex: 0 0 150px; }
+      .product-scroll-wrapper h3 { font-size: 0.8rem; }
+      .product-scroll-wrapper p { font-size: 1rem; }
     }
   </style>
 
@@ -741,7 +800,7 @@
     .review-card {
       background: white;
       border-radius: 15px;
-      padding: 30px;
+      padding: 35px;
       box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
     }
@@ -765,15 +824,15 @@
     }
     
     .reviewer-avatar {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: linear-gradient(135deg, #BC5A45, #a54534);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
       font-family: 'RASCAL', cursive;
     }
@@ -785,7 +844,7 @@
     }
     
     .reviewer-name {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 600;
       color: #333;
       font-family: 'Reenie Beanie', cursive;
@@ -793,7 +852,7 @@
     }
     
     .review-stars {
-      font-size: 18px;
+      font-size: 20px;
     }
     
     .review-stars .star {
@@ -805,7 +864,7 @@
     }
     
     .review-date {
-      font-size: 14px;
+      font-size: 16px;
       color: #999;
       font-family: 'Reenie Beanie', cursive;
     }
@@ -828,7 +887,7 @@
     }
     
     .review-text {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.6;
       color: #555;
       font-family: 'Reenie Beanie', cursive;
@@ -907,13 +966,29 @@
       }
       
       .review-card {
-        padding: 20px;
+        padding: 25px;
       }
       
       .reviewer-avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      
+      .reviewer-name {
+        font-size: 22px;
+      }
+      
+      .review-stars {
+        font-size: 18px;
+      }
+      
+      .review-text {
+        font-size: 18px;
+      }
+      
+      .review-date {
+        font-size: 14px;
       }
       
       .tags-cloud {

@@ -158,6 +158,21 @@ class OrderResource extends Resource
                 TextColumn::make('status_pembayaran')
                     ->label('Pembayaran')
                     ->badge()
+                    ->getStateUsing(function ($record) {
+                        // Jika order sudah melewati tahap dibayar, maka anggap sudah bayar
+                        $paidStatuses = ['paid', 'processed', 'shipped', 'completed'];
+
+                        if (in_array($record->status_pesanan, $paidStatuses)) {
+                            return 'sudah_bayar';
+                        }
+
+                        // Jika ada transaksi sukses, anggap sudah bayar
+                        if ($record->transaksis()->where('status', 'success')->exists()) {
+                            return 'sudah_bayar';
+                        }
+
+                        return $record->status_pembayaran ?? 'belum_bayar';
+                    })
                     ->color(fn (string $state): string => match ($state) {
                         'belum_bayar' => 'danger',
                         'sudah_bayar' => 'success',

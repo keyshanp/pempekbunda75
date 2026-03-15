@@ -113,7 +113,7 @@
           <div class="lg:col-span-2 space-y-4">
             <template x-for="(item, index) in cart" :key="item.id">
               <div class="bg-white rounded-2xl p-4 flex items-center gap-6 border border-[#E8DCC4] shadow-sm">
-                <img x-bind:src="item.image" x-bind:alt="item.name" class="w-24 h-24 rounded-xl object-cover">
+                <img x-bind:src="item.image" x-bind:alt="item.name" onerror="this.src='{{ asset('assets/images/Pempek.png') }}'" class="w-24 h-24 rounded-xl object-cover">
                 <div class="flex-grow">
                   <div class="flex justify-between items-start">
                     <div>

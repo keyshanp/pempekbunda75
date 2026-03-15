@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk Admin - Pempek Bunda 75</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
-    @livewireStyles
+﻿<x-filament-panels::page.simple :heading="''" :subheading="''" :logo="false">
     <style>
-        /* Load RASCAL font */
         @font-face {
             font-family: 'RASCAL';
             src: url('{{ asset("fonts/RASCAL__.TTF") }}') format('truetype');
@@ -18,20 +7,13 @@
             font-style: normal;
             font-display: swap;
         }
-        
+
         .font-rascal { 
             font-family: 'RASCAL', sans-serif; 
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background: #FDFBF7;
-            font-family: 'Patrick Hand', cursive;
         }
 
         .font-sketch { font-family: 'Finger Paint', cursive; }
@@ -63,6 +45,24 @@
             transform: translateY(0);
         }
         
+        /* Pastikan halaman Filament ini full-height dan bisa benar center */
+        .fi-simple-page {
+            min-height: 100vh;
+        }
+
+        .fi-simple-page > section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+            gap: 0;
+        }
+
+        .fi-simple-header {
+            display: none;
+        }
+
         .form-container {
             display: flex;
             flex-direction: column;
@@ -70,97 +70,81 @@
             min-height: 100%;
         }
     </style>
-</head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
-    <!-- Main Container - SATU ROOT ELEMENT -->
-    <div class="w-full max-w-5xl min-h-fit md:min-h-[600px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border-4 border-white">
-        
-        <!-- Left Section: Form -->
-        <div class="w-full md:w-[45%] p-8 md:p-12 flex items-center justify-center">
-            <div class="max-w-xs mx-auto w-full form-container">
-                <!-- Title -->
-                <h1 class="text-5xl md:text-6xl font-rascal text-[#7c2d12] mb-8 tracking-tighter text-center leading-none">
-                    Admin Login
-                </h1>
 
-                <!-- PERBAIKAN: Form Livewire dengan wire:submit -->
-                <form wire:submit.prevent="authenticate" class="space-y-4">
-                    <!-- Email dengan wire:model -->
-                    <div>
-                        <input 
-                            wire:model="email"
-                            type="email" 
-                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
-                            placeholder="Email"
-                            required 
-                            autofocus
-                        >
-                        @error('email')
-                            <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    
-                    <!-- Password dengan wire:model -->
-                    <div>
-                        <input 
-                            wire:model="password"
-                            type="password" 
-                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
-                            placeholder="Password"
-                            required
-                        >
-                        @error('password')
-                            <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                        @enderror
-                    </div>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-5xl min-h-fit md:min-h-[600px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border-4 border-white">
+            <div class="w-full md:w-[45%] p-8 md:p-12 flex items-center justify-center">
+                <div class="max-w-xs mx-auto w-full form-container">
+                    <h1 class="text-5xl md:text-6xl font-rascal text-[#7c2d12] mb-8 tracking-tighter text-center leading-none">
+                        Admin Login
+                    </h1>
 
-                    <!-- Remember Me -->
-                    <div class="flex items-center justify-between mt-4">
-                        <label class="flex items-center gap-2">
-                            <input
-                                wire:model="remember"
-                                type="checkbox"
-                                class="w-4 h-4 border-2 border-[#7c2d12] rounded bg-transparent focus:ring-0 accent-[#c48474]"
+                    <form wire:submit.prevent="authenticate" class="space-y-4">
+                        <div>
+                            <input 
+                                wire:model="email"
+                                type="email" 
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
+                                placeholder="Email"
+                                required 
+                                autofocus
                             >
-                            <span class="font-hand text-[#7c2d12] text-lg">Ingat saya</span>
-                        </label>
-                    </div>
+                            @error('email')
+                                <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                    <!-- Buttons -->
-                    <div class="flex gap-4 pt-6">
-                        <button
-                            type="submit"
-                            class="flex-1 btn-primary text-white font-hand text-2xl py-2 px-6 rounded-full shadow-lg transition-all active:scale-95"
-                        >
-                            Sign In
-                        </button>
+                        <div>
+                            <input 
+                                wire:model="password"
+                                type="password" 
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
+                                placeholder="Password"
+                                required
+                            >
+                            @error('password')
+                                <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4">
+                            <label class="flex items-center gap-2">
+                                <input
+                                    wire:model="remember"
+                                    type="checkbox"
+                                    class="w-4 h-4 border-2 border-[#7c2d12] rounded bg-transparent focus:ring-0 accent-[#c48474]"
+                                >
+                                <span class="font-hand text-[#7c2d12] text-lg">Ingat saya</span>
+                            </label>
+                        </div>
+
+                        <div class="flex gap-4 pt-6">
+                            <button
+                                type="submit"
+                                class="flex-1 btn-primary text-white font-hand text-2xl py-2 px-6 rounded-full shadow-lg transition-all active:scale-95"
+                            >
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-8 text-center">
+                        <a href="{{ url('/') }}" class="font-hand text-[#7c2d12] text-lg hover:underline">
+                            ← Kembali ke halaman utama
+                        </a>
                     </div>
-                </form>
-                
-                <!-- Back to Home -->
-                <div class="mt-8 text-center">
-                    <a href="{{ url('/') }}" class="font-hand text-[#7c2d12] text-lg hover:underline">
-                        ← Kembali ke halaman utama
-                    </a>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Section: Texture -->
-        <div class="hidden md:block w-full md:w-[55%] relative overflow-hidden">
-            <div class="absolute inset-0 bg-[#b5c276] paper-texture opacity-90"></div>
-            <div class="absolute inset-0 bg-black/5 mix-blend-multiply"></div>
+            <div class="hidden md:block w-full md:w-[55%] relative overflow-hidden">
+                <div class="absolute inset-0 bg-[#b5c276] paper-texture opacity-90"></div>
+                <div class="absolute inset-0 bg-black/5 mix-blend-multiply"></div>
+            </div>
         </div>
     </div>
 
-    @livewireScripts
-
-    <!-- Error Alert dengan Alpine.js -->
     @if($errors->any())
-        <div x-data="{ show: true }" 
-             x-show="show" 
-             x-init="setTimeout(() => show = false, 5000)"
-             class="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50">
+        <div class="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50">
             <ul class="list-disc pl-5">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -168,5 +152,4 @@
             </ul>
         </div>
     @endif
-</body>
-</html>
+</x-filament-panels::page.simple>

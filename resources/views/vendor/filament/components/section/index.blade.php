@@ -27,7 +27,12 @@
     $hasDescription = filled((string) $description);
     $hasHeading = filled($heading);
     $hasIcon = filled($icon);
-    $hasHeader = $hasIcon || $hasHeading || $hasDescription || $collapsible || $hasHeaderActions || filled((string) $headerEnd);
+
+    $hasHeaderEnd = is_array($headerEnd)
+        ? filled($headerEnd)
+        : filled((string) $headerEnd);
+
+    $hasHeader = $hasIcon || $hasHeading || $hasDescription || $collapsible || $hasHeaderActions || $hasHeaderEnd;
 @endphp
 
 <section
