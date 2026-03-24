@@ -1,0 +1,126 @@
+╔══════════════════════════════════════════════════════════════╗
+║          FIX GITHUB AUTHENTICATION - QUICK GUIDE            ║
+╚══════════════════════════════════════════════════════════════╝
+
+📌 MASALAH:
+   Push gagal karena Windows pakai akun GitHub yang salah
+   (cleyyrei bukan keyshanp)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SOLUSI TERMUDAH (5 Menit):
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 1: Hapus Kredensial Windows                            │
+└─────────────────────────────────────────────────────────────┘
+
+1. Tekan: Windows + R
+2. Ketik: control /name Microsoft.CredentialManager
+3. Tekan: Enter
+4. Klik: Windows Credentials
+5. Cari: git:https://github.com
+6. Klik: Remove (Hapus)
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 2: Push Lagi                                           │
+└─────────────────────────────────────────────────────────────┘
+
+Buka PowerShell, jalankan:
+
+   git push origin main
+
+Akan muncul popup login → Login dengan akun keyshanp
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 3: Verify                                              │
+└─────────────────────────────────────────────────────────────┘
+
+Buka browser:
+   https://github.com/keyshanp/pempekbunda75
+
+✅ Jika muncul commit terbaru = BERHASIL!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔑 SOLUSI ALTERNATIF (Pakai Token):
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 1: Buat Personal Access Token                          │
+└─────────────────────────────────────────────────────────────┘
+
+1. Buka: https://github.com/settings/tokens/new
+2. Login dengan akun: keyshanp
+3. Note: Pempek Bunda 75
+4. Expiration: 90 days
+5. Centang: repo (semua)
+6. Klik: Generate token
+7. COPY TOKEN (contoh: ghp_xxxxxxxxxxxx)
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 2: Update Remote dengan Token                          │
+└─────────────────────────────────────────────────────────────┘
+
+Jalankan di PowerShell (ganti TOKEN dengan token kamu):
+
+   git remote set-url origin https://TOKEN@github.com/keyshanp/pempekbunda75.git
+
+Contoh:
+   git remote set-url origin https://ghp_1234567890abcdef@github.com/keyshanp/pempekbunda75.git
+
+┌─────────────────────────────────────────────────────────────┐
+│ STEP 3: Push                                                │
+└─────────────────────────────────────────────────────────────┘
+
+   git push origin main
+
+✅ Langsung push tanpa diminta login!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 CEK STATUS:
+
+Setelah push berhasil, jalankan:
+
+   git status
+
+Output seharusnya:
+   On branch main
+   Your branch is up to date with 'origin/main'.
+   nothing to commit, working tree clean
+
+✅ Artinya sudah sync dengan GitHub!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PILIH MANA?
+
+┌──────────────────────┬─────────────────────────────────────┐
+│ Solusi 1             │ Hapus Kredensial Windows            │
+│ (Termudah)           │ + Push lagi                         │
+│                      │ + Login dengan akun keyshanp        │
+├──────────────────────┼─────────────────────────────────────┤
+│ Solusi 2             │ Buat Personal Access Token          │
+│ (Paling Aman)        │ + Update remote dengan token        │
+│                      │ + Push                              │
+└──────────────────────┴─────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 TIPS:
+
+✓ Gunakan Solusi 1 jika kamu punya akses ke Windows Credential Manager
+✓ Gunakan Solusi 2 jika Solusi 1 tidak berhasil
+✓ Token hanya muncul sekali, jadi COPY dan SIMPAN
+✓ Jangan share token ke orang lain
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 LINKS:
+
+Repository: https://github.com/keyshanp/pempekbunda75
+Token:      https://github.com/settings/tokens/new
+Docs:       https://docs.github.com/en/authentication
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Selamat mencoba! 🚀
