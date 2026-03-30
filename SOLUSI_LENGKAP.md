@@ -230,7 +230,7 @@ Get-Content storage/logs/laravel.log -Tail 50
 
 ## 🎊 SELAMAT!
 
-Sistem sudah siap digunakan. Silakan login ke admin panel dan mulai mengelola toko Pempek Bunda 75!
+Sistem sudah siap digunakan. Silakan login ke admin panel dan mulai mengelola toko PempekBunda 75!
 
 **URL Admin:** http://localhost:8000/admin  
 **Email:** admin@pempekbunda75.com  
@@ -238,4 +238,5 @@ Sistem sudah siap digunakan. Silakan login ke admin panel dan mulai mengelola to
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
+

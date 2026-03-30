@@ -160,7 +160,7 @@ SHOW CREATE TABLE transaksis;
 |------|----------------|
 | Notifikasi | "Transaksi TRX-XXXX berhasil dibuat otomatis" |
 | Transaksi di database | 1 record baru |
-| Kode transaksi | TRX-20260305-XXXX |
+| Kode transaksi | TRX-20190305-XXXX |
 | Status transaksi | success |
 | Jumlah bayar | Sama dengan total order |
 | Metode pembayaran | Sama dengan order |

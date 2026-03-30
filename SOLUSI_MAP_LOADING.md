@@ -26,7 +26,7 @@ toko: {
 toko: {
   latitude: -7.372085,
   longitude: 109.241568,
-  nama: 'Pempek Bunda 75'
+  nama: 'PempekBunda 75'
 }
 ```
 
@@ -137,3 +137,4 @@ Jika setelah menambahkan API key masih bermasalah:
 3. Tanyakan lagi dengan detail error tersebut
 
 Saya siap membantu! 🚀
+

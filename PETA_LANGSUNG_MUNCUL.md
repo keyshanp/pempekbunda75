@@ -142,7 +142,7 @@ Ketika Anda buka halaman checkout atau payment:
 - Border: Putih 3px
 - Shadow: Ya
 - Draggable: Tidak
-- Popup: "Pempek Bunda 75 - Lokasi Toko (Fixed)"
+- Popup: "PempekBunda 75 - Lokasi Toko (Fixed)"
 
 ### Marker User (Merah 📍):
 - Warna: Merah (#EF4444)
@@ -174,3 +174,4 @@ Jika ada pertanyaan atau masalah:
 3. Tanyakan dengan detail error yang muncul
 
 Selamat mencoba! Peta sekarang langsung muncul tanpa loading lama! 🎉
+

@@ -20,6 +20,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class OrderResource extends Resource
 {
@@ -365,7 +366,7 @@ class OrderResource extends Resource
                                             'catatan' => 'Transaksi otomatis dari order completed'
                                         ]);
                                         
-                                        \Log::info("Transaksi {$kodeTransaksi} dibuat otomatis untuk order {$record->kode_pesanan}");
+                                        Log::info("Transaksi {$kodeTransaksi} dibuat otomatis untuk order {$record->kode_pesanan}");
                                     }
                                 }
                                 
@@ -377,7 +378,7 @@ class OrderResource extends Resource
                                         $produk = \App\Models\Produk::find($item['id']);
                                         if ($produk) {
                                             $produk->increment('stok', $item['quantity']);
-                                            \Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']}. Stok sekarang: {$produk->stok}");
+                                            Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']}. Stok sekarang: {$produk->stok}");
                                         }
                                     }
                                 }

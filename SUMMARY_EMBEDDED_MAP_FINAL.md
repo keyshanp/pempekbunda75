@@ -317,6 +317,7 @@ Sistem Embedded Map sudah berhasil dibuat dengan fitur lengkap:
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
 **Tanggal: 4 Maret 2026**
 **Version: 2.0.0 (Embedded System)**
+

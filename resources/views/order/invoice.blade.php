@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Pesanan - Pempek Bunda 75</title>
+    <title>Invoice Pesanan - PempekBunda 75</title>
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -355,7 +355,7 @@
     <header class="header">
         <div class="logo-container">
             <a href="{{ route('home') }}" class="logo-link">
-                <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="brand-logo">
+                <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
             </a>
         </div>
 
@@ -500,7 +500,7 @@
 
                     <!-- Tombol WhatsApp -->
                     @php
-                        $whatsappMessage = "Halo Admin Pempek Bunda 75,\n\n";
+                        $whatsappMessage = "Halo Admin PempekBunda 75,\n\n";
                         $whatsappMessage .= "Saya ingin mengonfirmasi pembayaran untuk pesanan dengan detail berikut:\n\n";
                         $whatsappMessage .= "- ID Pesanan: " . $kodePesanan . "\n";
                         $whatsappMessage .= "- Nama Pemesan: " . ($customer['nama'] ?? 'Customer') . "\n";
@@ -594,7 +594,7 @@
                                 <div class="flex justify-between items-center p-3 bg-[#FFF8EE] rounded-xl" style="font-family: 'Bubblegum Sans', cursive;">
                                     <div class="flex items-center gap-3">
                                         <div class="w-12 h-12 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
-                                            <img src="{{ $item['image'] ?? asset('assets/images/Pempek.png') }}" 
+                                            <img src="{{ $item['image'] ?? asset('assets/images/pempekbunda5.png') }}" 
                                                  alt="{{ $item['name'] }}"
                                                  class="w-full h-full object-cover">
                                         </div>
@@ -787,7 +787,7 @@
 
         <div class="footer-right">
             <a href="{{ route('home') }}" class="footer-logo-link">
-                <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="footer-logo">
+                <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="footer-logo">
             </a>
         </div>
     </footer>

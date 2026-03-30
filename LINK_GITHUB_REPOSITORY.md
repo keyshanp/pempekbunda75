@@ -1,4 +1,4 @@
-# 🔗 Link GitHub Repository - Pempek Bunda 75
+# 🔗 Link GitHub Repository - PempekBunda 75
 
 ## 📍 Repository URL:
 ```
@@ -31,7 +31,7 @@ https://github.com/new
 
 Isi form:
 - **Repository name**: `pempekbunda75`
-- **Description**: `Website E-Commerce Pempek Bunda 75 - Laravel + Filament`
+- **Description**: `Website E-Commerce PempekBunda 75 - Laravel + Filament`
 - **Visibility**: Public atau Private (pilih sesuai kebutuhan)
 - **JANGAN centang** "Add a README file"
 - Klik **Create repository**
@@ -90,7 +90,7 @@ git status
 git add .
 
 # 4. Commit (jika belum)
-git commit -m "Initial commit - Pempek Bunda 75 website"
+git commit -m "Initial commit - PempekBunda 75 website"
 
 # 5. Push ke GitHub
 git push -u origin main
@@ -120,7 +120,7 @@ Ganti `TOKEN` dengan Personal Access Token dari GitHub.
 4. **Personal access tokens** → **Tokens (classic)**
 5. **Generate new token** → **Generate new token (classic)**
 6. Isi:
-   - **Note**: `Pempek Bunda 75`
+   - **Note**: `PempekBunda 75`
    - **Expiration**: `90 days` atau `No expiration`
    - **Select scopes**: Centang **repo** (semua)
 7. **Generate token**
@@ -199,7 +199,7 @@ https://github.com/keyshanp/pempekbunda75
 ### 4. Add README.md (Optional)
 Buat file README.md untuk dokumentasi project:
 ```bash
-echo "# Pempek Bunda 75" > README.md
+echo "# PempekBunda 75" > README.md
 git add README.md
 git commit -m "Add README"
 git push
@@ -222,7 +222,7 @@ git push
 Salin ini ke description repository:
 
 ```
-🍤 Website E-Commerce Pempek Bunda 75
+🍤 Website E-Commerce PempekBunda 75
 
 Tech Stack:
 - Laravel 11
@@ -268,3 +268,4 @@ Kamu bisa:
 
 **Next Action:**
 Fix authentication → Push → Done! 🚀
+

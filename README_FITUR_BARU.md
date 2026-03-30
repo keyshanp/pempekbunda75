@@ -1,4 +1,4 @@
-# 🎉 Fitur Baru - Pempek Bunda 75
+# 🎉 Fitur Baru - PempekBunda 75
 
 ## ✨ Yang Sudah Ditambahkan
 
@@ -152,4 +152,5 @@ Jika ada masalah atau pertanyaan, silakan hubungi developer.
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
+

@@ -4,10 +4,10 @@
 
 ### 1. Transaksi yang Hilang
 Saya sudah membuat transaksi untuk 4 orders completed yang belum punya transaksi:
-- Order PB202603038624 → TRX-20260305-4511 (Rp 35.000)
-- Order PB202603039165 → TRX-20260305-9602 (Rp 70.000)
-- Order PB202603049524 → TRX-20260305-0323 (Rp 132.750)
-- Order PB202603048185 → TRX-20260305-5324 (Rp 80.000)
+- Order PB201903038624 → TRX-20190305-4511 (Rp 35.000)
+- Order PB201903039165 → TRX-20190305-9602 (Rp 70.000)
+- Order PB201903049524 → TRX-20190305-0323 (Rp 132.750)
+- Order PB201903048185 → TRX-20190305-5324 (Rp 80.000)
 
 ### 2. Error Form Create Transaksi Manual
 Error `trim(): Argument #1 ($string) must be of type string, array given` sudah diperbaiki.
@@ -31,7 +31,7 @@ File baru:
 1. Buka: `http://127.0.0.1:8000/admin/transaksis`
 2. Refresh halaman (F5)
 3. Seharusnya sekarang ada 29 transaksi (25 + 4 yang baru dibuat)
-4. Transaksi terbaru seharusnya tanggal 5 Maret 2026 ✅
+4. Transaksi terbaru seharusnya tanggal 5 Maret 2019 ✅
 
 ### Test 2: Create Transaksi Manual
 1. Buka: `http://127.0.0.1:8000/admin/transaksis`
@@ -75,7 +75,7 @@ File baru:
 1. Login: `http://127.0.0.1:8000/admin/login`
 2. Menu: "Laporan Transaksi"
 3. Sort by "Waktu Bayar" descending
-4. Seharusnya ada transaksi tanggal 5 Maret 2026
+4. Seharusnya ada transaksi tanggal 5 Maret 2019
 
 ### Via Database:
 ```sql

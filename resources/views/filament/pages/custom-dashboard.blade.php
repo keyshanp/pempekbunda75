@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">
-                Dashboard Admin - Pempek Bunda 75
+                Dashboard Admin - PempekBunda 75
             </h2>
             <p class="text-gray-600">
-                Selamat datang di dashboard manajemen toko Pempek Bunda 75
+                Selamat datang di dashboard manajemen toko PempekBunda 75
             </p>
         </div>
     </x-slot>

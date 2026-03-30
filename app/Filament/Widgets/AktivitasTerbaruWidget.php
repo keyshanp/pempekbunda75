@@ -34,7 +34,7 @@ class AktivitasTerbaruWidget extends Widget
                 'icon_color' => '#BC5A42',
                 'icon_bg' => 'rgba(188, 90, 66, 0.1)',
                 'title' => 'Pesanan Baru',
-                'description' => 'Order #INV-2024-0012 diproses',
+                'description' => 'Order #INV-2019-0012 diproses',
                 'time' => '4 Jam Lalu',
             ],
             [
@@ -50,7 +50,7 @@ class AktivitasTerbaruWidget extends Widget
                 'icon_color' => '#10B981',
                 'icon_bg' => 'rgba(16, 185, 129, 0.1)',
                 'title' => 'Pembayaran Diterima',
-                'description' => 'Rp 450.000 dari Order #INV-2024-0011',
+                'description' => 'Rp 450.000 dari Order #INV-2019-0011',
                 'time' => '1 Hari Lalu',
             ],
         ];

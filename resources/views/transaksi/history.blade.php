@@ -14,7 +14,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="/" class="text-2xl font-bold text-orange-600">
-                        <i class="fas fa-fish"></i> Pempek Bunda 75
+                        <i class="fas fa-fish"></i> PempekBunda 75
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -147,3 +147,4 @@
     </div>
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-# 🗺️ Embedded Map System - Pempek Bunda 75
+# 🗺️ Embedded Map System - PempekBunda 75
 
 ## 📋 Overview
 
@@ -353,6 +353,7 @@ Jika Anda sebelumnya menggunakan sistem modal, berikut perbedaan utama:
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
-**Tanggal: 4 Maret 2026**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
+**Tanggal: 4 Maret 2019**
 **Version: 2.0.0 (Embedded System)**
+

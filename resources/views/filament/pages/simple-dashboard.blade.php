@@ -1,7 +1,7 @@
 <x-filament-panels::page>
     <x-slot name="header">
         <x-filament-panels::header
-            :heading="__('Dashboard Admin - Pempek Bunda 75')"
+            :heading="__('Dashboard Admin - PempekBunda 75')"
             :subheading="__('Selamat datang di sistem manajemen toko')"
         />
     </x-slot>

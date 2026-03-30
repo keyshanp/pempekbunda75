@@ -1,4 +1,4 @@
-﻿@auth
+@auth
 <div class="mt-auto px-4 pb-6">
     <!-- User Card -->
     <div class="bg-gradient-to-r from-[#BC5A42]/10 to-[#8C9440]/10 rounded-2xl p-4 border border-[#BC5A42]/20 mb-4">
@@ -56,7 +56,7 @@
             </svg>
             for Bunda
         </p>
-        <p class="text-xs text-gray-400 mt-1">© {{ date('Y') }} Pempek Bunda 75</p>
+        <p class="text-xs text-gray-400 mt-1">� 2019 PempekBunda 75</p>
     </div>
 </div>
 @endauth

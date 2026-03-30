@@ -22,11 +22,30 @@ use App\Http\Controllers\FeedbackController;
 Route::get('/', function () {
     try {
         if (class_exists('App\Models\Produk')) {
+            // 🔥 URUTKAN PRODUK SESUAI KEBUTUHAN:
+            // 1. Tekwan di paling depan
+            // 2. Paket A (50rb & 100rb)
+            // 3. Paket B (50rb & 100rb) 
+            // 4. Paket C (50rb & 100rb)
             $featuredProducts = \App\Models\Produk::where('status', true)
                 ->where('stok', '>', 0)
-                ->inRandomOrder()
-                ->take(6)
-                ->get();
+                ->orderByRaw("
+                    CASE 
+                        WHEN nama_produk = 'Tekwan' THEN 1
+                        WHEN nama_produk LIKE 'Paket A%' THEN 2
+                        WHEN nama_produk LIKE 'Paket B%' THEN 3
+                        WHEN nama_produk LIKE 'Paket C%' THEN 4
+                        ELSE 5
+                    END
+                ")
+                ->orderByRaw("
+                    CASE 
+                        WHEN nama_produk LIKE '%50rb' THEN 1
+                        WHEN nama_produk LIKE '%100rb' THEN 2
+                        ELSE 3
+                    END
+                ")
+                ->get(); // 🔥 AMBIL SEMUA PRODUK (BUKAN TAKE 6)
         } else {
             $featuredProducts = collect();
         }
@@ -35,7 +54,7 @@ Route::get('/', function () {
     }
     
     return view('welcome', [
-        'title' => 'Pempek Bunda 75 - Home',
+        'title' => 'PempekBunda 75 - Home',
         'featuredProducts' => $featuredProducts
     ]);
 })->name('home');
@@ -197,7 +216,7 @@ Route::middleware('auth')->group(function () {
             
         return view('transaksi.history', [
             'transaksis' => $transaksis,
-            'title' => 'Histori Transaksi - Pempek Bunda 75'
+            'title' => 'Histori Transaksi - PempekBunda 75'
         ]);
     })->name('transaksi.history');
     
@@ -210,7 +229,7 @@ Route::middleware('auth')->group(function () {
             
         return view('feedback.my-reviews', [
             'feedbacks' => $feedbacks,
-            'title' => 'Review Saya - Pempek Bunda 75'
+            'title' => 'Review Saya - PempekBunda 75'
         ]);
     })->name('my-reviews');
     
@@ -223,7 +242,7 @@ Route::middleware('auth')->group(function () {
             
         return view('feedback.show', [
             'feedback' => $feedback,
-            'title' => 'Detail Review - Pempek Bunda 75'
+            'title' => 'Detail Review - PempekBunda 75'
         ]);
     })->name('review.show');
 });
@@ -241,7 +260,7 @@ Route::prefix('produk')->name('produk.')->group(function () {
                 
             return view('produk.index', [
                 'produks' => $produks,
-                'title' => 'Daftar Produk - Pempek Bunda 75'
+                'title' => 'Daftar Produk - PempekBunda 75'
             ]);
         } catch (\Exception $e) {
             return view('produk.index', [
@@ -262,7 +281,7 @@ Route::prefix('produk')->name('produk.')->group(function () {
             
             return view('produk.show', [
                 'produk' => $produk,
-                'title' => $produk->nama_produk . ' - Pempek Bunda 75'
+                'title' => $produk->nama_produk . ' - PempekBunda 75'
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             abort(404, 'Produk tidak ditemukan');
@@ -277,11 +296,11 @@ Route::prefix('produk')->name('produk.')->group(function () {
 // ============================================
 
 Route::get('/tentang-kami', function () {
-    return view('about', ['title' => 'Tentang Kami - Pempek Bunda 75']);
+    return view('about', ['title' => 'Tentang Kami - PempekBunda 75']);
 })->name('about');
 
 Route::get('/kontak', function () {
-    return view('contact', ['title' => 'Kontak - Pempek Bunda 75']);
+    return view('contact', ['title' => 'Kontak - PempekBunda 75']);
 })->name('contact');
 
 // ============================================
@@ -307,7 +326,7 @@ Route::get('/reviews', function () {
         'totalReviews' => $totalReviews,
         'averageRating' => $averageRating,
         'ratingCounts' => $ratingCounts,
-        'title' => 'Review Pelanggan - Pempek Bunda 75'
+        'title' => 'Review Pelanggan - PempekBunda 75'
     ]);
 })->name('reviews');
 
@@ -456,7 +475,7 @@ Route::prefix('order')->name('order.')->group(function () {
         
         return view('order.my-orders', [
             'orders' => $orders,
-            'title' => 'Pesanan Saya - Pempek Bunda 75'
+            'title' => 'Pesanan Saya - PempekBunda 75'
         ]);
     })->name('my-orders');
     
@@ -484,7 +503,7 @@ Route::prefix('order')->name('order.')->group(function () {
                 'subtotal' => 0,
                 'shipping' => 0,
                 'total' => 0,
-                'title' => 'Keranjang Belanja - Pempek Bunda 75'
+                'title' => 'Keranjang Belanja - PempekBunda 75'
             ]);
         }
         
@@ -501,7 +520,7 @@ Route::prefix('order')->name('order.')->group(function () {
             'subtotal' => $subtotal,
             'shipping' => $shipping,
             'total' => $total,
-            'title' => 'Keranjang Belanja - Pempek Bunda 75'
+            'title' => 'Keranjang Belanja - PempekBunda 75'
         ]);
     })->name('cart');
     
@@ -527,7 +546,7 @@ Route::prefix('order')->name('order.')->group(function () {
         return view('order.payment', [
             'cart' => $cart,
             'subtotal' => $subtotal,
-            'title' => 'Pembayaran - Pempek Bunda 75'
+            'title' => 'Pembayaran - PempekBunda 75'
         ]);
     })->middleware('auth')->name('payment');
     
@@ -641,7 +660,7 @@ Route::prefix('order')->name('order.')->group(function () {
                 'name' => $produk->nama_produk,
                 'price' => $produk->harga,
                 'quantity' => $request->quantity,
-                'image' => $produk->gambar ? asset('storage/' . $produk->gambar) : asset('assets/images/Pempek.png'),
+                'image' => $produk->gambar ? asset('storage/' . $produk->gambar) : asset('assets/images/pempekbunda5.png'),
                 'stok' => $produk->stok,
             ];
         }
@@ -707,6 +726,12 @@ if (!function_exists('calculateDistance')) {
 // ============================================
 // 🚨 ERROR PAGES
 // ============================================
+
+Route::get('/coming-soon', function () {
+    return view('errors.coming-soon', [
+        'title' => 'Halaman Sedang Dalam Proses - PempekBunda 75'
+    ]);
+})->name('coming-soon');
 
 Route::fallback(function () {
     return response()->view('errors.404', [

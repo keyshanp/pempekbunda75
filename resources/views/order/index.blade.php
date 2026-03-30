@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order - Pempek Bunda 75</title>
+  <title>Order - PempekBunda 75</title>
 
   <!-- RASCAL FONT -->
   <style>
@@ -398,7 +398,7 @@
       opacity: 0.3;
     }
     
-    /* ===== MODAL STYLES (BLOG) ===== */
+    /* ===== MODAL STYLES (DIPERBAIKI) ===== */
     .modal-fixed {
       position: fixed;
       inset: 0;
@@ -415,20 +415,19 @@
       background-color: #FFF9F0;
       width: 95%;
       max-width: 80rem;
-      max-height: 70vh;
+      max-height: 85vh;
       border-radius: 3rem;
       overflow: hidden;
       border: 12px solid #6B8E23;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       position: relative;
       margin: 0;
-      transform: translateY(7px);
     }
     
     .modal-content {
       display: flex;
       flex-direction: column;
-      max-height: 70vh;
+      max-height: 85vh;
       overflow: hidden;
     }
     
@@ -467,7 +466,7 @@
     
     @media (min-width: 768px) {
       .modal-image-inner img {
-        height: 400px;
+        height: 350px;
       }
     }
     
@@ -475,7 +474,7 @@
       width: 100%;
       padding: 1.8rem;
       background-color: rgba(255, 255, 255, 0.5);
-      overflow-y: hidden;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
     }
@@ -483,8 +482,7 @@
     @media (min-width: 768px) {
       .modal-details {
         width: 60%;
-        padding: 2.2rem;
-        overflow-y: hidden;
+        padding: 2rem;
       }
     }
 
@@ -492,100 +490,171 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .modal-details .main-content {
+    /* STOK & JUMLAH - LAYOUT FLEX ROW (KANAN KIRI) */
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    
+    .info-col {
       flex: 1;
+      min-width: 120px;
+    }
+    
+    .info-col h4 {
+      font-size: 1.8rem;
+      font-family: 'Bubblegum Sans', cursive;
+      color: #6B8E23;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .info-col p {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: 'Fredoka', sans-serif;
+    }
+    
+    .info-col .stok-value {
+      color: #BC5A45;
+    }
+    
+    /* Quantity selector khusus modal */
+    .quantity-selector-modal {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: #f5e8d0;
+      padding: 0.5rem 1rem;
+      border-radius: 3rem;
+    }
+    
+    .quantity-btn-modal {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: #BC5A45;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    
+    .quantity-btn-modal:hover {
+      background-color: #a34d3b;
+      transform: scale(1.05);
+    }
+    
+    .quantity-value-modal {
+      font-size: 1.8rem;
+      font-weight: bold;
+      min-width: 2.5rem;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+    }
+    
+    .stok-warning {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      color: #BC5A45;
+      font-family: 'Fredoka', sans-serif;
     }
 
-    .modal-details .price-action {
-      margin-top: auto;
+    /* Harga dan tombol di bawah */
+    .price-action {
+      margin-top: 1.5rem;
       padding-top: 1.5rem;
-      border-top: 2px solid rgba(188, 90, 69, 0.1);
+      border-top: 2px solid rgba(188, 90, 69, 0.2);
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .modal-details .price-action .price-info {
+    .price-action .price-info {
       text-align: left;
     }
 
-    .modal-details .price-action .price-info p:first-child {
-      font-size: 1.6rem !important;
-      opacity: 0.6;
+    .price-action .price-info p:first-child {
+      font-size: 1.2rem;
+      opacity: 0.7;
       margin-bottom: 0.2rem;
+      font-family: 'Fredoka', sans-serif;
     }
 
-    .modal-details .price-action .price-info p:last-child {
-      font-size: 3.5rem !important;
+    .price-action .price-info p:last-child {
+      font-size: 2.5rem;
       color: #BC5A45;
       font-weight: bold;
       line-height: 1;
+      font-family: 'Bubblegum Sans', cursive;
     }
 
-    .modal-details .price-action button {
+    .price-action button {
       background-color: #6B8E23;
       color: white;
-      padding: 1.2rem 2.2rem;
+      padding: 0.8rem 1.8rem;
       border-radius: 2rem;
-      font-size: 2rem;
+      font-size: 1.4rem;
       font-weight: bold;
       transition: all 0.2s ease;
-      box-shadow: 0 8px 0 0 #4a6318;
+      box-shadow: 0 5px 0 0 #4a6318;
       white-space: nowrap;
       border: none;
       cursor: pointer;
+      font-family: 'Bubblegum Sans', cursive;
     }
 
-    .modal-details .price-action button:hover {
-      transform: scale(1.05);
+    .price-action button:hover {
+      transform: scale(1.02);
+      background-color: #5a7520;
     }
 
-    .modal-details .price-action button:active {
-      transform: scale(0.95);
+    .price-action button:active {
+      transform: scale(0.98);
     }
 
     .modal-details h2 {
-      font-size: 3.2rem !important;
-      line-height: 1.1;
-      margin-bottom: 1.8rem;
-    }
-
-    .modal-details h4 {
-      font-size: 2.3rem !important;
-      margin-bottom: 1rem;
-    }
-
-    .modal-details p.text-2xl {
-      font-size: 1.6rem !important;
-      line-height: 1.4;
-    }
-
-    .modal-details p.text-3xl.font-bold {
-      font-size: 2.5rem !important;
-    }
-
-    .modal-details .text-2xl.uppercase {
-      font-size: 1.6rem !important;
-      letter-spacing: 0.2em;
-    }
-
-    .modal-details .text-4xl {
       font-size: 2.8rem !important;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      font-family: 'RASCAL', cursive;
+      color: #BC5A45;
+    }
+
+    .modal-details .description-text {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      font-family: 'Fredoka', sans-serif;
+      color: #4a3728;
+      margin-bottom: 1rem;
     }
     
     @media (max-width: 767px) {
       .modal-container {
         width: 95%;
-        max-height: 85vh;
+        max-height: 90vh;
         margin: 1rem;
       }
       
       .modal-content {
-        max-height: 85vh;
+        max-height: 90vh;
         overflow-y: auto;
       }
       
@@ -595,110 +664,45 @@
       }
       
       .modal-image-inner img {
-        height: 200px;
+        height: 180px;
       }
       
       .modal-details {
         width: 100%;
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
       
       .modal-details h2 {
-        font-size: 2rem !important;
-        margin-bottom: 1rem;
+        font-size: 1.8rem !important;
       }
       
-      .modal-details h4 {
-        font-size: 1.5rem !important;
-        margin-bottom: 0.5rem;
+      .info-col h4 {
+        font-size: 1.3rem;
       }
       
-      .modal-details p.text-2xl {
-        font-size: 1.25rem !important;
-      }
-      
-      .modal-details p.text-3xl.font-bold {
-        font-size: 2rem !important;
-      }
-      
-      .modal-details .text-2xl.uppercase {
-        font-size: 1.25rem !important;
-      }
-      
-      .modal-details .text-4xl {
-        font-size: 2.5rem !important;
-      }
-      
-      .quantity-selector {
-        margin-top: 1rem;
-      }
-      
-      .quantity-btn {
-        width: 3rem;
-        height: 3rem;
+      .info-col p {
         font-size: 1.5rem;
       }
       
-      .quantity-value {
+      .description-text {
+        font-size: 1rem !important;
+      }
+      
+      .price-action .price-info p:last-child {
         font-size: 1.8rem;
-        min-width: 2.5rem;
       }
       
-      .modal-details .price-action {
+      .price-action button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.2rem;
+      }
+      
+      .info-row {
         flex-direction: column;
-        gap: 1rem;
-        padding-top: 1rem;
-      }
-      
-      .modal-details .price-action .price-info {
-        text-align: center;
-      }
-      
-      .modal-details .price-action button {
-        padding: 1rem 1.5rem;
-        font-size: 1.5rem;
+        gap: 0.8rem;
       }
     }
-    
-    .quantity-selector {
-      display: flex;
-      align-items: center;
-      gap: 1.3rem;
-      margin-top: 1.3rem;
-    }
-    
-    .quantity-btn {
-      width: 3.8rem;
-      height: 3.8rem;
-      border-radius: 9999px;
-      background-color: #BC5A45;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: none;
-    }
-    
-    .quantity-btn:hover {
-      background-color: #a34d3b;
-      transform: scale(1.1);
-    }
-    
-    .quantity-btn:active {
-      transform: scale(0.95);
-    }
-    
-    .quantity-value {
-      font-size: 2.3rem;
-      font-weight: bold;
-      min-width: 3.2rem;
-      text-align: center;
-    }
-    
+
     /* ===== PRODUCT CARD STYLES ===== */
     .product-card {
       transition: all 0.3s ease;
@@ -799,6 +803,46 @@
       align-items: center;
       justify-content: center;
     }
+
+    [x-cloak] { display: none !important; }
+    
+    /* header footer styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 80px;
+      background: rgba(255, 255, 255, 0.95);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999999;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo-link { display: block; text-decoration: none; }
+    .brand-logo { width: 150px; height: auto; object-fit: contain; transition: transform 0.3s ease; }
+    .brand-logo:hover { transform: scale(1.05); }
+    .header-right { display: flex; align-items: center; gap: 40px; }
+    .nav { display: flex; gap: 40px; }
+    .nav-link { text-decoration: none; color: #000; font-size: clamp(20px, 2.5vw, 32px); position: relative; padding: 5px 0; cursor: pointer; }
+    .nav-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 3px; background: #c97b63; transition: width 0.3s ease; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link:hover { color: #c97b63; }
+    .btn-header { background: #c97b63; color: #fff; padding: 10px 28px; border-radius: 30px; text-decoration: none; font-size: clamp(18px, 2vw, 26px); font-weight: bold; transition: all 0.3s ease; border: 2px solid #c97b63; white-space: nowrap; }
+    .btn-header:hover { background: #b55242; border-color: #b55242; transform: translateY(-2px); }
+    .footer { background: #b55242; color: #fff; padding: 60px 120px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 0; flex-shrink: 0; }
+    .footer-left { display: flex; flex-direction: column; gap: 12px; }
+    .footer-link { color: #fff; text-decoration: none; font-size: clamp(20px, 2.2vw, 32px); padding: 3px 0; cursor: pointer; transition: color 0.3s ease; }
+    .footer-link:hover { color: #ffd9cc; }
+    .footer-logo { width: 150px; height: auto; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1.1); }
+    .footer-logo:hover { transform: scale(1.05); }
+    @media (max-width: 1024px) { .header { padding: 20px 40px; } .footer { padding: 50px 80px; } .footer-logo { width: 130px; } }
+    @media (max-width: 768px) { .header { flex-direction: column; padding: 15px 20px; } .brand-logo { width: 120px; } .header-right { width: 100%; justify-content: space-between; gap: 20px; } .nav { gap: 20px; } .footer { flex-direction: column; gap: 40px; padding: 40px 20px; text-align: center; } .footer-left { align-items: center; } .footer-right { align-items: center; justify-content: center; } .footer-logo { width: 120px; } }
+    @media (max-width: 480px) { .header-right { flex-direction: column; gap: 15px; } .nav { gap: 15px; } .nav-link { font-size: 18px; } .btn-header { padding: 8px 20px; font-size: 16px; } .footer { padding: 30px 20px; gap: 30px; } .footer-link { font-size: 20px; } .footer-logo { width: 100px; } }
   </style>
 </head>
 <body x-data="cartSystem()" x-init="initCart()" class="min-h-screen flex flex-col">
@@ -807,10 +851,9 @@
   <header class="header">
     <div class="logo-container">
       <a href="{{ route('home') }}" class="logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="brand-logo">
+        <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
       </a>
     </div>
-
     <div class="header-right">
       <nav class="nav">
         <a href="{{ route('home') }}" class="nav-link">home</a>
@@ -821,144 +864,75 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="flex-grow" style="margin-top: 120px;">
 
     <!-- HERO SECTION -->
     <section id="top" class="hero-section px-6 md:px-12 max-w-7xl mx-auto">
       <div class="flex flex-col md:flex-row items-center justify-between gap-12 w-full">
         <div class="md:w-1/2 space-y-6 animate-fade-left">
-          <div class="inline-block bg-[#6B8E23] text-white font-fredoka px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase rotate-[-2deg] mb-2">
-            Order Page
-          </div>
-          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-rascal leading-[0.8] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
-            Pilih <br />
-            <span class="ml-4 sm:ml-8 md:ml-12">Menu Anda</span>
-          </h1>
-          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-[#4a3728]/80 max-w-md leading-relaxed animate-fade-up delay-1">
-            Klik pada produk untuk membaca <span class="text-[#BC5A45] font-bold">deskripsi</span> menarik, lalu tambahkan ke keranjang!
-          </p>
+          <div class="inline-block bg-[#6B8E23] text-white font-fredoka px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase rotate-[-2deg] mb-2">Order Page</div>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-rascal leading-[0.8] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Pilih <br /><span class="ml-4 sm:ml-8 md:ml-12">Menu Anda</span></h1>
+          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-[#4a3728]/80 max-w-md leading-relaxed animate-fade-up delay-1">Klik pada produk untuk membaca <span class="text-[#BC5A45] font-bold">deskripsi</span> menarik, lalu tambahkan ke keranjang!</p>
         </div>
-        
         <div class="md:w-1/2 relative group animate-fade-right">
           <div class="relative z-10 rounded-[5rem] border-[15px] border-[#6B8E23] overflow-hidden shadow-[30px_30px_0px_0px_rgba(188,90,69,0.1)] aspect-square -rotate-3 transition-transform duration-500 group-hover:rotate-0">
-            <img 
-              src="{{ asset('assets/images/pempekorder.jpg') }}" 
-              alt="Pempek Bunda 75" 
-              class="w-full h-full object-cover"
-            />
+            <img src="{{ asset('assets/images/pempekbunda4.png') }}" alt="PempekBunda 75" class="w-full h-full object-cover" />
           </div>
           <div class="absolute -top-10 -right-10 text-6xl text-[#BC5A45] animate-bounce select-none">★</div>
           <div class="absolute -bottom-10 -left-10 text-6xl text-[#6B8E23] animate-pulse select-none">★</div>
-          <div class="absolute top-1/2 -right-20 text-4xl text-[#BC5A45]/30 select-none hidden lg:block">★ ★ ★</div>
         </div>
       </div>
     </section>
 
-    <!-- STARS DIVIDER -->
-    <div class="flex justify-center space-x-4 py-8 overflow-hidden select-none">
-      @for($i = 0; $i < 12; $i++)
-        <span class="text-[#BC5A45] text-4xl md:text-5xl">★</span>
-      @endfor
-    </div>
+    <div class="flex justify-center space-x-4 py-8 overflow-hidden select-none">@for($i = 0; $i < 12; $i++)<span class="text-[#BC5A45] text-4xl md:text-5xl">★</span>@endfor</div>
 
-    <!-- PRODUCTS GRID SECTION -->
+    <!-- PRODUCTS GRID -->
     <section id="products" class="products-section px-6 md:px-12 max-w-7xl mx-auto relative scroll-mt-32">
-      <div class="absolute top-0 left-0 w-64 h-64 bg-[#BC5A45]/5 rounded-full blur-3xl -z-10"></div>
-      <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#6B8E23]/5 rounded-full blur-3xl -z-10"></div>
-
       <div class="w-full">
         <div class="flex flex-col items-center mb-12">
           <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-rascal text-center mb-4 animate-fade-up font-bold" style="color: #7c2d12;">Daftar Menu</h2>
           <div class="w-24 h-2 bg-[#BC5A45] rounded-full animate-scale"></div>
         </div>
-
         @if(isset($products) && $products->isEmpty())
-          <div class="text-center py-20">
-            <p class="text-2xl font-fredoka text-gray-500">Belum ada produk tersedia.</p>
-          </div>
+          <div class="text-center py-20"><p class="text-2xl font-fredoka text-gray-500">Belum ada produk tersedia.</p></div>
         @elseif(isset($products))
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-x-12 md:gap-x-16 gap-y-12 sm:gap-y-16 md:gap-y-24">
           @foreach($products as $index => $product)
           <div class="product-card group cursor-pointer flex flex-col items-center" @click="showProductModal({{ $product['id'] }})">
             <div class="relative mb-6 w-full aspect-square overflow-hidden rounded-[3rem] border-[10px] border-[#6B8E23] p-1 bg-white shadow-[15px_15px_0px_0px_rgba(188,90,69,0.2)] group-hover:shadow-[20px_20px_0px_0px_rgba(188,90,69,0.3)] transition-all duration-300 transform group-hover:-rotate-2">
-              <img 
-                src="{{ $product['image'] }}" 
-                alt="{{ $product['name'] }}" 
-                class="w-full h-full object-cover rounded-[2.2rem] group-hover:scale-105 transition-transform duration-700"
-              />
-              <div class="absolute top-4 right-4 bg-[#BC5A45] text-white font-bubble px-4 py-1 rounded-full text-sm rotate-12 shadow-md">
-                Stok: {{ $product['stok'] }}
-              </div>
+              <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-cover rounded-[2.2rem] group-hover:scale-105 transition-transform duration-700" />
+              <div class="absolute top-4 right-4 bg-[#BC5A45] text-white font-bubble px-4 py-1 rounded-full text-sm rotate-12 shadow-md">Stok: {{ $product['stok'] }}</div>
             </div>
-            
-            <h3 class="text-3xl font-bubble text-[#BC5A45] text-center mb-1 group-hover:scale-110 transition-transform">
-              {{ $product['name'] }}
-            </h3>
-            <p class="text-xl font-fredoka font-semibold text-[#6B8E23] mb-4">
-              Rp {{ number_format($product['price'], 0, ',', '.') }}
-            </p>
-            
+            <h3 class="text-3xl font-bubble text-[#BC5A45] text-center mb-1 group-hover:scale-110 transition-transform">{{ $product['name'] }}</h3>
+            <p class="text-xl font-fredoka font-semibold text-[#6B8E23] mb-4">Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
             <div class="flex flex-col w-full space-y-2">
-              <button 
-                @click.stop="addToCart({{ $product['id'] }}, '{{ $product['name'] }}', {{ $product['price'] }}, '{{ $product['image'] }}')"
-                class="w-full bg-[#BC5A45] text-white font-bubble text-xl py-3 rounded-2xl hover:bg-[#a34d3b] shadow-lg transform active:scale-95 transition-all"
-              >
-                + Tambah ke keranjang
-              </button>
-              <p class="w-full text-center text-xs font-fredoka text-[#4a3728]/60 italic" style="margin-top: 1.5rem;">
-                Klik gambar produk untuk baca deskripsi
-              </p>
+              <button @click.stop="addToCart({{ $product['id'] }}, '{{ $product['name'] }}', {{ $product['price'] }}, '{{ $product['image'] }}')" class="w-full bg-[#BC5A45] text-white font-bubble text-xl py-3 rounded-2xl hover:bg-[#a34d3b] shadow-lg transform active:scale-95 transition-all">+ Tambah ke keranjang</button>
+              <p class="w-full text-center text-xs font-fredoka text-[#4a3728]/60 italic" style="margin-top: 1.5rem;">Klik gambar produk untuk baca deskripsi</p>
             </div>
           </div>
           @endforeach
         </div>
         @else
-        <div class="text-center py-20">
-          <p class="text-2xl font-fredoka text-gray-500">Error memuat produk.</p>
-        </div>
+        <div class="text-center py-20"><p class="text-2xl font-fredoka text-gray-500">Error memuat produk.</p></div>
         @endif
       </div>
     </section>
 
-    <!-- STARS DIVIDER -->
-    <div class="flex justify-center space-x-4 py-8 overflow-hidden select-none">
-      @for($i = 0; $i < 12; $i++)
-        <span class="text-[#BC5A45] text-4xl md:text-5xl">★</span>
-      @endfor
-    </div>
+    <div class="flex justify-center space-x-4 py-8 overflow-hidden select-none">@for($i = 0; $i < 12; $i++)<span class="text-[#BC5A45] text-4xl md:text-5xl">★</span>@endfor</div>
 
-    <!-- FLOATING CALL TO ACTION -->
+    <!-- CTA -->
     <section class="cta-section px-6 md:px-12 max-w-5xl mx-auto">
       <div class="w-full">
         <div class="bg-[#6B8E23] rounded-[4rem] p-16 md:p-24 shadow-2xl relative overflow-hidden animate-scale text-center">
-          <div class="absolute inset-0 opacity-10 pointer-events-none flex flex-wrap gap-6 p-6 justify-center">
-            @for($i = 0; $i < 25; $i++)
-              <span class="text-white text-3xl md:text-4xl">★</span>
-            @endfor
-          </div>
-
-          <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bubble text-white mb-8 leading-tight relative z-10 animate-fade-up">
-            Bingung Pilih <br /> yang Mana?
-          </h2>
-          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-white/90 mb-12 max-w-2xl mx-auto relative z-10 animate-fade-up delay-1 leading-relaxed">
-            Tenang Bunda, semua pempek kami dibuat dengan ikan tenggiri murni. Semua produk segar dan berkualitas!
-          </p>
-          <!-- 🔥 TOMBOL LIhat Keranjang - SEKARANG CEK LOGIN DULU -->
-          <a 
-            href="#" 
-            id="lihatKeranjangBtn"
-            class="inline-block bg-[#FFF9F0] text-[#BC5A45] font-bubble text-xl sm:text-2xl md:text-3xl lg:text-4xl px-12 sm:px-16 py-4 sm:py-6 rounded-[3rem] hover:scale-110 active:scale-95 transition-all shadow-xl relative z-10 animate-scale delay-2"
-          >
-            Lihat Keranjang 🛒
-          </a>
+          <div class="absolute inset-0 opacity-10 pointer-events-none flex flex-wrap gap-6 p-6 justify-center">@for($i = 0; $i < 25; $i++)<span class="text-white text-3xl md:text-4xl">★</span>@endfor</div>
+          <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bubble text-white mb-8 leading-tight relative z-10 animate-fade-up">Bingung Pilih <br /> yang Mana?</h2>
+          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-white/90 mb-12 max-w-2xl mx-auto relative z-10 animate-fade-up delay-1 leading-relaxed">Tenang Bunda, semua pempek kami dibuat dengan ikan tenggiri murni. Semua produk segar dan berkualitas!</p>
+          <a href="#" id="lihatKeranjangBtn" class="inline-block bg-[#FFF9F0] text-[#BC5A45] font-bubble text-xl sm:text-2xl md:text-3xl lg:text-4xl px-12 sm:px-16 py-4 sm:py-6 rounded-[3rem] hover:scale-110 active:scale-95 transition-all shadow-xl relative z-10 animate-scale delay-2">Lihat Keranjang 🛒</a>
         </div>
       </div>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-left">
       <a href="#" id="footer-order-btn" class="footer-link">order</a>
@@ -966,141 +940,62 @@
       <a href="#products" class="footer-link">produk</a>
       <a href="{{ route('order.cart') }}" class="footer-link">cek pesanan</a>
     </div>
-
     <div class="footer-right">
-      <a href="{{ route('home') }}" class="footer-logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="footer-logo">
-      </a>
+      <a href="{{ route('home') }}" class="footer-logo-link"><img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="footer-logo"></a>
     </div>
   </footer>
 
-  <!-- FLOATING CART BUTTON - MUNCUL SAAT ADA ITEM -->
+  <!-- FLOATING CART -->
   <template x-if="cartCount > 0">
     <div>
-      <!-- Floating Cart Button -->
       <div class="floating-cart-btn" @click="toggleCartDrawer">
-        <div class="cart-icon-wrapper">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-count-badge" x-text="cartCount"></span>
-        </div>
-        <div class="cart-info">
-          <span class="cart-title">Keranjangmu</span>
-          <span class="cart-total" x-text="'Rp ' + cartTotal.toLocaleString('id-ID')"></span>
-        </div>
+        <div class="cart-icon-wrapper"><i class="fas fa-shopping-cart"></i><span class="cart-count-badge" x-text="cartCount"></span></div>
+        <div class="cart-info"><span class="cart-title">Keranjangmu</span><span class="cart-total" x-text="'Rp ' + cartTotal.toLocaleString('id-ID')"></span></div>
       </div>
-
-      <!-- Cart Drawer -->
       <div class="cart-drawer" :class="{ 'active': cartDrawerOpen }">
-        <div class="cart-drawer-header">
-          <h3>
-            <i class="fas fa-shopping-cart"></i> 
-            Detail Keranjang
-          </h3>
-          <button @click="cartDrawerOpen = false">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        
-        <!-- Cart Drawer Items -->
+        <div class="cart-drawer-header"><h3><i class="fas fa-shopping-cart"></i> Detail Keranjang</h3><button @click="cartDrawerOpen = false"><i class="fas fa-times"></i></button></div>
         <div class="cart-drawer-items">
           <template x-for="(item, index) in cart" :key="item.id">
             <div class="cart-item">
-              <div class="cart-item-info">
-                <div class="cart-item-name" x-text="item.name"></div>
-                <div class="cart-item-price" x-text="'Rp ' + (item.price * item.quantity).toLocaleString('id-ID')"></div>
-              </div>
+              <div class="cart-item-info"><div class="cart-item-name" x-text="item.name"></div><div class="cart-item-price" x-text="'Rp ' + (item.price * item.quantity).toLocaleString('id-ID')"></div></div>
               <div class="flex items-center gap-3">
-                <div class="cart-item-quantity">
-                  <button @click="updateCartQuantity(index, item.quantity - 1)" :disabled="item.quantity <= 0">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <span x-text="item.quantity"></span>
-                  <button @click="updateCartQuantity(index, item.quantity + 1)">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-                <!-- Tombol Hapus -->
-                <button @click="removeItem(index)" class="text-red-500 hover:text-red-700 ml-2" title="Hapus item">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
+                <div class="cart-item-quantity"><button @click="updateCartQuantity(index, item.quantity - 1)" :disabled="item.quantity <= 0"><i class="fas fa-minus"></i></button><span x-text="item.quantity"></span><button @click="updateCartQuantity(index, item.quantity + 1)"><i class="fas fa-plus"></i></button></div>
+                <button @click="removeItem(index)" class="text-red-500 hover:text-red-700 ml-2"><i class="fas fa-trash-alt"></i></button>
               </div>
             </div>
           </template>
-          
-          <div class="empty-cart" x-show="cart.length === 0" x-cloak>
-            <i class="fas fa-shopping-cart"></i>
-            <p>Keranjang kosong</p>
-          </div>
+          <div class="empty-cart" x-show="cart.length === 0" x-cloak><i class="fas fa-shopping-cart"></i><p>Keranjang kosong</p></div>
         </div>
-        
-        <div class="cart-drawer-footer">
-          <div class="cart-grand-total">
-            <span>Total Pembayaran</span>
-            <span x-text="'Rp ' + cartTotal.toLocaleString('id-ID')"></span>
-          </div>
-          <!-- 🔥 TOMBOL LANGSUNG BAYAR - CEK LOGIN DULU -->
-          <a href="#" @click.prevent="checkout" class="cart-payment-btn">
-            <i class="fas fa-credit-card"></i> LANGSUNG BAYAR
-          </a>
-        </div>
+        <div class="cart-drawer-footer"><div class="cart-grand-total"><span>Total Pembayaran</span><span x-text="'Rp ' + cartTotal.toLocaleString('id-ID')"></span></div><a href="#" @click.prevent="checkout" class="cart-payment-btn"><i class="fas fa-credit-card"></i> LANGSUNG BAYAR</a></div>
       </div>
     </div>
   </template>
 
-  <!-- PRODUCT MODAL (BLOG) -->
+  <!-- PRODUCT MODAL (LAYOUT DIPERBAIKI) -->
   <div id="productModal" class="modal-fixed" x-show="modalOpen" x-cloak @click.away="closeModal">
     <div class="modal-container">
       <div class="modal-content">
-        <div class="absolute top-6 left-6 text-[#BC5A45] text-3xl opacity-50 select-none z-10">★ ★ ★</div>
-        
-        <button 
-          @click="closeModal"
-          class="absolute top-6 right-6 z-20 w-14 h-14 flex items-center justify-center bg-[#BC5A45] text-white rounded-full hover:rotate-90 transition-transform shadow-lg text-3xl"
-        >
-          <i class="fas fa-times"></i>
-        </button>
-
-        <div class="modal-image">
-          <div class="modal-image-inner">
-            <img x-bind:src="selectedProduct.image" alt="Product Image" />
-          </div>
-        </div>
-        
+        <button @click="closeModal" class="absolute top-6 right-6 z-20 w-12 h-12 flex items-center justify-center bg-[#BC5A45] text-white rounded-full hover:rotate-90 transition-transform shadow-lg text-2xl"><i class="fas fa-times"></i></button>
+        <div class="modal-image"><div class="modal-image-inner"><img x-bind:src="selectedProduct.image" alt="Product Image" /></div></div>
         <div class="modal-details">
           <div class="content-wrapper">
-            <div class="main-content">
-              <h2 class="font-bubble text-[#BC5A45] mb-8 leading-tight font-rascal" x-text="selectedProduct.name"></h2>
-              
-              <div class="space-y-8 font-fredoka text-[#4a3728] leading-relaxed">
-                <section>
-                  <h4 class="text-3xl font-bubble text-[#6B8E23] mb-4 flex items-center">
-                    <span class="mr-3 text-4xl">✨</span> <span x-text="'Tentang ' + selectedProduct.name"></span>
-                  </h4>
-                  <p class="text-2xl" x-text="selectedProduct.description"></p>
-                </section>
-
-                <section class="mt-6">
-                  <h4 class="text-3xl font-bubble text-[#6B8E23] mb-4 flex items-center">
-                    <span class="mr-3 text-4xl">📦</span> Stok Tersedia
-                  </h4>
-                  <p class="text-3xl font-bold" x-text="selectedProduct.stok + ' pcs'"></p>
-                </section>
-
-                <div class="mt-6">
-                  <h4 class="text-3xl font-bubble text-[#6B8E23] mb-4 flex items-center">
-                    <span class="mr-3 text-4xl">🔢</span> Jumlah
-                  </h4>
-                  <div class="quantity-selector">
-                    <button class="quantity-btn" @click="if(quantity > 1) quantity--" :disabled="quantity <= 1">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <span class="quantity-value" x-text="quantity"></span>
-                    <button class="quantity-btn" @click="if(quantity < selectedProduct.stok) quantity++" :disabled="quantity >= selectedProduct.stok">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                  <p class="text-xl mt-2 opacity-60" x-show="quantity >= selectedProduct.stok">Stok maksimal <span x-text="selectedProduct.stok"></span></p>
+            <h2 class="font-rascal" x-text="selectedProduct.name"></h2>
+            <p class="description-text" x-text="selectedProduct.description"></p>
+            
+            <!-- STOK & JUMLAH - LAYOUT FLEX ROW (KANAN KIRI) -->
+            <div class="info-row">
+              <div class="info-col">
+                <h4><span>📦</span> Stok Tersedia</h4>
+                <p class="stok-value" x-text="selectedProduct.stok + ' pcs'"></p>
+              </div>
+              <div class="info-col">
+                <h4><span>🔢</span> Jumlah</h4>
+                <div class="quantity-selector-modal">
+                  <button class="quantity-btn-modal" @click="if(quantity > 1) quantity--" :disabled="quantity <= 1"><i class="fas fa-minus"></i></button>
+                  <span class="quantity-value-modal" x-text="quantity"></span>
+                  <button class="quantity-btn-modal" @click="if(quantity < selectedProduct.stok) quantity++" :disabled="quantity >= selectedProduct.stok"><i class="fas fa-plus"></i></button>
                 </div>
+                <p class="stok-warning" x-show="quantity >= selectedProduct.stok && selectedProduct.stok > 0">Maksimal stok tersedia</p>
               </div>
             </div>
 
@@ -1110,9 +1005,7 @@
                 <p>Harga Per Paket</p>
                 <p x-text="'Rp ' + selectedProduct.price.toLocaleString('id-ID')"></p>
               </div>
-              <button @click="addToCartFromModal">
-                <i class="fas fa-cart-plus mr-2"></i> Tambah
-              </button>
+              <button @click="addToCartFromModal"><i class="fas fa-cart-plus mr-2"></i> Tambah ke Keranjang</button>
             </div>
           </div>
         </div>
@@ -1120,7 +1013,6 @@
     </div>
   </div>
 
-  <!-- CART SYSTEM SCRIPT (LANGSUNG DI BLADE) -->
   <script>
     function cartSystem() {
       return {
@@ -1137,509 +1029,76 @@
             const saved = localStorage.getItem('cart');
             this.cart = saved ? JSON.parse(saved) : [];
             this.updateCartSummary();
-            console.log('Cart loaded:', this.cart);
-            
-            // 🔥 CEK STATUS LOGIN DARI SERVER
-            fetch('/api/check-auth')
-              .then(res => res.json())
-              .then(data => {
-                window.isLoggedIn = data.authenticated;
-              })
-              .catch(() => {
-                window.isLoggedIn = false;
-              });
-          } catch (e) {
-            console.error('Cart error:', e);
-            this.cart = [];
-            this.updateCartSummary();
-          }
+            fetch('/api/check-auth').then(res => res.json()).then(data => { window.isLoggedIn = data.authenticated; }).catch(() => { window.isLoggedIn = false; });
+          } catch (e) { this.cart = []; this.updateCartSummary(); }
         },
-        
         updateCartSummary() {
           this.cartCount = this.cart?.reduce((sum, item) => sum + (item?.quantity || 0), 0) || 0;
           this.cartTotal = this.cart?.reduce((sum, item) => sum + ((item?.price || 0) * (item?.quantity || 0)), 0) || 0;
           localStorage.setItem('cart', JSON.stringify(this.cart || []));
         },
-        
-        toggleCartDrawer() {
-          this.cartDrawerOpen = !this.cartDrawerOpen;
-        },
-        
+        toggleCartDrawer() { this.cartDrawerOpen = !this.cartDrawerOpen; },
         updateCartQuantity(index, newQuantity) {
-          if (newQuantity < 1) {
-            // Hapus item jika quantity 0
-            this.cart.splice(index, 1);
-            this.showNotification('Item dihapus dari keranjang');
-          } else {
-            this.cart[index].quantity = newQuantity;
-          }
+          if (newQuantity < 1) { this.cart.splice(index, 1); this.showNotification('Item dihapus dari keranjang'); }
+          else { this.cart[index].quantity = newQuantity; }
           this.updateCartSummary();
         },
-        
-        removeItem(index) {
-          const itemName = this.cart[index].name;
-          this.cart.splice(index, 1);
-          this.showNotification(`🗑️ ${itemName} dihapus dari keranjang`);
-          this.updateCartSummary();
-        },
-        
+        removeItem(index) { const itemName = this.cart[index].name; this.cart.splice(index, 1); this.showNotification(`🗑️ ${itemName} dihapus dari keranjang`); this.updateCartSummary(); },
         addToCart(id, name, price, image) {
-          if (!id || !price) {
-            console.error('Invalid product');
-            return;
-          }
-          
+          if (!id || !price) return;
           const existing = this.cart?.find(item => item.id === id);
-          
-          if (existing) {
-            existing.quantity = (existing.quantity || 0) + 1;
-          } else {
-            this.cart.push({
-              id, name, price, image,
-              quantity: 1
-            });
-          }
-          
+          if (existing) existing.quantity = (existing.quantity || 0) + 1;
+          else this.cart.push({ id, name, price, image, quantity: 1 });
           this.updateCartSummary();
           this.showNotification(name + ' ditambahkan ke keranjang!');
           this.cartDrawerOpen = true;
         },
-        
         addToCartFromModal() {
-          if (!this.selectedProduct || !this.selectedProduct.id) {
-            console.error('No product selected');
-            return;
-          }
-          
+          if (!this.selectedProduct || !this.selectedProduct.id) return;
           const existing = this.cart?.find(item => item.id === this.selectedProduct.id);
-          
-          if (existing) {
-            existing.quantity += this.quantity;
-          } else {
-            this.cart.push({
-              id: this.selectedProduct.id,
-              name: this.selectedProduct.name,
-              price: this.selectedProduct.price,
-              image: this.selectedProduct.image,
-              quantity: this.quantity
-            });
-          }
-          
+          if (existing) existing.quantity += this.quantity;
+          else this.cart.push({ id: this.selectedProduct.id, name: this.selectedProduct.name, price: this.selectedProduct.price, image: this.selectedProduct.image, quantity: this.quantity });
           this.updateCartSummary();
           this.closeModal();
           this.showNotification(this.selectedProduct.name + ' (' + this.quantity + ' item) ditambahkan!');
           this.cartDrawerOpen = true;
         },
-        
         showProductModal(productId) {
-          // Cari produk dari data yang dikirim server
           const products = @json($products ?? []);
           const product = products.find(p => p.id === productId);
-          
-          if (product) {
-            this.selectedProduct = product;
-            this.quantity = 1;
-            this.modalOpen = true;
-          } else {
-            console.error('Product not found:', productId);
-          }
+          if (product) { this.selectedProduct = product; this.quantity = 1; this.modalOpen = true; }
         },
-        
-        closeModal() {
-          this.modalOpen = false;
-          this.quantity = 1;
-        },
-        
+        closeModal() { this.modalOpen = false; this.quantity = 1; },
         showNotification(message) {
-          if (!message) return;
-          
           const notif = document.createElement('div');
           notif.className = 'fixed top-4 right-4 bg-[#6B8E23] text-white px-6 py-3 rounded-full font-fredoka z-[100000] shadow-lg animate-bounce';
           notif.innerHTML = '<i class="fas fa-check-circle mr-2"></i> ' + message;
           document.body.appendChild(notif);
-          
           setTimeout(() => notif.remove(), 2000);
         },
-        
-        // 🔥 FUNGSI CHECKOUT - CEK LOGIN DULU
         checkout() {
-          if (window.isLoggedIn) {
-            // Jika sudah login, lanjut ke payment
-            window.location.href = '{{ route("order.payment") }}';
-          } else {
-            // Jika belum login, redirect ke login dengan parameter return
-            window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.payment") }}');
-          }
+          if (window.isLoggedIn) window.location.href = '{{ route("order.payment") }}';
+          else window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.payment") }}');
         }
       }
     }
-  </script>
 
-  <!-- 🔥 HANDLER UNTUK TOMBOL LIHAT KERANJANG -->
-  <script>
     document.addEventListener('DOMContentLoaded', function() {
       const lihatKeranjangBtn = document.getElementById('lihatKeranjangBtn');
       if (lihatKeranjangBtn) {
         lihatKeranjangBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          
-          // Cek apakah user sudah login
-          fetch('/api/check-auth')
-            .then(res => res.json())
-            .then(data => {
-              if (data.authenticated) {
-                window.location.href = '{{ route("order.cart") }}';
-              } else {
-                window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.cart") }}');
-              }
-            })
-            .catch(() => {
-              window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.cart") }}');
-            });
+          fetch('/api/check-auth').then(res => res.json()).then(data => {
+            if (data.authenticated) window.location.href = '{{ route("order.cart") }}';
+            else window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.cart") }}');
+          }).catch(() => window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent('{{ route("order.cart") }}'));
         });
       }
-
-      // Smooth scroll links
-      const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-      
-      smoothScrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          
-          if (href !== '#') {
-            e.preventDefault();
-            
-            const targetId = href;
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-              const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
-              const targetPosition = targetElement.offsetTop - headerHeight - 20;
-              
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-              
-              document.querySelectorAll('.nav-link').forEach(navLink => {
-                navLink.classList.remove('active');
-              });
-              this.classList.add('active');
-            }
-          }
-        });
-      });
-      
-      function scrollToTop(e) {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
-      
       const orderTopBtn = document.getElementById('order-top-btn');
-      if (orderTopBtn) {
-        orderTopBtn.addEventListener('click', scrollToTop);
-      }
-      
+      if(orderTopBtn) orderTopBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
       const footerOrderBtn = document.getElementById('footer-order-btn');
-      if (footerOrderBtn) {
-        footerOrderBtn.addEventListener('click', scrollToTop);
-      }
-      
-      function updateActiveNavOnScroll() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPosition = window.scrollY + (document.querySelector('.header')?.offsetHeight || 0) + 50;
-        
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          const sectionId = section.getAttribute('id');
-          
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === `#${sectionId}`) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }
-      
-      window.addEventListener('scroll', updateActiveNavOnScroll);
-      
-      const currentHash = window.location.hash || '#home';
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === currentHash) {
-          link.classList.add('active');
-        }
-      });
+      if(footerOrderBtn) footerOrderBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     });
   </script>
-
-  <style>
-    [x-cloak] { display: none !important; }
-    
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 80px;
-      background: rgba(255, 255, 255, 0.95);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 999999;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo-link {
-      display: block;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      width: 150px;
-      height: auto;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
-
-    .brand-logo:hover {
-      transform: scale(1.05);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .nav {
-      display: flex;
-      gap: 40px;
-    }
-
-    .nav-link {
-      text-decoration: none;
-      color: #000;
-      font-size: clamp(20px, 2.5vw, 32px);
-      position: relative;
-      padding: 5px 0;
-      cursor: pointer;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 3px;
-      background: #c97b63;
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 100%;
-    }
-
-    .nav-link:hover {
-      color: #c97b63;
-    }
-
-    .btn-header {
-      background: #c97b63;
-      color: #fff;
-      padding: 10px 28px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: clamp(18px, 2vw, 26px);
-      font-weight: bold;
-      transition: all 0.3s ease;
-      border: 2px solid #c97b63;
-      white-space: nowrap;
-    }
-
-    .btn-header:hover {
-      background: #b55242;
-      border-color: #b55242;
-      transform: translateY(-2px);
-    }
-
-    .footer {
-      background: #b55242;
-      color: #fff;
-      padding: 60px 120px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      margin: 0;
-      flex-shrink: 0;
-    }
-
-    .footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer-link {
-      color: #fff;
-      text-decoration: none;
-      font-size: clamp(20px, 2.2vw, 32px);
-      padding: 3px 0;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      display: inline-block;
-    }
-
-    .footer-link:hover {
-      color: #ffd9cc;
-    }
-
-    .footer-right {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .footer-logo-link {
-      display: block;
-      text-decoration: none;
-    }
-
-    .footer-logo {
-      width: 150px;
-      height: auto;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-      filter: brightness(1.1);
-    }
-
-    .footer-logo:hover {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 1024px) {
-      .header { padding: 20px 40px; }
-      .footer { padding: 50px 80px; }
-      .footer-logo { width: 130px; }
-      html { scroll-padding-top: 80px; }
-      
-      .floating-cart-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 20px;
-      }
-      
-      .cart-drawer {
-        bottom: 110px;
-        right: 20px;
-        width: 350px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        padding: 15px 20px;
-      }
-      .brand-logo { width: 120px; }
-      .header-right {
-        width: 100%;
-        justify-content: space-between;
-        gap: 20px;
-      }
-      .nav { gap: 20px; }
-      .footer {
-        flex-direction: column;
-        gap: 40px;
-        padding: 40px 20px;
-        text-align: center;
-      }
-      .footer-left { align-items: center; }
-      .footer-right { align-items: center; justify-content: center; }
-      .footer-logo { width: 120px; }
-      html { scroll-padding-top: 120px; }
-      
-      .floating-cart-btn {
-        bottom: 15px;
-        right: 15px;
-      }
-      
-      .cart-drawer {
-        bottom: 100px;
-        right: 15px;
-        width: 320px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header-right { flex-direction: column; gap: 15px; }
-      .nav { gap: 15px; }
-      .nav-link { font-size: 18px; }
-      .btn-header { padding: 8px 20px; font-size: 16px; }
-      .footer { padding: 30px 20px; gap: 30px; }
-      .footer-link { font-size: 20px; }
-      .footer-logo { width: 100px; }
-      html { scroll-padding-top: 180px; }
-      
-      .floating-cart-btn {
-        padding: 10px 15px;
-      }
-      
-      .cart-info .cart-title {
-        font-size: 14px;
-      }
-      
-      .cart-info .cart-total {
-        font-size: 16px;
-      }
-      
-      .cart-drawer {
-        width: 290px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero-section,
-      .products-section,
-      .cta-section {
-        min-height: auto;
-        padding: 4rem 0;
-      }
-    }
-
-    .cta-section .bg-\[\#6B8E23\] {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cta-section h2,
-    .cta-section p,
-    .cta-section a {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
-
 </body>
 </html>

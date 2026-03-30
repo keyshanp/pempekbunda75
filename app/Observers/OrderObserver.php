@@ -15,6 +15,8 @@ class OrderObserver
     public function updated(Order $order): void
     {
         $shouldCreateTransaksi = false;
+        $shouldReturnStock = false;
+        $shouldReduceStock = false;
         
         // ✅ CEK APAKAH STATUS_PESANAN BERUBAH KE COMPLETED
         if ($order->isDirty('status_pesanan')) {
@@ -27,15 +29,12 @@ class OrderObserver
             
             // ✅ KEMBALIKAN STOK JIKA ORDER DIBATALKAN
             if ($newStatusPesanan === 'cancelled' && $oldStatusPesanan !== 'cancelled') {
-                $items = is_array($order->items) ? $order->items : json_decode($order->items, true);
-                
-                foreach ($items as $item) {
-                    $produk = Produk::find($item['id']);
-                    if ($produk) {
-                        $produk->increment('stok', $item['quantity']);
-                        Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']} via Observer. Stok sekarang: {$produk->stok}");
-                    }
-                }
+                $shouldReturnStock = true;
+            }
+            
+            // ✅ KURANGI STOK JIKA ORDER DIBAYAR
+            if ($newStatusPesanan === 'paid' && $oldStatusPesanan !== 'paid') {
+                $shouldReduceStock = true;
             }
         }
         
@@ -46,6 +45,37 @@ class OrderObserver
             
             if ($newStatusPembayaran === 'sudah_bayar' && $oldStatusPembayaran !== 'sudah_bayar') {
                 $shouldCreateTransaksi = true;
+            }
+            
+            // ✅ KEMBALIKAN STOK JIKA PEMBAYARAN GAGAL
+            if ($newStatusPembayaran === 'gagal' && $oldStatusPembayaran !== 'gagal') {
+                $shouldReturnStock = true;
+            }
+        }
+        
+        // ✅ KURANGI STOK PRODUK JIKA DIPERLUKAN
+        if ($shouldReduceStock) {
+            $items = is_array($order->items) ? $order->items : json_decode($order->items, true);
+            
+            foreach ($items as $item) {
+                $produk = Produk::find($item['id']);
+                if ($produk) {
+                    $produk->decrement('stok', $item['quantity']);
+                    Log::info("Stok produk '{$produk->nama_produk}' dikurangi {$item['quantity']} via Observer. Stok sekarang: {$produk->stok}");
+                }
+            }
+        }
+        
+        // ✅ KEMBALIKAN STOK KE PRODUK JIKA DIPERLUKAN
+        if ($shouldReturnStock) {
+            $items = is_array($order->items) ? $order->items : json_decode($order->items, true);
+            
+            foreach ($items as $item) {
+                $produk = Produk::find($item['id']);
+                if ($produk) {
+                    $produk->increment('stok', $item['quantity']);
+                    Log::info("Stok produk '{$produk->nama_produk}' dikembalikan {$item['quantity']} via Observer. Stok sekarang: {$produk->stok}");
+                }
             }
         }
         

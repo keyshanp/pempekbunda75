@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Tidak Ditemukan - PempekBunda 75</title>
+  <title>Halaman Sedang Dalam Proses</title>
 
   <!-- RASCAL FONT -->
   <style>
     @font-face {
       font-family: 'RASCAL';
-      src: url('<?php echo e(asset("fonts/RASCAL__.TTF")); ?>') format('truetype');
+      src: url('{{ asset("fonts/RASCAL__.TTF") }}') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -33,7 +33,7 @@
       min-height: 100vh;
     }
 
-    .error-container {
+    .coming-soon-container {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border: 2px solid rgba(192, 96, 68, 0.1);
@@ -52,40 +52,46 @@
       background-color: #C06044;
     }
 
-    .error-icon {
-      animation: shake 0.5s ease-in-out;
+    .construction-icon {
+      animation: bounce 2s infinite;
     }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
     }
   </style>
 </head>
 
 <body class="flex items-center justify-center min-h-screen p-4">
-  <div class="error-container rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center">
-    <!-- Error Icon -->
+  <div class="coming-soon-container rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center">
+    <!-- Icon Construction -->
     <div class="mb-8">
-      <div class="error-icon text-8xl md:text-9xl orange-text">
-        😵
+      <div class="construction-icon text-8xl md:text-9xl orange-text">
+        🚧
       </div>
     </div>
 
     <!-- Title -->
-    <h1 class="font-rascal text-4xl md:text-5xl orange-text mb-4">
-      404 - Halaman Tidak Ditemukan
+    <h1 class="font-rascal text-5xl md:text-6xl orange-text mb-4">
+      Halaman Sedang Dalam Proses
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-      Maaf, halaman yang Anda cari tidak ditemukan atau mungkin telah dipindahkan.
+    <p class="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+      Maaf, fitur ini sedang dalam pengembangan. Kami sedang bekerja keras untuk memberikan pengalaman terbaik untuk Anda.
     </p>
 
     <!-- Action Buttons -->
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="<?php echo e(url('/')); ?>"
+      <a href="{{ url('/') }}"
          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 orange-border orange-text rounded-xl font-medium hover:bg-orange-50 transition-all duration-300">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -102,27 +108,14 @@
       </a>
     </div>
 
-    <!-- Search Suggestion -->
+    <!-- Contact Info -->
     <div class="mt-12 pt-8 border-t border-gray-200">
-      <p class="text-sm text-gray-500 mb-4">Mungkin Anda mencari:</p>
-      <div class="flex flex-wrap gap-2 justify-center">
-        <a href="<?php echo e(url('/produk')); ?>" class="px-3 py-1 bg-orange-50 orange-text rounded-lg text-sm hover:bg-orange-100 transition-colors">
-          Produk
-        </a>
-        <a href="<?php echo e(url('/reviews')); ?>" class="px-3 py-1 bg-orange-50 orange-text rounded-lg text-sm hover:bg-orange-100 transition-colors">
-          Review
-        </a>
-        <a href="<?php echo e(url('/kontak')); ?>" class="px-3 py-1 bg-orange-50 orange-text rounded-lg text-sm hover:bg-orange-100 transition-colors">
-          Kontak
-        </a>
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
-          <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->user()->is_admin ?? false): ?>
-            <a href="/admin" class="px-3 py-1 bg-orange-50 orange-text rounded-lg text-sm hover:bg-orange-100 transition-colors">
-              Admin Panel
-            </a>
-          <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-      </div>
+      <p class="text-sm text-gray-500 mb-2">Butuh bantuan?</p>
+      <p class="text-sm text-gray-600">
+        Hubungi kami di
+        <a href="https://wa.me/6282183139218" class="orange-text hover:underline font-medium">
+          WhatsApp
+      </p>
     </div>
 
     <!-- Footer -->
@@ -137,4 +130,3 @@
   </div>
 </body>
 </html>
-<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/errors/404.blade.php ENDPATH**/ ?>

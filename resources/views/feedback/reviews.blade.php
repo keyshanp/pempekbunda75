@@ -14,7 +14,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="/" class="text-2xl font-bold text-orange-600">
-                        <i class="fas fa-fish"></i> Pempek Bunda 75
+                        <i class="fas fa-fish"></i> PempekBunda 75
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -42,7 +42,7 @@
             <h1 class="text-3xl font-bold text-gray-800">
                 <i class="fas fa-star text-yellow-500"></i> Review Pelanggan
             </h1>
-            <p class="text-gray-600 mt-2">Lihat apa kata pelanggan kami tentang produk Pempek Bunda 75</p>
+            <p class="text-gray-600 mt-2">Lihat apa kata pelanggan kami tentang produk PempekBunda 75</p>
         </div>
 
         <!-- Filter & Stats -->
@@ -140,3 +140,4 @@
     </div>
 </body>
 </html>
+

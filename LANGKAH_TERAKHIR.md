@@ -16,7 +16,7 @@ Ikuti langkah ini:
 1. Buka browser → https://console.cloud.google.com/
 2. Login dengan akun Google Anda
 3. Klik "Select a project" → "NEW PROJECT"
-4. Nama project: "Pempek Bunda 75" → CREATE
+4. Nama project: "PempekBunda 75" → CREATE
 5. Tunggu project dibuat (sekitar 10 detik)
 6. Di menu kiri, klik "APIs & Services" → "Library"
 7. Cari "Maps JavaScript API" → Klik → ENABLE
@@ -156,3 +156,4 @@ Saya siap membantu! 🚀
 ---
 
 **Selamat mencoba! Semoga berhasil! 🎉**
+

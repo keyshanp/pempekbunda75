@@ -128,7 +128,7 @@
         <!-- Footer -->
         <div class="px-4 py-2 border-t border-gray-100 dark:border-gray-700 text-center">
             <p class="text-xs text-gray-500 dark:text-gray-400">
-                Pempek Bunda 75 • v2.0
+                PempekBunda 75 • v2.0
             </p>
         </div>
     </div>

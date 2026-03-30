@@ -21,10 +21,12 @@ class ListOrders extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
+            Actions\Action::make('create_manual')
                 ->label('Tambah Pesanan Manual')
                 ->icon('heroicon-o-plus')
-                ->color('success'),
+                ->color('success')
+                ->url(route('coming-soon'))
+                ->openUrlInNewTab(false),
         ];
     }
 

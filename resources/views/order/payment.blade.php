@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pembayaran - Pempek Bunda 75</title>
+  <title>Pembayaran - PempekBunda 75</title>
   
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -866,7 +866,7 @@
             
             this.tokoMarker.bindPopup(`
               <div style="padding: 5px; font-family: Arial;">
-                <h3 style="margin: 0 0 5px 0; color: #3B82F6; font-size: 14px;">🏪 Pempek Bunda 75</h3>
+                <h3 style="margin: 0 0 5px 0; color: #3B82F6; font-size: 14px;">🏪 PempekBunda 75</h3>
                 <p style="margin: 0; font-size: 11px; color: #666;">Lokasi Toko (Fixed)</p>
               </div>
             `);

@@ -29,20 +29,32 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+        // Check if there's a redirect parameter
+        $redirect = $request->query('redirect');
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+        if ($redirect && filter_var($redirect, FILTER_VALIDATE_URL)) {
+            // Make sure redirect URL is internal (prevent open redirect)
+            $redirectPath = parse_url($redirect, PHP_URL_PATH);
+            if ($redirectPath && strpos($redirectPath, '/') === 0) {
+                // Allow redirect to admin panel only for legitimate cases
+                // (but we'll override this with our own logic below)
+                return redirect($redirectPath);
+            }
+        }
 
-        $request->session()->invalidate();
+        // Clear any admin-related redirect intentions to prevent unwanted redirects
+        if (session()->has('url.intended') && str_starts_with(session('url.intended'), '/admin')) {
+            session()->forget('url.intended');
+        }
 
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        // Check if user is admin and redirect accordingly
+        $user = Auth::user();
+        if ($user && $user->is_admin) {
+            // Admin users go to admin dashboard
+            return redirect('/admin');
+        } else {
+            // Regular users go to cart/checkout
+            return redirect(RouteServiceProvider::HOME);
+        }
     }
 }

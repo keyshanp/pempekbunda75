@@ -342,5 +342,6 @@ orders
 
 ---
 
-Dibuat dengan ❤️ untuk Pempek Bunda 75
-Tanggal: 4 Maret 2026
+Dibuat dengan ❤️ untuk PempekBunda 75
+Tanggal: 4 Maret 2019
+

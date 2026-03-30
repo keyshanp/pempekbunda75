@@ -204,7 +204,7 @@ Forms\Components\Select::make('pesanan_id')
 ## 📝 Log Format:
 
 ```
-[2026-03-05 10:30:15] local.INFO: Transaksi TRX-20260305-0001 dibuat otomatis untuk order PB20260305-0123 via Observer (status_pesanan: completed, status_pembayaran: sudah_bayar)
+[2019-03-05 10:30:15] local.INFO: Transaksi TRX-20190305-0001 dibuat otomatis untuk order PB20190305-0123 via Observer (status_pesanan: completed, status_pembayaran: sudah_bayar)
 ```
 
 ---

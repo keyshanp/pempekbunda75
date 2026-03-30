@@ -131,7 +131,7 @@
             <div class="space-y-3 mb-6">
                 @foreach($items as $item)
                 <div class="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
-                    <img src="{{ $item['image'] ?? asset('assets/images/Pempek.png') }}" 
+                    <img src="{{ $item['image'] ?? asset('assets/images/pempekbunda5.png') }}" 
                          alt="{{ $item['name'] }}" 
                          class="w-16 h-16 rounded-lg object-cover">
                     <div class="flex-1">

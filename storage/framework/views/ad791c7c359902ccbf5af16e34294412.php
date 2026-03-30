@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pempek Bunda 75</title>
+  <title>PempekBunda 75</title>
 
   <!-- RASCAL FONT -->
   <style>
@@ -384,25 +384,49 @@
       background-color: #a54534;
     }
 
-    .md\:hidden.mt-6 {
+    /* ===== SCROLL INDICATOR ANIMASI ===== */
+    .scroll-indicator {
       display: flex;
       justify-content: center;
       gap: 0.5rem;
       margin-top: 1.5rem;
     }
 
-    .md\:hidden.mt-6 > div:first-child {
-      width: 2rem;
-      height: 0.25rem;
-      background-color: #c05c48;
-      border-radius: 9999px;
+    .indicator-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
     }
 
-    .md\:hidden.mt-6 > div:not(:first-child) {
-      width: 0.5rem;
-      height: 0.25rem;
-      background-color: #d1d5db;
-      border-radius: 9999px;
+    .indicator-dot.active {
+      background-color: #c05c48;
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(192, 92, 72, 0.5);
+    }
+
+    .indicator-dot:hover {
+      background-color: #a54534;
+      transform: scale(1.1);
+    }
+
+    /* Animasi pulse untuk dot aktif */
+    .indicator-dot.active {
+      animation: indicatorPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes indicatorPulse {
+      0%, 100% {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px rgba(192, 92, 72, 0.5);
+      }
+      50% {
+        transform: scale(1.4);
+        box-shadow: 0 0 20px rgba(192, 92, 72, 0.8);
+      }
     }
 
     /* Responsive Product */
@@ -1008,7 +1032,7 @@
 <header class="header">
   <div class="logo-container">
     <a href="#home" class="logo-link">
-      <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="Pempek Bunda 75 Logo" class="brand-logo hover-rotate">
+      <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="PempekBunda 75 Logo" class="brand-logo hover-rotate">
     </a>
   </div>
 
@@ -1032,7 +1056,7 @@
       <a href="<?php echo e(route('order.index')); ?>" class="btn-hero hover-bounce animate-pulse-custom delay-2">order now</a>
     </div>
     <div class="hero-right animate-slide-right">
-      <img src="<?php echo e(asset('assets/images/Pempek.png')); ?>" alt="Pempek" class="hero-img animate-float">
+      <img src="<?php echo e(asset('assets/images/pempekbunda5.png')); ?>" alt="PempekBunda" class="hero-img animate-float">
     </div>
   </section>
 
@@ -1049,7 +1073,7 @@
     <div class="sejarah-right animate-slide-right">
       <h2 class="sejarah-title font-rascal animate-bounce-slow">Sejarah</h2>
       <p class="animate-fade delay-2">
-        Pempek Bunda 75 berdiri sejak Juni 2019, terinspirasi dari pengalaman pemilik yang pernah tinggal di Palembang selama kurang lebih 20 tahun. Berawal dari pempek rumahan untuk keluarga, usaha ini berkembang karena banyak yang suka dengan rasa khasnya. Hingga sekarang, Pempek Bunda 75 tetap menjaga kualitas dengan ikan tenggiri murni dan cuko gula batok asli Palembang.
+        PempekBunda 75 berdiri sejak Juni 2019, terinspirasi dari pengalaman pemilik yang pernah tinggal di Palembang selama kurang lebih 20 tahun. Berawal dari pempek rumahan untuk keluarga, usaha ini berkembang karena banyak yang suka dengan rasa khasnya. Hingga sekarang, PempekBunda 75 tetap menjaga kualitas dengan ikan tenggiri murni dan cuko gula batok asli Palembang.
       </p>
     </div>
   </section>
@@ -1096,7 +1120,7 @@
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($product->gambar && Storage::exists('public/' . $product->gambar)): ?>
               <img src="<?php echo e(asset('storage/' . $product->gambar)); ?>" alt="<?php echo e($product->nama_produk); ?>">
             <?php else: ?>
-              <img src="<?php echo e(asset('assets/images/Pempek.png')); ?>" alt="<?php echo e($product->nama_produk); ?>">
+              <img src="<?php echo e(asset('assets/images/pempekbunda5.png')); ?>" alt="<?php echo e($product->nama_produk); ?>">
             <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
           </div>
           <div>
@@ -1108,11 +1132,15 @@
       </div>
     </div>
     
-    <!-- Scroll Indicator (Mobile Only) - TETAP SAMA -->
-    <div class="md:hidden mt-6">
-      <div></div>
-      <div></div>
-      <div></div>
+    <!-- Scroll Indicator (Mobile Only) - DENGAN ANIMASI SCROLL -->
+    <div class="md:hidden mt-6 scroll-indicator">
+      <div class="indicator-dot active" data-index="0"></div>
+      <div class="indicator-dot" data-index="1"></div>
+      <div class="indicator-dot" data-index="2"></div>
+      <div class="indicator-dot" data-index="3"></div>
+      <div class="indicator-dot" data-index="4"></div>
+      <div class="indicator-dot" data-index="5"></div>
+      <div class="indicator-dot" data-index="6"></div>
     </div>
     <?php else: ?>
     <div class="text-center py-12">
@@ -1131,10 +1159,10 @@
 
   <!-- WHY -->
   <section class="why">
-    <h2 class="section-title font-rascal animate-wobble-slow">Why Pempek Bunda 75</h2>
+    <h2 class="section-title font-rascal animate-wobble-slow">Why PempekBunda 75</h2>
     <div class="why-content animate-fade delay-1">
       <p class="animate-slide-up delay-2">
-        Pempek Bunda 75 dibuat untuk menghadirkan pempek dengan rasa yang konsisten dan dapat dipercaya. Setiap produk diolah dengan bahan pilihan dan proses yang terjaga, sehingga pelanggan mendapatkan kualitas yang sama di setiap pesanan. Selain rasa, Pempek Bunda 75 juga mengutamakan keseimbangan antara cita rasa ikan, tekstur pempek, dan karakter cuko. Perpaduan ini menjadi alasan utama mengapa produk dibuat dengan standar yang tidak berubah. Pempek Bunda 75 hadir sebagai pilihan pempek rumahan yang mengedepankan kualitas, kejujuran rasa, dan kepuasan pelanggan.
+        PempekBunda 75 dibuat untuk menghadirkan pempek dengan rasa yang konsisten dan dapat dipercaya. Setiap produk diolah dengan bahan pilihan dan proses yang terjaga, sehingga pelanggan mendapatkan kualitas yang sama di setiap pesanan. Selain rasa, PempekBunda 75 juga mengutamakan keseimbangan antara cita rasa ikan, tekstur pempek, dan karakter cuko. Perpaduan ini menjadi alasan utama mengapa produk dibuat dengan standar yang tidak berubah. PempekBunda 75 hadir sebagai pilihan pempek rumahan yang mengedepankan kualitas, kejujuran rasa, dan kepuasan pelanggan.
       </p>
     </div>
   </section>
@@ -1324,7 +1352,7 @@
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.837538261732!2d109.2415758!3d-7.372099099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655f6f9b6289a3%3A0x5ed7f0db05bd2bf9!2sPEMPEK%20ZAKWAN%20PURWOKERTO!5e0!3m2!1sid!2sid!4v1770862049347!5m2!1sid!2sid" 
         loading="lazy" 
         referrerpolicy="no-referrer-when-downgrade"
-        title="Google Maps - Lokasi Pempek Bunda 75"
+        title="Google Maps - Lokasi PempekBunda 75"
         class="hover-scale"
         style="transition: all 0.3s ease;"
       >
@@ -1357,7 +1385,7 @@
 
   <div class="footer-right">
     <a href="#home" class="footer-logo-link">
-      <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="Pempek Bunda 75 Logo" class="footer-logo animate-pulse-custom hover-scale">
+      <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="PempekBunda 75 Logo" class="footer-logo animate-pulse-custom hover-scale">
     </a>
   </div>
 </footer>
@@ -1456,4 +1484,5 @@
 </script>
 
 </body>
-</html><?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/welcome.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/welcome.blade.php ENDPATH**/ ?>

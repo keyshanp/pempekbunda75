@@ -1,4 +1,4 @@
-# 📱 Mobile Responsive Project - Pempek Bunda 75
+# 📱 Mobile Responsive Project - PempekBunda 75
 
 ## 🎯 Tujuan:
 Membuat semua halaman customer website menjadi mobile-responsive agar tampilan rapi di semua ukuran layar (mobile, tablet, desktop).
@@ -198,5 +198,6 @@ xl: 1280px  (Large desktop)
 ---
 
 **Status**: 🔄 In Progress
-**Last Updated**: 5 Maret 2026
+**Last Updated**: 5 Maret 2019
 **Progress**: 1/15 halaman (6.7%)
+

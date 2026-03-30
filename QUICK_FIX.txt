@@ -13,7 +13,7 @@
    ────────────────────────────────────────
    • Buka: https://console.cloud.google.com/
    • Login dengan akun Google
-   • Buat project baru: "Pempek Bunda 75"
+   • Buat project baru: "PempekBunda 75"
    • Enable APIs:
      - Maps JavaScript API ✓
      - Geocoding API ✓
@@ -70,3 +70,4 @@
 ═══════════════════════════════════════════════════════════════
 Butuh bantuan? Tanyakan dengan detail error yang muncul! 🚀
 ═══════════════════════════════════════════════════════════════
+

@@ -165,7 +165,7 @@ class TransaksiResource extends Resource
                     ->label('Kode Pesanan')
                     ->searchable()
                     ->sortable()
-                    ->url(fn($record) => OrderResource::getUrl('view', ['record' => $record->pesanan_id]))
+                    ->url(route('coming-soon'))
                     ->color('primary'),
                     
                 Tables\Columns\TextColumn::make('metode_pembayaran')
@@ -246,7 +246,9 @@ class TransaksiResource extends Resource
                 Tables\Actions\ViewAction::make()
                     ->label('Lihat Detail')
                     ->icon('heroicon-o-eye')
-                    ->color('info'),
+                    ->color('info')
+                    ->url(route('coming-soon'))
+                    ->openUrlInNewTab(false),
 
                 Tables\Actions\Action::make('lihat_bukti')
                     ->label('Lihat Bukti')

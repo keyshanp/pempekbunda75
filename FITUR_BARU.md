@@ -1,4 +1,4 @@
-# Fitur Baru - Pempek Bunda 75
+# Fitur Baru - PempekBunda 75
 
 ## 📋 Ringkasan Fitur yang Ditambahkan
 
@@ -157,7 +157,7 @@ GET  /reviews               -> Halaman review public
 - Menggunakan Tailwind CSS
 - Font Awesome untuk ikon
 - Responsive design (mobile-friendly)
-- Warna konsisten dengan brand (orange untuk Pempek Bunda 75)
+- Warna konsisten dengan brand (orange untuk PempekBunda 75)
 
 ## 📝 Catatan
 
@@ -165,3 +165,4 @@ GET  /reviews               -> Halaman review public
 - Tidak ada perubahan pada struktur database
 - Kompatibel dengan fitur yang sudah ada
 - Siap digunakan tanpa konfigurasi tambahan
+

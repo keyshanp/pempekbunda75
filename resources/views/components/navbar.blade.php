@@ -5,7 +5,7 @@
             <div class="w-8 h-8 md:w-10 md:h-10 bg-bean rounded-full flex items-center justify-center">
                 <span class="text-white font-bold text-lg md:text-xl">PB</span>
             </div>
-            <span class="text-xl md:text-2xl reenie-beanie text-deepred">Pempek Bunda 75</span>
+            <span class="text-xl md:text-2xl reenie-beanie text-deepred">PempekBunda 75</span>
         </a>
     </div>
     

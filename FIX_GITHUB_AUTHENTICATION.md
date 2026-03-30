@@ -42,7 +42,7 @@ Nanti akan muncul popup login GitHub. Login dengan akun **keyshanp**.
 4. **Personal access tokens** → **Tokens (classic)**
 5. **Generate new token** → **Generate new token (classic)**
 6. Isi form:
-   - **Note**: `Pempek Bunda 75`
+   - **Note**: `PempekBunda 75`
    - **Expiration**: `90 days` (atau `No expiration`)
    - **Select scopes**: Centang **repo** (semua checkbox di bawahnya)
 7. Klik **Generate token**
@@ -128,3 +128,4 @@ Kamu akan lihat semua file dan commit terbaru! 🎉
 - Solusi 1: Paling mudah (hapus kredensial lama)
 - Solusi 2: Paling aman (pakai token)
 - Solusi 3: Quick fix (push manual dengan token)
+

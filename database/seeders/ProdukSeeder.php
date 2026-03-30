@@ -9,10 +9,10 @@ class ProdukSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hapus data lama dengan disable FK checks dulu
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // Hapus data lama dengan disable FK checks dulu (PostgreSQL compatible)
+        DB::statement('SET session_replication_role = replica;');
         DB::table('produks')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        DB::statement('SET session_replication_role = origin;');
         
         DB::table('produks')->insert([
             [

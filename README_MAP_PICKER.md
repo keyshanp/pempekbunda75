@@ -1,4 +1,4 @@
-# 🗺️ Map Picker GoJek Style - Pempek Bunda 75
+# 🗺️ Map Picker GoJek Style - PempekBunda 75
 
 > Sistem pemilihan lokasi interaktif seperti GoJek/Grab untuk checkout pengiriman
 
@@ -371,7 +371,7 @@ zoom: 15, // Ubah ke 10-20 sesuai kebutuhan
 
 ## 🎉 Credits
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
 
 ### Tech Stack:
 - Laravel 10.x
@@ -382,7 +382,7 @@ zoom: 15, // Ubah ke 10-20 sesuai kebutuhan
 
 ### Contributors:
 - Developer: Kiro AI Assistant
-- Client: Pempek Bunda 75
+- Client: PempekBunda 75
 - Date: 4 Maret 2026
 
 ---
@@ -425,3 +425,4 @@ Jika ada pertanyaan, baca dokumentasi lengkap atau hubungi developer.
 **Last Updated:** 4 Maret 2026
 **Version:** 1.0.0
 **Status:** ✅ Production Ready
+

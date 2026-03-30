@@ -1,11 +1,11 @@
 @extends('layouts.filament-admin')
 
-@section('title', 'Daftar Pesanan - Admin Pempek Bunda 75')
+@section('title', 'Daftar Pesanan - Admin PempekBunda 75')
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
     <h2 class="text-2xl font-bold text-slate-800">Daftar Pesanan</h2>
-    <button onclick="window.location.href='{{ url('/admin/orders/create') }}'" class="filament-btn filament-btn-primary flex items-center gap-2">
+    <button onclick="window.location.href='{{ route('coming-soon') }}'" class="filament-btn filament-btn-primary flex items-center gap-2">
         <i class="fas fa-plus"></i>
         Tambah Pesanan Manual
     </button>

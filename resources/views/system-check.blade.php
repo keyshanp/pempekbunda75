@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-    <h1>System Check - Pempek Bunda 75</h1>
+    <h1>System Check - PempekBunda 75</h1>
     
     <h2>Basic Checks</h2>
     <table>

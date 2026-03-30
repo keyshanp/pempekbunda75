@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Pempek Bunda 75</title>
+  <title>Checkout - PempekBunda 75</title>
 
   <!-- RASCAL FONT -->
   <style>
@@ -236,7 +236,7 @@
   <header class="header">
     <div class="logo-container">
       <a href="{{ route('home') }}" class="logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="brand-logo">
+        <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
       </a>
     </div>
 
@@ -569,22 +569,22 @@
               <div class="bg-gray-50 p-4 rounded-xl">
                 <p class="font-bubble text-[#6B8E23] text-xl">BCA</p>
                 <p class="font-fredoka text-2xl font-bold mt-2">123 456 7890</p>
-                <p class="font-fredoka">a.n. Pempek Bunda 75</p>
+                <p class="font-fredoka">a.n. PempekBunda 75</p>
               </div>
               <div class="bg-gray-50 p-4 rounded-xl">
                 <p class="font-bubble text-[#6B8E23] text-xl">Mandiri</p>
                 <p class="font-fredoka text-2xl font-bold mt-2">1230 1234 5678</p>
-                <p class="font-fredoka">a.n. Pempek Bunda 75</p>
+                <p class="font-fredoka">a.n. PempekBunda 75</p>
               </div>
               <div class="bg-gray-50 p-4 rounded-xl">
                 <p class="font-bubble text-[#6B8E23] text-xl">BRI</p>
                 <p class="font-fredoka text-2xl font-bold mt-2">1234 01 123456 7</p>
-                <p class="font-fredoka">a.n. Pempek Bunda 75</p>
+                <p class="font-fredoka">a.n. PempekBunda 75</p>
               </div>
               <div class="bg-gray-50 p-4 rounded-xl">
                 <p class="font-bubble text-[#6B8E23] text-xl">BNI</p>
                 <p class="font-fredoka text-2xl font-bold mt-2">1234567890</p>
-                <p class="font-fredoka">a.n. Pempek Bunda 75</p>
+                <p class="font-fredoka">a.n. PempekBunda 75</p>
               </div>
             </div>
             
@@ -768,7 +768,7 @@
 
     <div class="footer-right">
       <a href="{{ route('home') }}" class="footer-logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="Pempek Bunda 75 Logo" class="footer-logo">
+        <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="footer-logo">
       </a>
     </div>
   </footer>
@@ -794,7 +794,7 @@
         toko: {
           latitude: -7.372085,
           longitude: 109.241568,
-          nama: 'Pempek Bunda 75'
+          nama: 'PempekBunda 75'
         },
         
         // Koordinat User (Draggable)

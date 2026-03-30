@@ -11,10 +11,10 @@
      <?php $__env->slot('header', null, []); ?> 
         <div class="flex flex-col gap-4">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">
-                Dashboard Admin - Pempek Bunda 75
+                Dashboard Admin - PempekBunda 75
             </h2>
             <p class="text-gray-600">
-                Selamat datang di dashboard manajemen toko Pempek Bunda 75
+                Selamat datang di dashboard manajemen toko PempekBunda 75
             </p>
         </div>
      <?php $__env->endSlot(); ?>
@@ -95,4 +95,5 @@ if (isset($__slots)) unset($__slots);
 <?php if (isset($__componentOriginalbe23554f7bded3778895289146189db7)): ?>
 <?php $component = $__componentOriginalbe23554f7bded3778895289146189db7; ?>
 <?php unset($__componentOriginalbe23554f7bded3778895289146189db7); ?>
-<?php endif; ?><?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/filament/pages/custom-dashboard.blade.php ENDPATH**/ ?>
+<?php endif; ?>
+<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/filament/pages/custom-dashboard.blade.php ENDPATH**/ ?>

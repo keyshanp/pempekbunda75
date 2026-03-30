@@ -1,33 +1,29 @@
-# ✅ Fitur Pengurangan Stok Otomatis
+# ✅ Fitur Pengurangan & Pengembalian Stok Otomatis
 
 ## 🎯 Fitur yang Sudah Ditambahkan:
 
-Sistem sekarang akan **otomatis mengurangi stok produk** ketika ada order baru, dan **mengembalikan stok** jika order dibatalkan.
+Sistem sekarang akan **otomatis mengurangi stok produk** ketika ada order baru, dan **mengembalikan stok** jika order dibatalkan atau pembayaran gagal.
 
 ---
 
 ## 📋 Detail Implementasi:
 
-### 1. Pengurangan Stok Saat Order Dibuat
+### 1. Pengurangan Stok Saat Order Dibayar
 
-**File:** `app/Http/Controllers/OrderController.php`
-**Fungsi:** `process()`
+**File:** `app/Observers/OrderObserver.php`
+**Fungsi:** `updated()` - Event Observer
 
 **Alur:**
-1. ✅ **Validasi Stok** - Cek apakah stok mencukupi sebelum proses order
-2. ✅ **Buat Order** - Simpan order ke database
+1. ✅ **Admin Update Status** - Admin ubah status order menjadi "paid"
+2. ✅ **Observer Deteksi** - OrderObserver mendeteksi perubahan status
 3. ✅ **Kurangi Stok** - Otomatis kurangi stok produk sesuai quantity yang dipesan
 4. ✅ **Log Activity** - Catat aktivitas pengurangan stok di log
 
 **Contoh:**
 ```
-User order:
-- Pempek Kapal Selam: 5 pcs
-- Pempek Lenjer: 3 pcs
-
-Sistem akan:
-- Kurangi stok Pempek Kapal Selam: -5
-- Kurangi stok Pempek Lenjer: -3
+Order PB20260304-0123 status: "pending" → "paid"
+- Pempek Kapal Selam: 5 pcs (Stok: 100 → 95)
+- Pempek Lenjer: 3 pcs (Stok: 50 → 47)
 ```
 
 ### 2. Validasi Stok Sebelum Order
@@ -47,7 +43,24 @@ Sistem akan:
 
 ### 3. Pengembalian Stok Saat Order Dibatalkan
 
-**File:** `app/Http/Controllers/OrderController.php`
+**File:** `app/Observers/OrderObserver.php`
+**Fungsi:** `updated()` - Event Observer
+
+**Kondisi Pengembalian Stok:**
+- ✅ **Order dibatalkan** (`status_pesanan` berubah ke `cancelled`)
+- ✅ **Pembayaran gagal** (`status_pembayaran` berubah ke `gagal`)
+
+**Alur:**
+1. ✅ **Deteksi Perubahan Status** - Observer mendeteksi perubahan status order
+2. ✅ **Kembalikan Stok** - Otomatis tambahkan kembali quantity yang dipesan ke stok produk
+3. ✅ **Log Activity** - Catat aktivitas pengembalian stok di log
+
+**Contoh:**
+```
+Order PB20260304-0123 dibatalkan:
+- Pempek Kapal Selam: +5 (kembali ke stok)
+- Pempek Lenjer: +3 (kembali ke stok)
+```
 **Fungsi:** `adminUpdateStatus()` dan `updateStatus()`
 
 **Alur:**
@@ -79,11 +92,11 @@ Sistem akan:
 2. User checkout & konfirmasi order
    - Sistem validasi: Stok 100 >= 5? ✅ OK
    - Order dibuat dengan status "pending"
-   - Stok dikurangi: 100 - 5 = 95 ✅
+   - Stok TETAP: 100 (belum dikurangi)
 
 3. Admin konfirmasi pembayaran
    - Status berubah: "pending" → "paid"
-   - Stok tetap: 95 (tidak berubah)
+   - Stok dikurangi: 100 - 5 = 95 ✅
 
 4. Order selesai
    - Status berubah: "paid" → "completed"
@@ -93,38 +106,49 @@ Sistem akan:
 ### Scenario 2: Order Dibatalkan
 ```
 1. User order 5 pcs (Stok: 100)
-   - Order dibuat
-   - Stok dikurangi: 100 - 5 = 95 ✅
+   - Order dibuat dengan status "pending"
+   - Stok TETAP: 100 (belum dikurangi)
 
 2. Admin batalkan order
    - Status berubah: "pending" → "cancelled"
-   - Stok dikembalikan: 95 + 5 = 100 ✅
+   - Stok tetap: 100 (karena belum pernah dikurangi)
 ```
 
-### Scenario 3: Stok Tidak Mencukupi
+### Scenario 3: Order Dibayar Lalu Dibatalkan
 ```
-1. User order 10 pcs (Stok: 5)
-   - Sistem validasi: Stok 5 >= 10? ❌ GAGAL
-   - Order ditolak
-   - Error: "Stok produk tidak mencukupi. Stok tersedia: 5"
-   - Stok tetap: 5 (tidak berubah)
+1. User order 5 pcs (Stok: 100)
+   - Order dibuat dengan status "pending"
+   - Stok TETAP: 100
+
+2. Admin konfirmasi pembayaran
+   - Status: "pending" → "paid"
+   - Stok dikurangi: 100 - 5 = 95 ✅
+
+3. Admin batalkan order
+   - Status: "paid" → "cancelled"
+   - Stok dikembalikan: 95 + 5 = 100 ✅
 ```
 
 ---
 
 ## 🎮 Cara Test:
 
-### Test 1: Pengurangan Stok
+### Test 1: Pengurangan Stok Saat Dibayar
 ```bash
-1. Login sebagai customer
-2. Cek stok produk di halaman order (misal: Pempek Kapal Selam = 100)
-3. Tambah produk ke cart (quantity: 5)
-4. Checkout & konfirmasi order
-5. Cek database atau admin panel
-   → Stok sekarang: 95 ✅
+1. Buat order baru (status: pending)
+   → Stok tetap: 100 (belum dikurangi)
+2. Admin ubah status menjadi "paid"
+   → Stok dikurangi: 100 - 5 = 95 ✅
 ```
 
-### Test 2: Validasi Stok
+### Test 2: Pengembalian Stok Saat Dibatalkan
+```bash
+1. Buat order & bayar (status: paid, stok: 95)
+2. Admin ubah status menjadi "cancelled"
+   → Stok dikembalikan: 95 + 5 = 100 ✅
+```
+
+### Test 3: Validasi Stok
 ```bash
 1. Set stok produk menjadi 3 (via admin panel)
 2. Coba order 5 pcs
@@ -132,29 +156,19 @@ Sistem akan:
    "Stok produk tidak mencukupi. Stok tersedia: 3" ✅
 ```
 
-### Test 3: Pengembalian Stok
-```bash
-1. Buat order (5 pcs, stok awal: 100)
-   → Stok sekarang: 95
-2. Login sebagai admin
-3. Buka order tersebut
-4. Ubah status menjadi "cancelled"
-5. Cek stok produk
-   → Stok kembali: 100 ✅
-```
-
 ---
 
 ## 📊 Status Order & Pengaruh ke Stok:
 
-| Status Order | Aksi Stok | Keterangan |
-|--------------|-----------|------------|
-| **pending** | ✅ Dikurangi | Stok dikurangi saat order dibuat |
-| **paid** | - | Tidak ada perubahan stok |
-| **processed** | - | Tidak ada perubahan stok |
-| **shipped** | - | Tidak ada perubahan stok |
-| **completed** | - | Tidak ada perubahan stok |
-| **cancelled** | ✅ Dikembalikan | Stok dikembalikan saat order dibatalkan |
+| Status Order | Status Pembayaran | Aksi Stok | Keterangan |
+|--------------|-------------------|-----------|------------|
+| **pending** | - | - | Order dibuat, stok belum dikurangi |
+| **paid** | - | ✅ Dikurangi | Admin konfirmasi bayar, stok dikurangi |
+| **processed** | - | - | Tidak ada perubahan stok |
+| **shipped** | - | - | Tidak ada perubahan stok |
+| **completed** | - | - | Tidak ada perubahan stok |
+| **cancelled** | - | ✅ Dikembalikan | Stok dikembalikan saat order dibatalkan |
+| - | **gagal** | ✅ Dikembalikan | Stok dikembalikan saat pembayaran gagal |
 
 ---
 
@@ -166,8 +180,8 @@ Setiap perubahan stok akan dicatat di log Laravel:
 
 **Contoh Log:**
 ```
-[2026-03-04 10:30:15] local.INFO: Stok produk 'Pempek Kapal Selam' dikurangi 5. Stok sekarang: 95
-[2026-03-04 11:45:22] local.INFO: Stok produk 'Pempek Kapal Selam' dikembalikan 5. Stok sekarang: 100
+[2019-03-04 10:30:15] local.INFO: Stok produk 'Pempek Kapal Selam' dikurangi 5. Stok sekarang: 95
+[2019-03-04 11:45:22] local.INFO: Stok produk 'Pempek Kapal Selam' dikembalikan 5 via Observer. Stok sekarang: 100
 ```
 
 **Cara Cek Log:**
@@ -183,10 +197,10 @@ grep "Stok produk" storage/logs/laravel.log
 
 ## ⚠️ Catatan Penting:
 
-### 1. Stok Dikurangi Saat Order Dibuat (Status: pending)
-- Bukan saat pembayaran dikonfirmasi
-- Ini untuk mencegah overselling
-- Jika order dibatalkan, stok akan dikembalikan
+### 1. Stok Dikurangi Saat Status Berubah ke "Paid"
+- Bukan saat order dibuat (pending)
+- Hanya saat admin konfirmasi pembayaran
+- Ini mencegah stok berkurang untuk order yang belum dibayar
 
 ### 2. Validasi Stok
 - Sistem akan cek stok sebelum proses order
@@ -194,7 +208,8 @@ grep "Stok produk" storage/logs/laravel.log
 - User akan mendapat pesan error yang jelas
 
 ### 3. Pengembalian Stok
-- Hanya terjadi jika status berubah ke "cancelled"
+- Terjadi jika status order berubah ke "cancelled"
+- Terjadi jika status pembayaran berubah ke "gagal"
 - Jika order sudah "cancelled", tidak akan dikembalikan lagi
 - Stok dikembalikan sesuai quantity yang dipesan
 
@@ -215,7 +230,8 @@ grep "Stok produk" storage/logs/laravel.log
 ### Stok tidak dikembalikan setelah cancel?
 1. Cek log: `storage/logs/laravel.log`
 2. Pastikan status berubah dari non-cancelled ke cancelled
-3. Jika order sudah cancelled sebelumnya, stok tidak akan dikembalikan lagi
+3. Atau status pembayaran berubah ke "gagal"
+4. Jika order sudah cancelled sebelumnya, stok tidak akan dikembalikan lagi
 
 ### Error "Stok tidak mencukupi" padahal stok masih ada?
 1. Cek stok di database (tabel `produks`)
@@ -239,7 +255,8 @@ Jika ada masalah:
 |-------|--------|------------|
 | Pengurangan Stok Otomatis | ✅ Done | Saat order dibuat |
 | Validasi Stok | ✅ Done | Sebelum proses order |
-| Pengembalian Stok | ✅ Done | Saat order dibatalkan |
+| Pengembalian Stok (Cancel) | ✅ Done | Saat order dibatalkan |
+| Pengembalian Stok (Payment Failed) | ✅ Done | Saat pembayaran gagal |
 | Logging | ✅ Done | Semua aktivitas tercatat |
 | Error Handling | ✅ Done | Pesan error yang jelas |
 

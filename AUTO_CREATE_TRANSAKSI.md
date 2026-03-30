@@ -20,7 +20,7 @@ Ketika admin mengubah status order menjadi "completed", sistem akan:
 
 ```php
 [
-    'kode_transaksi' => 'TRX-20260304-0001',  // Auto-generated
+    'kode_transaksi' => 'TRX-20190304-0001',  // Auto-generated
     'pesanan_id' => $order->id,                // ID order
     'metode_pembayaran' => 'qris',             // Dari order payment
     'jumlah_bayar' => $order->total,           // Total order
@@ -54,7 +54,7 @@ Ketika admin mengubah status order menjadi "completed", sistem akan:
 3. Klik "Save"
 4. Sistem otomatis:
    ✅ Buat transaksi baru
-   ✅ Kode: TRX-20260304-0001
+   ✅ Kode: TRX-20190304-0001
    ✅ Status: success
    ✅ Jumlah: sesuai total order
 5. Transaksi muncul di "Laporan Transaksi"
@@ -137,7 +137,7 @@ Ketika admin mengubah status order menjadi "completed", sistem akan:
 
 ### Contoh Log:
 ```
-[2026-03-04 10:30:15] local.INFO: Transaksi TRX-20260304-0001 dibuat otomatis untuk order PB20260304-0123
+[2019-03-04 10:30:15] local.INFO: Transaksi TRX-20190304-0001 dibuat otomatis untuk order PB20190304-0123
 ```
 
 ### Cara Cek Log:
@@ -189,7 +189,7 @@ use App\Models\Transaksi;
 ### 1. Kode Transaksi Format:
 ```
 TRX-YYYYMMDD-XXXX
-Contoh: TRX-20260304-0001
+Contoh: TRX-20190304-0001
 ```
 
 ### 2. Status Transaksi:

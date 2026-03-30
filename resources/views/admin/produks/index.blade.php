@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produk - Pempek Bunda 75</title>
+    <title>Produk - PempekBunda 75</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,7 +12,7 @@
     <header class="bg-white shadow">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <a href="{{ route('home') }}" class="text-2xl font-bold text-blue-600">Pempek Bunda 75</a>
+                <a href="{{ route('home') }}" class="text-2xl font-bold text-blue-600">PempekBunda 75</a>
                 <nav class="flex items-center space-x-6">
                     <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600">Home</a>
                     <a href="{{ route('produk.index') }}" class="text-blue-600 font-semibold">Produk</a>
@@ -45,7 +45,7 @@
                         @if($produk->gambar)
                             <img src="{{ asset('storage/' . $produk->gambar) }}" 
                                  alt="{{ $produk->nama_produk }}" 
-                                 onerror="this.src='{{ asset('assets/images/Pempek.png') }}';"
+                                 onerror="this.src='{{ asset('assets/images/pempekbunda5.png') }}';"
                                  class="w-full h-48 object-cover">
                         @else
                             <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
@@ -90,7 +90,7 @@
         <div class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Pempek Bunda 75</h3>
+                    <h3 class="text-xl font-bold mb-4">PempekBunda 75</h3>
                     <p class="text-gray-300">Pempek autentik Palembang sejak 1975.</p>
                 </div>
                 <div>
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-                <p>&copy; {{ date('Y') }} Pempek Bunda 75. All rights reserved.</p>
+                <p>&copy; 2019 PempekBunda 75. All rights reserved.</p>
             </div>
         </div>
     </footer>

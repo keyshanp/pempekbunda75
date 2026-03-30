@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Hapus Produk Massal - Pempek Bunda 75</title>
+    <title>Hapus Produk Massal - PempekBunda 75</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -281,7 +281,7 @@
                 <div class="text-rust flex flex-col items-center gap-2 opacity-70">
                     <div class="flex items-center gap-2 text-sm font-medium">
                         <i class="fas fa-plus-circle"></i>
-                        PEMPEK BUNDA 75
+                        PempekBunda 75
                     </div>
                     <p class="text-xs">Sistem Manajemen Produk Aman v2.0 - {{ date('Y') }}</p>
                 </div>

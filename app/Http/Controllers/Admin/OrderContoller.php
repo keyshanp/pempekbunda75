@@ -26,7 +26,7 @@ class OrderController extends Controller
                     'price' => $produk->harga,
                     'image' => $produk->gambar 
                         ? asset('storage/' . $produk->gambar) 
-                        : asset('assets/images/Pempek.png'),
+                        : asset('assets/images/pempekbunda5.png'),
                     'description' => $produk->deskripsi ?? $this->getDefaultDescription($produk->nama_produk),
                     'funFact' => $this->generateFunFact($produk->nama_produk, $produk->deskripsi),
                     'ingredients' => $this->getIngredients($produk->nama_produk),
@@ -79,7 +79,7 @@ class OrderController extends Controller
                 'name' => $item['name'] ?? 'Produk',
                 'price' => $price,
                 'quantity' => $quantity,
-                'image' => $item['image'] ?? asset('assets/images/Pempek.png'),
+                'image' => $item['image'] ?? asset('assets/images/pempekbunda5.png'),
                 'subtotal' => $itemSubtotal
             ];
         }
@@ -192,7 +192,7 @@ public function invoice($invoice)
     
     return view('order.invoice', [
         'order' => $orderData,
-        'title' => 'Invoice Pesanan - Pempek Bunda 75'
+        'title' => 'Invoice Pesanan - PempekBunda 75'
     ]);
 }
     
@@ -243,7 +243,7 @@ public function invoice($invoice)
             return $deskripsi;
         }
         
-        return 'Pempek Bunda 75 dibuat dengan ikan tenggiri segar tanpa pengawet, resep turun-temurun dari Palembang.';
+        return 'PempekBunda 75 dibuat dengan ikan tenggiri segar tanpa pengawet, resep turun-temurun dari Palembang.';
     }
     
     /**

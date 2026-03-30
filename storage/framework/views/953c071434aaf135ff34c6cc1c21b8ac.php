@@ -9,7 +9,7 @@
   <style>
     @font-face {
       font-family: 'RASCAL';
-      src: url('{{ asset("fonts/RASCAL__.TTF") }}') format('truetype');
+      src: url('<?php echo e(asset("fonts/RASCAL__.TTF")); ?>') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -170,18 +170,18 @@
   <!-- HEADER -->
   <header class="header">
     <div class="logo-container">
-      <a href="{{ route('home') }}" class="logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
+      <a href="<?php echo e(route('home')); ?>" class="logo-link">
+        <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="PempekBunda 75 Logo" class="brand-logo">
       </a>
     </div>
 
     <div class="header-right">
       <nav class="nav">
-        <a href="{{ route('home') }}" class="nav-link">home</a>
-        <a href="{{ route('order.index') }}" class="nav-link">produk</a>
-        <a href="{{ route('order.my-orders') }}" class="nav-link active">cek pesanan</a>
+        <a href="<?php echo e(route('home')); ?>" class="nav-link">home</a>
+        <a href="<?php echo e(route('order.index')); ?>" class="nav-link">produk</a>
+        <a href="<?php echo e(route('order.my-orders')); ?>" class="nav-link active">cek pesanan</a>
       </nav>
-      <a href="{{ route('order.index') }}" class="btn-header">order</a>
+      <a href="<?php echo e(route('order.index')); ?>" class="btn-header">order</a>
     </div>
   </header>
 
@@ -227,7 +227,7 @@
 
         <div class="border-t border-gray-200 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div class="flex gap-2">
-            <a href="{{ route('order.detail', 1) }}" class="bg-[#6B8E23] text-white px-4 py-2 rounded-full font-bubble text-sm hover:bg-[#5a7520] transition">
+            <a href="<?php echo e(route('order.detail', 1)); ?>" class="bg-[#6B8E23] text-white px-4 py-2 rounded-full font-bubble text-sm hover:bg-[#5a7520] transition">
               <i class="fas fa-eye mr-1"></i> Detail
             </a>
             <button class="bg-green-500 text-white px-4 py-2 rounded-full font-bubble text-sm hover:bg-green-600 transition">
@@ -266,7 +266,7 @@
         </div>
 
         <div class="border-t border-gray-200 pt-4">
-          <a href="{{ route('order.detail', 2) }}" class="bg-[#6B8E23] text-white px-4 py-2 rounded-full font-bubble text-sm hover:bg-[#5a7520] transition inline-block">
+          <a href="<?php echo e(route('order.detail', 2)); ?>" class="bg-[#6B8E23] text-white px-4 py-2 rounded-full font-bubble text-sm hover:bg-[#5a7520] transition inline-block">
             <i class="fas fa-eye mr-1"></i> Detail
           </a>
         </div>
@@ -278,15 +278,15 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-left">
-      <a href="{{ route('order.index') }}" class="footer-link">order</a>
-      <a href="{{ route('home') }}" class="footer-link">home</a>
-      <a href="{{ route('home') }}#produk" class="footer-link">produk</a>
-      <a href="{{ route('order.my-orders') }}" class="footer-link active">cek pesanan</a>
+      <a href="<?php echo e(route('order.index')); ?>" class="footer-link">order</a>
+      <a href="<?php echo e(route('home')); ?>" class="footer-link">home</a>
+      <a href="<?php echo e(route('home')); ?>#produk" class="footer-link">produk</a>
+      <a href="<?php echo e(route('order.my-orders')); ?>" class="footer-link active">cek pesanan</a>
     </div>
 
     <div class="footer-right">
-      <a href="{{ route('home') }}" class="footer-logo-link">
-        <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="footer-logo">
+      <a href="<?php echo e(route('home')); ?>" class="footer-logo-link">
+        <img src="<?php echo e(asset('assets/images/logobrand.png')); ?>" alt="PempekBunda 75 Logo" class="footer-logo">
       </a>
     </div>
   </footer>
@@ -356,3 +356,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/order/my-orders.blade.php ENDPATH**/ ?>

@@ -9,7 +9,7 @@
 ### 2. Buat Project Baru (jika belum punya)
 - Klik dropdown project di bagian atas
 - Klik "NEW PROJECT"
-- Beri nama: "Pempek Bunda 75"
+- Beri nama: "PempekBunda 75"
 - Klik "CREATE"
 
 ### 3. Enable APIs yang Diperlukan
@@ -97,3 +97,4 @@ Alternatif gratis:
 
 ## 📞 Butuh Bantuan?
 Jika masih ada masalah, screenshot error di console browser (F12) dan tanyakan lagi!
+

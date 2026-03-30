@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Keranjang - Pempek Bunda 75</title>
+  <title>Keranjang - PempekBunda 75</title>
 
   <!-- RASCAL FONT -->
   <style>
@@ -233,7 +233,7 @@
       </div>
     </div>
     <div class="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 text-center font-fredoka text-xs opacity-50">
-      © 2024 PEMPEK BUNDA 75. HANDCRAFTED WITH LOVE.
+      © 2019 PempekBunda 75. HANDCRAFTED WITH LOVE.
     </div>
   </footer>
 

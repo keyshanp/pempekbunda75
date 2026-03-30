@@ -42,7 +42,7 @@
 ## Langkah 4: Restrict API Key (PENTING untuk Keamanan!)
 
 1. Setelah API key dibuat, klik **"RESTRICT KEY"**
-2. Beri nama: `Pempek Bunda 75 - Maps`
+2. Beri nama: `PempekBunda 75 - Maps`
 
 ### Application Restrictions:
 - Pilih **"HTTP referrers (web sites)"**
@@ -168,3 +168,4 @@ php artisan cache:clear
 ---
 
 **Selamat mencoba! 🎉**
+

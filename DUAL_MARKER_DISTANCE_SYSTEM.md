@@ -1,4 +1,4 @@
-# 🗺️ Dual Marker Distance System - Pempek Bunda 75
+# 🗺️ Dual Marker Distance System - PempekBunda 75
 
 ## 📋 Overview
 
@@ -138,7 +138,7 @@ Edit di `checkout.blade.php`, bagian Alpine.js data:
 toko: {
   latitude: -2.9760735,  // GANTI dengan latitude toko Anda
   longitude: 104.7754307, // GANTI dengan longitude toko Anda
-  nama: 'Pempek Bunda 75'
+  nama: 'PempekBunda 75'
 },
 ```
 
@@ -437,6 +437,7 @@ Ongkir: 10.87 × 2500 = Rp 27.175 → Rp 27.000 (rounded)
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
-**Tanggal: 4 Maret 2026**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
+**Tanggal: 4 Maret 2019**
 **Version: 3.0.0 (Dual Marker + Distance System)**
+

@@ -13,8 +13,12 @@ class ListTransaksis extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
-                ->label('Tambah Transaksi'),
+            Actions\Action::make('create_transaksi')
+                ->label('Tambah Transaksi')
+                ->icon('heroicon-o-plus')
+                ->color('primary')
+                ->url(route('coming-soon'))
+                ->openUrlInNewTab(false),
         ];
     }
 }

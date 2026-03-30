@@ -41,7 +41,7 @@ class AdminPanelProvider extends PanelProvider
                 'gray' => Color::hex('#64748B'),
             ])
             ->font('Inter')
-            ->brandName('Pempek Bunda 75')
+            ->brandName('PempekBunda 75')
             ->brandLogo(null)
             ->brandLogoHeight('3rem')
             ->favicon(asset('favicon.ico'))

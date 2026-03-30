@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Keranjang - Pempek Bunda 75</title>
+  <title>Keranjang - PempekBunda 75</title>
 
   <!-- CSRF Token - PENTING UNTUK AJAX -->
   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -113,7 +113,7 @@
           <div class="lg:col-span-2 space-y-4">
             <template x-for="(item, index) in cart" :key="item.id">
               <div class="bg-white rounded-2xl p-4 flex items-center gap-6 border border-[#E8DCC4] shadow-sm">
-                <img x-bind:src="item.image" x-bind:alt="item.name" onerror="this.src='<?php echo e(asset('assets/images/Pempek.png')); ?>'" class="w-24 h-24 rounded-xl object-cover">
+                <img x-bind:src="item.image" x-bind:alt="item.name" onerror="this.src='<?php echo e(asset('assets/images/pempekbunda5.png')); ?>'" class="w-24 h-24 rounded-xl object-cover">
                 <div class="flex-grow">
                   <div class="flex justify-between items-start">
                     <div>
@@ -417,4 +417,5 @@
   </script>
 
 </body>
-</html><?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/order/cart.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/order/cart.blade.php ENDPATH**/ ?>

@@ -38,7 +38,7 @@ Ganti dengan nama dan email GitHub kamu.
 2. Klik tombol **"+"** di kanan atas → **"New repository"**
 3. Isi:
    - **Repository name**: `pempekbunda75` (atau nama lain)
-   - **Description**: "Website Pempek Bunda 75 - Laravel"
+   - **Description**: "Website PempekBunda 75 - Laravel"
    - **Public** atau **Private** (pilih sesuai kebutuhan)
    - **JANGAN** centang "Add a README file"
 4. Klik **"Create repository"**
@@ -70,7 +70,7 @@ git add database/
 ### Step 6: Commit Perubahan
 
 ```bash
-git commit -m "Initial commit - Pempek Bunda 75 website"
+git commit -m "Initial commit - PempekBunda 75 website"
 ```
 
 ### Step 7: Hubungkan ke GitHub Repository
@@ -108,7 +108,7 @@ Jika diminta password saat push, kamu perlu Personal Access Token:
 3. **Personal access tokens** → **Tokens (classic)**
 4. **Generate new token** → **Generate new token (classic)**
 5. Isi:
-   - **Note**: "Pempek Bunda 75"
+   - **Note**: "PempekBunda 75"
    - **Expiration**: 90 days (atau No expiration)
    - **Select scopes**: Centang **repo** (semua)
 6. Klik **Generate token**
@@ -304,3 +304,4 @@ git reset --hard HEAD~1
 ---
 
 Selamat! Project kamu sudah di GitHub! 🎉
+

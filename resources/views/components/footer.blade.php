@@ -44,7 +44,7 @@
         <!-- Right: Copyright -->
         <div class="flex items-center gap-2 text-xl md:text-2xl reenie-beanie">
             <span>&copy;</span>
-            <span>{{ date('Y') }} Pempek Bunda 75</span>
+            <span>{{ date('Y') }} PempekBunda 75</span>
         </div>
 
     </div>

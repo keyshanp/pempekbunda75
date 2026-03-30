@@ -1,4 +1,4 @@
-# 🗺️ Fitur Map Picker GoJek Style - Pempek Bunda 75
+# 🗺️ Fitur Map Picker GoJek Style - PempekBunda 75
 
 ## 📋 Deskripsi
 Sistem pemilihan lokasi interaktif seperti aplikasi GoJek/Grab untuk halaman checkout. User dapat memilih lokasi pengiriman dengan cara drag map atau klik langsung pada peta.
@@ -266,7 +266,7 @@ Jika traffic tinggi, pertimbangkan:
 
 ## 📝 Changelog
 
-### Version 1.0.0 (2026-03-04)
+### Version 1.0.0 (2019-03-04)
 - ✅ Implementasi modal map picker GoJek style
 - ✅ Reverse geocoding otomatis
 - ✅ Validasi koordinat wajib untuk delivery
@@ -305,4 +305,5 @@ Jika ada pertanyaan atau issue:
 
 ---
 
-**Dibuat dengan ❤️ untuk Pempek Bunda 75**
+**Dibuat dengan ❤️ untuk PempekBunda 75**
+
