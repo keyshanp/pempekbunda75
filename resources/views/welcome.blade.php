@@ -94,29 +94,75 @@
 
     @media (max-width: 768px) {
       .header {
-        flex-direction: column;
-        padding: 15px 20px;
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
       }
-      .main-content { margin-top: 140px; }
+      .main-content { margin-top: 70px; }
+
+      /* Hero mobile: semua center, judul besar atas, button tengah, foto bawah */
       .hero {
-        flex-direction: column;
-        padding: 60px 20px;
+        flex-direction: column !important;
+        padding: 40px 20px 32px;
+        gap: 20px;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        min-height: unset;
+        width: 100%;
       }
-      html { scroll-padding-top: 120px; }
+      .hero-left {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: 1;
+        gap: 16px;
+      }
+      .hero-title {
+        text-align: center !important;
+        font-size: clamp(52px, 14vw, 80px) !important;
+        width: 100%;
+      }
+      .btn-hero {
+        display: inline-block;
+        margin: 0 auto;
+      }
+      .hero-right {
+        order: 2;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+      }
+      .hero-img {
+        width: 240px !important;
+        height: 240px !important;
+        display: block;
+        margin: 0 auto;
+      }
+      html { scroll-padding-top: 70px; }
     }
 
     @media (max-width: 480px) {
-      .header { padding: 15px 20px; }
-      .main-content { margin-top: 200px; }
-      .hero { padding: 60px 20px; }
-      html { scroll-padding-top: 180px; }
+      .header { padding: 10px 15px; }
+      .main-content { margin-top: 65px; }
+      .hero { padding: 32px 15px 24px; gap: 16px; }
+      .hero-title { font-size: clamp(44px, 14vw, 64px) !important; }
+      .hero-img { width: 200px !important; height: 200px !important; }
+      html { scroll-padding-top: 65px; }
     }
 
     @media (max-width: 360px) {
-      .header { padding: 10px 15px; }
-      .main-content { margin-top: 220px; }
-      .hero { padding: 40px 15px; }
-      html { scroll-padding-top: 200px; }
+      .header { padding: 8px 12px; }
+      .main-content { margin-top: 60px; }
+      .hero { padding: 24px 10px 20px; gap: 14px; }
+      .hero-title { font-size: 38px !important; }
+      .hero-img { width: 170px !important; height: 170px !important; }
+      html { scroll-padding-top: 60px; }
     }
 
     /* ================= FOOTER ================= */
@@ -182,26 +228,28 @@
 
     @media (max-width: 768px) {
       .footer {
-        flex-direction: column;
-        gap: 40px;
-        padding: 40px 20px;
-        text-align: center;
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 20px;
+        text-align: left;
+        gap: 0;
       }
       .footer-left {
-        align-items: center;
-        width: 100%;
+        align-items: flex-start;
+        width: auto;
       }
       .footer-right {
         margin-left: 0;
-        justify-content: center;
-        width: 100%;
+        justify-content: flex-end;
+        width: auto;
       }
-      .footer-logo { width: 120px; }
+      .footer-logo { width: 80px; }
     }
 
     @media (max-width: 480px) {
-      .footer { padding: 30px 20px; }
-      .footer-logo { width: 100px; }
+      .footer { padding: 20px 12px; }
+      .footer-logo { width: 65px; }
     }
 
     /* ================= GOOGLE MAPS ================= */
@@ -384,49 +432,72 @@
       background-color: #a54534;
     }
 
-    /* ===== SCROLL INDICATOR ANIMASI ===== */
-    .scroll-indicator {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
+    /* ===== SCROLL INDICATOR - PROGRESS BAR ===== */
+    .scroll-track-wrapper {
+      width: 100%;
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      padding: 0 2.5rem;
     }
 
-    .indicator-dot {
-      width: 0.75rem;
-      height: 0.75rem;
-      border-radius: 50%;
-      background-color: #d1d5db;
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .scroll-track {
+      width: 100%;
+      height: 6px;
+      background-color: #e0d5c8;
+      border-radius: 10px;
       position: relative;
+      cursor: pointer;
+      overflow: hidden;
     }
 
-    .indicator-dot.active {
-      background-color: #c05c48;
-      transform: scale(1.2);
-      box-shadow: 0 0 10px rgba(192, 92, 72, 0.5);
+    .scroll-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #c05c48, #a54534);
+      border-radius: 10px;
+      transition: width 0.1s ease, left 0.1s ease;
+      min-width: 40px;
+      cursor: grab;
     }
 
-    .indicator-dot:hover {
-      background-color: #a54534;
+    .scroll-thumb:active {
+      cursor: grabbing;
+    }
+
+    .scroll-arrow-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #c05c48;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .scroll-arrow-btn:hover {
+      background: #a54534;
       transform: scale(1.1);
     }
 
-    /* Animasi pulse untuk dot aktif */
-    .indicator-dot.active {
-      animation: indicatorPulse 2s ease-in-out infinite;
+    .scroll-arrow-btn:active {
+      transform: scale(0.95);
     }
 
-    @keyframes indicatorPulse {
-      0%, 100% {
-        transform: scale(1.2);
-        box-shadow: 0 0 10px rgba(192, 92, 72, 0.5);
-      }
-      50% {
-        transform: scale(1.4);
-        box-shadow: 0 0 20px rgba(192, 92, 72, 0.8);
-      }
+    @media (max-width: 768px) {
+      .scroll-track-wrapper { padding: 0 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .scroll-track-wrapper { padding: 0 1rem; }
+      .scroll-track { height: 5px; }
     }
 
     /* Responsive Product */
@@ -1036,7 +1107,8 @@
     </a>
   </div>
 
-  <div class="header-right">
+  <!-- Desktop Nav -->
+  <div class="header-right" id="desktop-nav">
     <nav class="nav">
       <a href="#home" class="nav-link active">home</a>
       <a href="#produk" class="nav-link">produk</a>
@@ -1044,7 +1116,48 @@
     </nav>
     <a href="{{ route('order.index') }}" class="btn-header animate-pulse-custom">order</a>
   </div>
+
+  <!-- Hamburger Button (Mobile Only) -->
+  <button id="hamburger-btn" aria-label="Buka menu" style="display:none; background:none; border:none; cursor:pointer; padding:8px;">
+    <svg id="icon-open" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg id="icon-close" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24" style="display:none;"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+  </button>
 </header>
+
+<!-- Mobile Menu Dropdown -->
+<div id="mobile-nav" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.98); z-index:999998; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+  <a href="#home" class="nav-link" style="font-size:2rem;" onclick="closeMobileMenu()">home</a>
+  <a href="#produk" class="nav-link" style="font-size:2rem;" onclick="closeMobileMenu()">produk</a>
+  <a href="{{ route('order.my-orders') }}" class="nav-link" style="font-size:2rem;" onclick="closeMobileMenu()">cek pesanan</a>
+  <a href="{{ route('order.index') }}" class="btn-header" style="font-size:1.5rem; margin-top:8px;" onclick="closeMobileMenu()">order</a>
+</div>
+
+<style>
+  @media (max-width: 768px) {
+    #desktop-nav { display: none !important; }
+    #hamburger-btn { display: block !important; }
+  }
+</style>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  hamburgerBtn.addEventListener('click', function() {
+    const isOpen = mobileNav.style.display === 'flex';
+    mobileNav.style.display = isOpen ? 'none' : 'flex';
+    iconOpen.style.display = isOpen ? 'block' : 'none';
+    iconClose.style.display = isOpen ? 'none' : 'block';
+  });
+
+  function closeMobileMenu() {
+    mobileNav.style.display = 'none';
+    iconOpen.style.display = 'block';
+    iconClose.style.display = 'none';
+  }
+</script>
 
 <!-- MAIN CONTENT -->
 <main class="main-content">
@@ -1132,15 +1245,11 @@
       </div>
     </div>
     
-    <!-- Scroll Indicator (Mobile Only) - DENGAN ANIMASI SCROLL -->
-    <div class="md:hidden mt-6 scroll-indicator">
-      <div class="indicator-dot active" data-index="0"></div>
-      <div class="indicator-dot" data-index="1"></div>
-      <div class="indicator-dot" data-index="2"></div>
-      <div class="indicator-dot" data-index="3"></div>
-      <div class="indicator-dot" data-index="4"></div>
-      <div class="indicator-dot" data-index="5"></div>
-      <div class="indicator-dot" data-index="6"></div>
+    <!-- Scroll Progress Bar - Desktop & Mobile -->
+    <div class="scroll-track-wrapper" id="scroll-track-wrapper">
+      <div class="scroll-track" id="scroll-track">
+        <div class="scroll-thumb" id="scroll-thumb"></div>
+      </div>
     </div>
     @else
     <div class="text-center py-12">
@@ -1478,6 +1587,86 @@
     document.querySelectorAll('section:not(.product)').forEach(section => {
       observer.observe(section);
     });
+
+    // ===== SCROLL PROGRESS BAR =====
+    const scroller = document.querySelector('.product-scroll-wrapper');
+    const track    = document.getElementById('scroll-track');
+    const thumb    = document.getElementById('scroll-thumb');
+    const prevBtn  = document.getElementById('scroll-prev');
+    const nextBtn  = document.getElementById('scroll-next');
+
+    if (scroller && track && thumb) {
+
+      // Hitung ukuran & posisi thumb berdasarkan scroll
+      function updateThumb() {
+        const scrollWidth  = scroller.scrollWidth - scroller.clientWidth;
+        const trackWidth   = track.clientWidth;
+        const ratio        = scroller.clientWidth / scroller.scrollWidth;
+        const thumbW       = Math.max(40, trackWidth * ratio);
+        const thumbLeft    = scrollWidth > 0
+          ? (scroller.scrollLeft / scrollWidth) * (trackWidth - thumbW)
+          : 0;
+        thumb.style.width  = thumbW + 'px';
+        thumb.style.left   = thumbLeft + 'px';
+      }
+
+      // Sinkron scroll → thumb
+      scroller.addEventListener('scroll', updateThumb, { passive: true });
+      window.addEventListener('resize', updateThumb);
+      updateThumb();
+
+      // Klik track → scroll ke posisi itu
+      track.addEventListener('click', function(e) {
+        const rect       = track.getBoundingClientRect();
+        const clickX     = e.clientX - rect.left;
+        const trackWidth = track.clientWidth;
+        const thumbW     = parseFloat(thumb.style.width) || 40;
+        const ratio      = (clickX - thumbW / 2) / (trackWidth - thumbW);
+        const scrollMax  = scroller.scrollWidth - scroller.clientWidth;
+        scroller.scrollTo({ left: Math.max(0, ratio * scrollMax), behavior: 'smooth' });
+      });
+
+      // Drag thumb → scroll
+      let isDragging = false, dragStartX = 0, dragStartScroll = 0;
+
+      thumb.addEventListener('mousedown', function(e) {
+        isDragging    = true;
+        dragStartX    = e.clientX;
+        dragStartScroll = scroller.scrollLeft;
+        e.preventDefault();
+      });
+
+      thumb.addEventListener('touchstart', function(e) {
+        isDragging    = true;
+        dragStartX    = e.touches[0].clientX;
+        dragStartScroll = scroller.scrollLeft;
+      }, { passive: true });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const dx         = e.clientX - dragStartX;
+        const trackWidth = track.clientWidth;
+        const thumbW     = parseFloat(thumb.style.width) || 40;
+        const scrollMax  = scroller.scrollWidth - scroller.clientWidth;
+        const scrollDelta = (dx / (trackWidth - thumbW)) * scrollMax;
+        scroller.scrollLeft = Math.max(0, Math.min(scrollMax, dragStartScroll + scrollDelta));
+      });
+
+      document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        const dx         = e.touches[0].clientX - dragStartX;
+        const trackWidth = track.clientWidth;
+        const thumbW     = parseFloat(thumb.style.width) || 40;
+        const scrollMax  = scroller.scrollWidth - scroller.clientWidth;
+        const scrollDelta = (dx / (trackWidth - thumbW)) * scrollMax;
+        scroller.scrollLeft = Math.max(0, Math.min(scrollMax, dragStartScroll + scrollDelta));
+      }, { passive: true });
+
+      document.addEventListener('mouseup',  () => { isDragging = false; });
+      document.addEventListener('touchend', () => { isDragging = false; });
+
+      // Tombol panah dihapus — hanya scrollbar line
+    }
   });
 </script>
 

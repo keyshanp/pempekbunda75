@@ -12,7 +12,7 @@
         /* Load RASCAL font */
         @font-face {
             font-family: 'RASCAL';
-            src: url('{{ asset("fonts/RASCAL__.TTF") }}') format('truetype');
+            src: url('<?php echo e(asset("fonts/RASCAL__.TTF")); ?>') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -65,8 +65,8 @@
                 </h1>
 
                 <!-- Form -->
-                <form method="POST" action="{{ route('register') }}" class="space-y-4">
-                    @csrf
+                <form method="POST" action="<?php echo e(route('register')); ?>" class="space-y-4">
+                    <?php echo csrf_field(); ?>
                     
                     <!-- Nama Lengkap -->
                     <div class="relative">
@@ -74,15 +74,22 @@
                             id="name" 
                             name="name" 
                             type="text" 
-                            value="{{ old('name') }}"
+                            value="<?php echo e(old('name')); ?>"
                             class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
                             placeholder="Nama Lengkap"
                             required 
                             autofocus
                         >
-                        @error('name')
-                            <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                        @enderror
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-1 text-red-600 text-sm font-hand"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                     
                     <!-- Email -->
@@ -91,14 +98,21 @@
                             id="email" 
                             name="email" 
                             type="email" 
-                            value="{{ old('email') }}"
+                            value="<?php echo e(old('email')); ?>"
                             class="w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:border-[#c48474] focus:ring-0 font-hand text-lg placeholder-gray-400 transition-colors"
                             placeholder="Email"
                             required
                         >
-                        @error('email')
-                            <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                        @enderror
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-1 text-red-600 text-sm font-hand"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                     
                     <!-- Password -->
@@ -111,9 +125,16 @@
                             placeholder="Password"
                             required
                         >
-                        @error('password')
-                            <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                        @enderror
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-1 text-red-600 text-sm font-hand"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                     
                     <!-- Confirm Password -->
@@ -143,9 +164,16 @@
                             saya akan menjadi customer yang bijak
                         </label>
                     </div>
-                    @error('consent')
-                        <p class="mt-1 text-red-600 text-sm font-hand">{{ $message }}</p>
-                    @enderror
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['consent'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-1 text-red-600 text-sm font-hand"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
                     <!-- Buttons -->
                     <div class="flex gap-4 pt-6">
@@ -156,7 +184,7 @@
                             Sign Up
                         </button>
                         <a
-                            href="{{ route('login') }}"
+                            href="<?php echo e(route('login')); ?>"
                             class="flex-1 btn-primary text-white font-hand text-2xl py-2 px-6 rounded-full shadow-lg transition-all active:scale-95 text-center"
                         >
                             Sign In
@@ -166,7 +194,7 @@
                 
                 <!-- Back to Home -->
                 <div class="mt-8 text-center">
-                    <a href="{{ url('/') }}" class="font-hand text-[#7c2d12] text-lg hover:underline">
+                    <a href="<?php echo e(url('/')); ?>" class="font-hand text-[#7c2d12] text-lg hover:underline">
                         ← Kembali ke halaman utama
                     </a>
                 </div>
@@ -186,12 +214,12 @@
     </div>
 
     <!-- Error Alert -->
-    @if($errors->any())
+    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($errors->any()): ?>
         <div class="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50">
             <ul class="list-disc pl-5">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </ul>
         </div>
         <script>
@@ -199,7 +227,7 @@
                 document.querySelector('.fixed').style.display = 'none';
             }, 5000);
         </script>
-    @endif
+    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
     
     <!-- Font loading fallback -->
     <script>
@@ -237,3 +265,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\laragon\www\2maretpempekbundacode\pempekbunda75\resources\views/auth/register.blade.php ENDPATH**/ ?>

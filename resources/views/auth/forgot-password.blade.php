@@ -66,12 +66,12 @@
         <div class="w-full md:w-[45%] p-8 md:p-12 flex flex-col justify-center bg-white overflow-y-auto">
             <div class="max-w-xs mx-auto w-full">
                 <!-- Title with RASCAL Font -->
-                <h1 class="text-5xl md:text-6xl font-rascal text-[#7c2d12] mb-8 tracking-tighter text-center md:center leading-none">
+                <h1 class="text-5xl md:text-6xl font-rascal text-[#7c2d12] mb-8 tracking-tighter text-center leading-none">
                     Reset Password
                 </h1>
 
-                <!-- Description -->
-                <p class="font-hand text-[#7c2d12] text-lg mb-8 text-center md:text-left leading-relaxed">
+                <!-- Description - CENTERED and ALIGNED with form below -->
+                <p class="font-hand text-[#7c2d12] text-lg mb-8 text-center leading-relaxed">
                     Masukkan email dan password baru Anda.
                 </p>
 

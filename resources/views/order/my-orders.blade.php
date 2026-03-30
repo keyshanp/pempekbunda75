@@ -174,8 +174,8 @@
         <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
       </a>
     </div>
-
-    <div class="header-right">
+    <!-- Desktop Nav -->
+    <div class="header-right" id="desktop-nav-myorders">
       <nav class="nav">
         <a href="{{ route('home') }}" class="nav-link">home</a>
         <a href="{{ route('order.index') }}" class="nav-link">produk</a>
@@ -183,10 +183,44 @@
       </nav>
       <a href="{{ route('order.index') }}" class="btn-header">order</a>
     </div>
+    <!-- Hamburger -->
+    <button id="hamburger-myorders" aria-label="Buka menu" style="display:none; background:none; border:none; cursor:pointer; padding:8px;">
+      <svg id="icon-open-myorders" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="icon-close-myorders" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24" style="display:none;"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+    </button>
   </header>
 
+  <!-- Mobile Menu -->
+  <div id="mobile-nav-myorders" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.98); z-index:999998; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+    <a href="{{ route('home') }}" class="nav-link" style="font-size:2rem;" onclick="closeMobileMyOrders()">home</a>
+    <a href="{{ route('order.index') }}" class="nav-link" style="font-size:2rem;" onclick="closeMobileMyOrders()">produk</a>
+    <a href="{{ route('order.my-orders') }}" class="nav-link" style="font-size:2rem; color:#c97b63;" onclick="closeMobileMyOrders()">cek pesanan</a>
+    <a href="{{ route('order.index') }}" class="btn-header" style="font-size:1.5rem; margin-top:8px;" onclick="closeMobileMyOrders()">order</a>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #desktop-nav-myorders { display: none !important; }
+      #hamburger-myorders { display: block !important; }
+    }
+  </style>
+  <script>
+    document.getElementById('hamburger-myorders').addEventListener('click', function() {
+      const nav = document.getElementById('mobile-nav-myorders');
+      const isOpen = nav.style.display === 'flex';
+      nav.style.display = isOpen ? 'none' : 'flex';
+      document.getElementById('icon-open-myorders').style.display = isOpen ? 'block' : 'none';
+      document.getElementById('icon-close-myorders').style.display = isOpen ? 'none' : 'block';
+    });
+    function closeMobileMyOrders() {
+      document.getElementById('mobile-nav-myorders').style.display = 'none';
+      document.getElementById('icon-open-myorders').style.display = 'block';
+      document.getElementById('icon-close-myorders').style.display = 'none';
+    }
+  </script>
+
   <!-- MAIN CONTENT -->
-  <main class="flex-grow" style="margin-top: 120px; padding: 40px 20px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%;">
+  <main class="flex-grow" style="margin-top: 80px; padding: 40px 20px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%;">
 
     <h1 class="text-5xl md:text-6xl font-rascal text-center mb-8" style="color: #7c2d12;">Pesanan Saya</h1>
 
@@ -351,6 +385,15 @@
     
     .footer-logo {
       width: 150px;
+    }
+
+    @media (max-width: 768px) {
+      .header { flex-direction: row; padding: 12px 20px; }
+      .footer { flex-direction: row !important; justify-content: space-between; align-items: center; padding: 24px 20px; text-align: left; }
+      .footer-left { align-items: flex-start; gap: 8px; }
+      .footer-right { margin-left: 0; justify-content: flex-end; }
+      .footer-logo { width: 80px; }
+      .footer-link { font-size: 14px; }
     }
   </style>
 

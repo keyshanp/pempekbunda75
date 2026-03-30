@@ -17,7 +17,8 @@
                         <i class="fas fa-fish"></i> PempekBunda 75
                     </a>
                 </div>
-                <div class="flex items-center space-x-4">
+                <!-- Desktop Nav -->
+                <div class="hidden sm:flex items-center space-x-4">
                     <a href="{{ route('transaksi.history') }}" class="text-gray-700 hover:text-orange-600">
                         <i class="fas fa-history"></i> Histori
                     </a>
@@ -32,9 +33,41 @@
                         </button>
                     </form>
                 </div>
+                <!-- Mobile Hamburger -->
+                <button id="dash-hamburger" class="sm:hidden text-gray-700 focus:outline-none">
+                    <i id="dash-icon-open" class="fas fa-bars text-2xl"></i>
+                    <i id="dash-icon-close" class="fas fa-times text-2xl" style="display:none;"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="dash-mobile-menu" class="sm:hidden hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3">
+            <a href="{{ route('transaksi.history') }}" class="block text-gray-700 hover:text-orange-600 py-2">
+                <i class="fas fa-history mr-2"></i> Histori
+            </a>
+            <a href="{{ route('reviews') }}" class="block text-gray-700 hover:text-orange-600 py-2">
+                <i class="fas fa-star mr-2"></i> Review
+            </a>
+            <div class="border-t border-gray-100 pt-3">
+                <p class="text-sm text-gray-500 mb-2">{{ $user->name }}</p>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition text-left">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
+    <script>
+        document.getElementById('dash-hamburger').addEventListener('click', function() {
+            const menu = document.getElementById('dash-mobile-menu');
+            const isOpen = !menu.classList.contains('hidden');
+            menu.classList.toggle('hidden');
+            document.getElementById('dash-icon-open').style.display = isOpen ? 'block' : 'none';
+            document.getElementById('dash-icon-close').style.display = isOpen ? 'none' : 'block';
+        });
+    </script>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 class="text-3xl font-bold mb-6 text-gray-800">

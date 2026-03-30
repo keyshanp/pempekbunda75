@@ -116,26 +116,25 @@
     /* ===== FLOATING CART BUTTON ===== */
     .floating-cart-btn {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 20px;
+      right: 20px;
       z-index: 9999;
       background-color: #6B8E23;
       color: white;
-      border-radius: 60px;
-      padding: 15px 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border-radius: 50px;
+      padding: 12px 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       transition: all 0.3s ease;
-      border: 3px solid #BC5A45;
+      border: 2px solid #BC5A45;
       display: flex;
       align-items: center;
-      gap: 15px;
-      animation: float 3s ease-in-out infinite;
+      gap: 12px;
     }
 
     .floating-cart-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
       background-color: #5a7520;
     }
 
@@ -144,22 +143,22 @@
     }
 
     .cart-icon-wrapper i {
-      font-size: 28px;
+      font-size: 22px;
     }
 
     .cart-count-badge {
       position: absolute;
-      top: -10px;
-      right: -10px;
+      top: -8px;
+      right: -8px;
       background-color: #BC5A45;
       color: white;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
+      width: 18px;
+      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: bold;
       border: 2px solid white;
       font-family: 'Fredoka', sans-serif;
@@ -172,15 +171,29 @@
     }
 
     .cart-info .cart-title {
-      font-size: 16px;
+      font-size: 12px;
       opacity: 0.9;
       font-family: 'Fredoka', sans-serif;
+      line-height: 1;
     }
 
     .cart-info .cart-total {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: bold;
       font-family: 'Bubblegum Sans', cursive;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 480px) {
+      .floating-cart-btn {
+        bottom: 14px;
+        right: 14px;
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .cart-icon-wrapper i { font-size: 20px; }
+      .cart-info .cart-title { font-size: 11px; }
+      .cart-info .cart-total { font-size: 14px; }
     }
 
     @keyframes float {
@@ -191,18 +204,18 @@
     /* ===== CART DRAWER ===== */
     .cart-drawer {
       position: fixed;
-      bottom: 130px;
-      right: 30px;
-      width: 380px;
-      max-width: 90vw;
+      bottom: 80px;
+      right: 20px;
+      width: 280px;
+      max-width: 85vw;
       background-color: #FFF9F0;
-      border-radius: 25px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
       z-index: 9998;
       transform: scale(0);
       opacity: 0;
-      transition: all 0.3s ease;
-      border: 4px solid #6B8E23;
+      transition: all 0.25s ease;
+      border: 3px solid #6B8E23;
       overflow: hidden;
       transform-origin: bottom right;
     }
@@ -215,30 +228,30 @@
     .cart-drawer-header {
       background-color: #6B8E23;
       color: white;
-      padding: 18px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 3px solid #BC5A45;
+      border-bottom: 2px solid #BC5A45;
     }
 
     .cart-drawer-header h3 {
-      font-size: 24px;
+      font-size: 16px;
       font-family: 'Bubblegum Sans', cursive;
       margin: 0;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
 
     .cart-drawer-header button {
       background: none;
       border: none;
       color: white;
-      font-size: 20px;
+      font-size: 14px;
       cursor: pointer;
-      width: 35px;
-      height: 35px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -253,17 +266,17 @@
     }
 
     .cart-drawer-items {
-      max-height: 350px;
+      max-height: 180px;
       overflow-y: auto;
-      padding: 15px;
+      padding: 8px 10px;
     }
 
     .cart-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .cart-item:last-child {
@@ -272,18 +285,22 @@
 
     .cart-item-info {
       flex: 1;
+      min-width: 0;
     }
 
     .cart-item-name {
-      font-size: 18px;
+      font-size: 13px;
       font-weight: bold;
       color: #4a3728;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
       font-family: 'Fredoka', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .cart-item-price {
-      font-size: 16px;
+      font-size: 12px;
       color: #BC5A45;
       font-weight: bold;
       font-family: 'Fredoka', sans-serif;
@@ -292,28 +309,30 @@
     .cart-item-quantity {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
       background-color: #f5e8d0;
-      padding: 5px 10px;
-      border-radius: 30px;
+      padding: 3px 6px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      margin-left: 6px;
     }
 
     .cart-item-quantity span {
-      font-size: 18px;
+      font-size: 13px;
       font-weight: bold;
-      min-width: 25px;
+      min-width: 16px;
       text-align: center;
       font-family: 'Fredoka', sans-serif;
     }
 
     .cart-item-quantity button {
-      width: 28px;
-      height: 28px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background-color: #BC5A45;
       color: white;
       border: none;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: bold;
       cursor: pointer;
       display: flex;
@@ -335,7 +354,7 @@
 
     .cart-drawer-footer {
       background-color: #f5e8d0;
-      padding: 20px;
+      padding: 10px 12px;
       border-top: 2px solid #6B8E23;
     }
 
@@ -343,16 +362,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 22px;
+      font-size: 14px;
       font-weight: bold;
       color: #4a3728;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
       font-family: 'Fredoka', sans-serif;
     }
 
     .cart-grand-total span:last-child {
       color: #BC5A45;
-      font-size: 26px;
+      font-size: 16px;
     }
 
     .cart-payment-btn {
@@ -361,27 +380,26 @@
       background-color: #BC5A45;
       color: white;
       text-align: center;
-      padding: 15px;
-      border-radius: 50px;
-      font-size: 20px;
+      padding: 9px;
+      border-radius: 30px;
+      font-size: 14px;
       font-weight: bold;
       text-decoration: none;
       transition: all 0.2s ease;
       border: none;
       cursor: pointer;
       font-family: 'Bubblegum Sans', cursive;
-      letter-spacing: 1px;
-      box-shadow: 0 5px 15px rgba(188, 90, 69, 0.3);
+      letter-spacing: 0.5px;
+      box-shadow: 0 3px 10px rgba(188, 90, 69, 0.3);
     }
 
     .cart-payment-btn:hover {
       background-color: #a34d3b;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(188, 90, 69, 0.4);
+      transform: translateY(-2px);
     }
 
     .cart-payment-btn i {
-      margin-right: 10px;
+      margin-right: 6px;
     }
 
     .empty-cart {
@@ -490,64 +508,63 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
 
-    /* STOK & JUMLAH - LAYOUT FLEX ROW (KANAN KIRI) */
+    /* STOK & JUMLAH */
     .info-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 1.5rem;
-      margin: 1rem 0;
+      gap: 1rem;
+      margin: 0.5rem 0;
     }
     
     .info-col {
       flex: 1;
-      min-width: 120px;
+      min-width: 100px;
     }
     
     .info-col h4 {
-      font-size: 1.8rem;
-      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.4rem;
+      font-family: 'RASCAL', cursive;
       color: #6B8E23;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
     
     .info-col p {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: bold;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Reenie Beanie', cursive;
     }
     
     .info-col .stok-value {
       color: #BC5A45;
     }
     
-    /* Quantity selector khusus modal */
     .quantity-selector-modal {
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.8rem;
       background: #f5e8d0;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 3rem;
     }
     
     .quantity-btn-modal {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2rem;
+      height: 2rem;
       border-radius: 50%;
       background-color: #BC5A45;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -560,24 +577,23 @@
     }
     
     .quantity-value-modal {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: bold;
-      min-width: 2.5rem;
+      min-width: 2rem;
       text-align: center;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Reenie Beanie', cursive;
     }
     
     .stok-warning {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
       color: #BC5A45;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Reenie Beanie', cursive;
     }
 
-    /* Harga dan tombol di bawah */
     .price-action {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
       border-top: 2px solid rgba(188, 90, 69, 0.2);
       display: flex;
       flex-direction: row;
@@ -592,33 +608,33 @@
     }
 
     .price-action .price-info p:first-child {
-      font-size: 1.2rem;
+      font-size: 1rem;
       opacity: 0.7;
       margin-bottom: 0.2rem;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Reenie Beanie', cursive;
     }
 
     .price-action .price-info p:last-child {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #BC5A45;
       font-weight: bold;
       line-height: 1;
-      font-family: 'Bubblegum Sans', cursive;
+      font-family: 'RASCAL', cursive;
     }
 
     .price-action button {
       background-color: #6B8E23;
       color: white;
-      padding: 0.8rem 1.8rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 2rem;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: bold;
       transition: all 0.2s ease;
-      box-shadow: 0 5px 0 0 #4a6318;
+      box-shadow: 0 4px 0 0 #4a6318;
       white-space: nowrap;
       border: none;
       cursor: pointer;
-      font-family: 'Bubblegum Sans', cursive;
+      font-family: 'RASCAL', cursive;
     }
 
     .price-action button:hover {
@@ -626,80 +642,108 @@
       background-color: #5a7520;
     }
 
-    .price-action button:active {
-      transform: scale(0.98);
-    }
-
     .modal-details h2 {
-      font-size: 2.8rem !important;
+      font-size: 2.2rem !important;
       line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       font-family: 'RASCAL', cursive;
       color: #BC5A45;
     }
 
     .modal-details .description-text {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       line-height: 1.5;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Reenie Beanie', cursive;
       color: #4a3728;
-      margin-bottom: 1rem;
     }
     
+    /* ===== MOBILE MODAL: kotak tetap, scrollable di dalam ===== */
     @media (max-width: 767px) {
       .modal-container {
-        width: 95%;
-        max-height: 90vh;
-        margin: 1rem;
+        width: 92%;
+        max-width: 420px;
+        max-height: 80vh;
+        border-radius: 2rem;
+        border-width: 6px;
+        margin: 0;
       }
       
       .modal-content {
-        max-height: 90vh;
-        overflow-y: auto;
+        flex-direction: row !important;
+        max-height: 80vh;
+        overflow: hidden;
       }
-      
+
+      /* Gambar di kiri, kecil */
       .modal-image {
-        width: 100%;
-        padding: 1rem;
+        width: 38% !important;
+        padding: 0.8rem 0.5rem 0.8rem 0.8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
       }
       
+      .modal-image-inner {
+        transform: none;
+        border-width: 3px;
+      }
+
       .modal-image-inner img {
-        height: 180px;
+        height: auto;
+        aspect-ratio: 1/1;
       }
       
+      /* Detail di kanan, scrollable */
       .modal-details {
-        width: 100%;
-        padding: 1.2rem;
+        width: 62% !important;
+        padding: 0.8rem 0.8rem 0.8rem 0.5rem;
+        overflow-y: auto;
+        max-height: 80vh;
       }
       
       .modal-details h2 {
-        font-size: 1.8rem !important;
+        font-size: 1.3rem !important;
       }
       
+      .modal-details .description-text {
+        font-size: 0.95rem;
+      }
+
       .info-col h4 {
-        font-size: 1.3rem;
+        font-size: 1rem;
       }
       
       .info-col p {
-        font-size: 1.5rem;
-      }
-      
-      .description-text {
-        font-size: 1rem !important;
+        font-size: 1.1rem;
       }
       
       .price-action .price-info p:last-child {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
       }
       
       .price-action button {
-        padding: 0.6rem 1.2rem;
-        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
       }
       
       .info-row {
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 0.6rem;
+      }
+
+      .quantity-selector-modal {
+        padding: 0.3rem 0.6rem;
+        gap: 0.6rem;
+      }
+
+      .quantity-btn-modal {
+        width: 1.6rem;
+        height: 1.6rem;
+        font-size: 0.9rem;
+      }
+
+      .quantity-value-modal {
+        font-size: 1.2rem;
       }
     }
 
@@ -841,8 +885,23 @@
     .footer-logo { width: 150px; height: auto; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1.1); }
     .footer-logo:hover { transform: scale(1.05); }
     @media (max-width: 1024px) { .header { padding: 20px 40px; } .footer { padding: 50px 80px; } .footer-logo { width: 130px; } }
-    @media (max-width: 768px) { .header { flex-direction: column; padding: 15px 20px; } .brand-logo { width: 120px; } .header-right { width: 100%; justify-content: space-between; gap: 20px; } .nav { gap: 20px; } .footer { flex-direction: column; gap: 40px; padding: 40px 20px; text-align: center; } .footer-left { align-items: center; } .footer-right { align-items: center; justify-content: center; } .footer-logo { width: 120px; } }
-    @media (max-width: 480px) { .header-right { flex-direction: column; gap: 15px; } .nav { gap: 15px; } .nav-link { font-size: 18px; } .btn-header { padding: 8px 20px; font-size: 16px; } .footer { padding: 30px 20px; gap: 30px; } .footer-link { font-size: 20px; } .footer-logo { width: 100px; } }
+    @media (max-width: 768px) {
+      /* Header: logo kiri, hamburger kanan */
+      .header { flex-direction: row !important; justify-content: space-between; align-items: center; padding: 12px 20px; }
+      .brand-logo { width: 110px; }
+      /* Footer: tetap row */
+      .footer { flex-direction: row !important; justify-content: space-between; align-items: center; padding: 24px 20px; text-align: left; }
+      .footer-left { align-items: flex-start; gap: 8px; }
+      .footer-right { margin-left: 0; justify-content: flex-end; }
+      .footer-logo { width: 80px; }
+      .footer-link { font-size: 15px; }
+    }
+    @media (max-width: 480px) {
+      .header { padding: 10px 15px; }
+      .footer { padding: 16px 12px; }
+      .footer-link { font-size: 13px; }
+      .footer-logo { width: 65px; }
+    }
   </style>
 </head>
 <body x-data="cartSystem()" x-init="initCart()" class="min-h-screen flex flex-col">
@@ -854,7 +913,8 @@
         <img src="{{ asset('assets/images/logobrand.png') }}" alt="PempekBunda 75 Logo" class="brand-logo">
       </a>
     </div>
-    <div class="header-right">
+    <!-- Desktop Nav -->
+    <div class="header-right" id="desktop-nav-order">
       <nav class="nav">
         <a href="{{ route('home') }}" class="nav-link">home</a>
         <a href="#products" class="nav-link">produk</a>
@@ -862,24 +922,58 @@
       </nav>
       <a href="#" id="order-top-btn" class="btn-header">order</a>
     </div>
+    <!-- Hamburger -->
+    <button id="hamburger-order" aria-label="Buka menu" style="display:none; background:none; border:none; cursor:pointer; padding:8px;">
+      <svg id="icon-open-order" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="icon-close-order" width="28" height="28" fill="none" stroke="#7c2d12" stroke-width="2.5" viewBox="0 0 24 24" style="display:none;"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+    </button>
   </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav-order" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.98); z-index:999998; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+    <a href="{{ route('home') }}" class="nav-link" style="font-size:2rem;" onclick="closeMobileOrder()">home</a>
+    <a href="#products" class="nav-link" style="font-size:2rem;" onclick="closeMobileOrder()">produk</a>
+    <a href="{{ route('order.cart') }}" class="nav-link" style="font-size:2rem;" onclick="closeMobileOrder()">cek pesanan</a>
+    <a href="#" class="btn-header" style="font-size:1.5rem; margin-top:8px;" onclick="closeMobileOrder()">order</a>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #desktop-nav-order { display: none !important; }
+      #hamburger-order { display: block !important; }
+    }
+  </style>
+  <script>
+    document.getElementById('hamburger-order').addEventListener('click', function() {
+      const nav = document.getElementById('mobile-nav-order');
+      const isOpen = nav.style.display === 'flex';
+      nav.style.display = isOpen ? 'none' : 'flex';
+      document.getElementById('icon-open-order').style.display = isOpen ? 'block' : 'none';
+      document.getElementById('icon-close-order').style.display = isOpen ? 'none' : 'block';
+    });
+    function closeMobileOrder() {
+      document.getElementById('mobile-nav-order').style.display = 'none';
+      document.getElementById('icon-open-order').style.display = 'block';
+      document.getElementById('icon-close-order').style.display = 'none';
+    }
+  </script>
 
   <main class="flex-grow" style="margin-top: 120px;">
 
     <!-- HERO SECTION -->
     <section id="top" class="hero-section px-6 md:px-12 max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-12 w-full">
-        <div class="md:w-1/2 space-y-6 animate-fade-left">
+      <div class="flex flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-left gap-8 w-full">
+        <div class="w-full md:w-1/2 space-y-4 animate-fade-left">
           <div class="inline-block bg-[#6B8E23] text-white font-fredoka px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase rotate-[-2deg] mb-2">Order Page</div>
-          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-rascal leading-[0.8] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Pilih <br /><span class="ml-4 sm:ml-8 md:ml-12">Menu Anda</span></h1>
-          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-fredoka text-[#4a3728]/80 max-w-md leading-relaxed animate-fade-up delay-1">Klik pada produk untuk membaca <span class="text-[#BC5A45] font-bold">deskripsi</span> menarik, lalu tambahkan ke keranjang!</p>
+          <h1 class="text-5xl sm:text-6xl md:text-6xl lg:text-8xl xl:text-9xl font-rascal leading-[0.85] mb-4 font-bold" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Pilih<br/>Menu Anda</h1>
+          <p class="text-base sm:text-lg md:text-2xl lg:text-3xl font-fredoka text-[#4a3728]/80 max-w-md mx-auto md:mx-0 leading-relaxed animate-fade-up delay-1">Klik pada produk untuk membaca <span class="text-[#BC5A45] font-bold">deskripsi</span> menarik, lalu tambahkan ke keranjang!</p>
         </div>
-        <div class="md:w-1/2 relative group animate-fade-right">
+        <div class="w-full md:w-1/2 relative group animate-fade-right max-w-xs mx-auto md:max-w-none">
           <div class="relative z-10 rounded-[5rem] border-[15px] border-[#6B8E23] overflow-hidden shadow-[30px_30px_0px_0px_rgba(188,90,69,0.1)] aspect-square -rotate-3 transition-transform duration-500 group-hover:rotate-0">
             <img src="{{ asset('assets/images/pempekbunda4.png') }}" alt="PempekBunda 75" class="w-full h-full object-cover" />
           </div>
-          <div class="absolute -top-10 -right-10 text-6xl text-[#BC5A45] animate-bounce select-none">★</div>
-          <div class="absolute -bottom-10 -left-10 text-6xl text-[#6B8E23] animate-pulse select-none">★</div>
+          <div class="absolute -top-6 -right-6 text-4xl text-[#BC5A45] animate-bounce select-none">★</div>
+          <div class="absolute -bottom-6 -left-6 text-4xl text-[#6B8E23] animate-pulse select-none">★</div>
         </div>
       </div>
     </section>
@@ -896,7 +990,7 @@
         @if(isset($products) && $products->isEmpty())
           <div class="text-center py-20"><p class="text-2xl font-fredoka text-gray-500">Belum ada produk tersedia.</p></div>
         @elseif(isset($products))
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-x-12 md:gap-x-16 gap-y-12 sm:gap-y-16 md:gap-y-24">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-x-8 md:gap-x-16 gap-y-8 sm:gap-y-12 md:gap-y-24">
           @foreach($products as $index => $product)
           <div class="product-card group cursor-pointer flex flex-col items-center" @click="showProductModal({{ $product['id'] }})">
             <div class="relative mb-6 w-full aspect-square overflow-hidden rounded-[3rem] border-[10px] border-[#6B8E23] p-1 bg-white shadow-[15px_15px_0px_0px_rgba(188,90,69,0.2)] group-hover:shadow-[20px_20px_0px_0px_rgba(188,90,69,0.3)] transition-all duration-300 transform group-hover:-rotate-2">
