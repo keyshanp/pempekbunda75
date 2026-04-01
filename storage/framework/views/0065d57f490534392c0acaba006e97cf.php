@@ -87,14 +87,14 @@
 <body x-data="cartPage()" x-init="loadCart()" class="min-h-screen flex flex-col" style="padding-top: 0;">
 
   <!-- MAIN CONTENT - TANPA HEADER, LANGSUNG MULAI DARI SINI -->
-  <main class="flex-grow" style="padding: 40px 16px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%;">
+  <main class="flex-grow" style="padding: 40px 20px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%;">
 
     <div class="animate-fade-in">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-8 sm:mb-12 gap-3">
+      <div class="flex justify-between items-baseline mb-12">
         <!-- TITLE MENGGUNAKAN FONT RASCAL -->
-        <h2 class="text-6xl sm:text-8xl md:text-9xl font-rascal text-[#5C3D2E] tracking-tight" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Keranjangmu</h2>
+        <h2 class="text-8xl md:text-9xl font-rascal text-[#5C3D2E] tracking-tight" style="color: #7c2d12; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Keranjangmu</h2>
         <!-- LINK LANJUT BELANJA MENGGUNAKAN FONT REENIE -->
-        <a href="<?php echo e(route('order.index')); ?>" class="text-[#C6584F] font-reenie text-2xl sm:text-3xl flex items-center gap-2 hover:underline whitespace-nowrap">
+        <a href="<?php echo e(route('order.index')); ?>" class="text-[#C6584F] font-reenie text-3xl flex items-center gap-2 hover:underline">
           ← Lanjut Belanja
         </a>
       </div>
@@ -157,7 +157,7 @@
           </div>
 
           <!-- SUMMARY CARD -->
-          <div class="bg-[#758E27] rounded-[2rem] p-6 sm:p-8 text-white h-fit shadow-lg sm:sticky sm:top-8">
+          <div class="bg-[#758E27] rounded-[2rem] p-8 text-white h-fit shadow-lg sticky top-8">
             <h3 class="text-3xl font-bold mb-8">Ringkasan</h3>
             
             <div class="space-y-4 mb-8">

@@ -171,6 +171,13 @@ class OrderController extends Controller
         // Hapus data session
         session()->forget('cart');
         session()->forget('payment_data');
+
+        // Logout customer otomatis setelah pesanan dibuat, supaya untuk pesanan berikutnya perlu login lagi
+        if (auth()->check()) {
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
         
         // Kembalikan response sukses dengan redirect
         return response()->json([
