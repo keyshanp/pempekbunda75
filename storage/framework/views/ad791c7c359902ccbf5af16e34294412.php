@@ -1374,6 +1374,76 @@
 
 </main>
 
+<!-- ===== SECTION REVIEW PELANGGAN ===== -->
+<?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(isset($topFeedbacks) && $topFeedbacks->count() > 0): ?>
+<section style="background:#FFF8EE; padding: 80px 40px; text-align:center;">
+  <h2 style="font-family:'RASCAL',cursive; font-size:clamp(2.5rem,6vw,4.5rem); color:#7c2d12; margin-bottom:8px; text-shadow:2px 2px 4px rgba(0,0,0,0.1);">
+    Kata Mereka
+  </h2>
+  <p style="font-family:'Reenie Beanie',cursive; font-size:clamp(1.2rem,2.5vw,1.8rem); color:#5C3D2E; margin-bottom:48px; opacity:0.8;">
+    Review jujur dari pelanggan setia PempekBunda 75
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; max-width:1200px; margin:0 auto;">
+    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $topFeedbacks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fb): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div style="background:white; border:2px solid #E8DCC4; border-radius:24px; padding:28px 24px; width:clamp(260px,30%,340px); text-align:left; box-shadow:0 4px 16px rgba(0,0,0,0.06); transition:transform 0.3s ease;"
+         onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+      
+      <!-- Bintang -->
+      <div style="margin-bottom:12px;">
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php for($i = 1; $i <= 5; $i++): ?>
+          <span style="font-size:1.4rem; color:<?php echo e($i <= $fb->rating ? '#FFB800' : '#D1D5DB'); ?>;">★</span>
+        <?php endfor; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+      </div>
+
+      <!-- Review text -->
+      <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($fb->review): ?>
+      <p style="font-family:'Reenie Beanie',cursive; font-size:1.3rem; color:#5C3D2E; margin-bottom:14px; line-height:1.5; font-style:italic;">
+        "<?php echo e($fb->review); ?>"
+      </p>
+      <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+      <!-- Tags -->
+      <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($fb->tags && count($fb->tags) > 0): ?>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = array_slice($fb->tags, 0, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <span style="background:#758E27; color:white; border-radius:20px; padding:3px 12px; font-size:0.75rem; font-family:'Reenie Beanie',cursive;">
+          <?php echo e($tag); ?>
+
+        </span>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+      </div>
+      <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+      <!-- Nama -->
+      <div style="display:flex; align-items:center; gap:10px; border-top:1px solid #E8DCC4; padding-top:12px;">
+        <div style="width:36px; height:36px; background:#C6584F; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:1rem; flex-shrink:0;">
+          <?php echo e(strtoupper(substr($fb->user_name, 0, 1))); ?>
+
+        </div>
+        <div>
+          <p style="font-family:'Reenie Beanie',cursive; font-size:1.2rem; color:#5C3D2E; font-weight:bold; margin:0;">
+            <?php echo e($fb->user_name); ?>
+
+          </p>
+          <p style="font-size:0.75rem; color:#9CA3AF; margin:0;">
+            <?php echo e($fb->created_at->format('d M Y')); ?>
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+  </div>
+
+  <a href="<?php echo e(route('reviews')); ?>" style="display:inline-block; margin-top:40px; background:#C6584F; color:white; padding:14px 40px; border-radius:30px; font-family:'Reenie Beanie',cursive; font-size:1.5rem; text-decoration:none; transition:all 0.3s ease;"
+     onmouseover="this.style.background='#b04d45'; this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='#C6584F'; this.style.transform='translateY(0)'">
+    Lihat Semua Review →
+  </a>
+</section>
+<?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-left">

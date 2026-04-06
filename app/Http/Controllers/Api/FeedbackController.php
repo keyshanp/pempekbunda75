@@ -64,13 +64,21 @@ class FeedbackController extends Controller
             // Generate order code jika tidak ada
             $orderCode = $request->order_code ?? 'INV-' . time();
             
+            // Cari user_id berdasarkan email
+            $userId = null;
+            if ($request->email) {
+                $user = \App\Models\User::where('email', $request->email)->first();
+                $userId = $user?->id;
+            }
+
             $data = [
                 'kode_pesanan' => $orderCode,
-                'user_name' => $request->name,
-                'user_email' => $request->email,
-                'rating' => $request->rating,
-                'tags' => $tags,
-                'review' => $reviewText,
+                'user_id'      => $userId,
+                'user_name'    => $request->name,
+                'user_email'   => $request->email,
+                'rating'       => $request->rating,
+                'tags'         => $tags,
+                'review'       => $reviewText,
             ];
 
             // Cek apakah sudah ada feedback untuk order ini

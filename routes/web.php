@@ -53,9 +53,23 @@ Route::get('/', function () {
         $featuredProducts = collect();
     }
     
+    // Ambil 5 feedback terbaru dengan rating tertinggi
+    $topFeedbacks = collect();
+    try {
+        if (class_exists('App\Models\Feedback')) {
+            $topFeedbacks = \App\Models\Feedback::orderBy('rating', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+        }
+    } catch (\Exception $e) {
+        $topFeedbacks = collect();
+    }
+
     return view('welcome', [
-        'title' => 'PempekBunda 75 - Home',
-        'featuredProducts' => $featuredProducts
+        'title'            => 'PempekBunda 75 - Home',
+        'featuredProducts' => $featuredProducts,
+        'topFeedbacks'     => $topFeedbacks,
     ]);
 })->name('home');
 
